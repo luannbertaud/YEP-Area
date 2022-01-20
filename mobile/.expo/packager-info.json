@@ -1,8 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19000,
-  "expoServerNgrokUrl": "https://xx-bcm.anonymous.test.exp.direct",
-  "packagerNgrokUrl": "https://packager.xx-bcm.anonymous.test.exp.direct",
-  "ngrokPid": 17357
+  "expoServerPort": null,
+  "packagerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "packagerPid": null,
+  "webpackServerPort": null
 }
