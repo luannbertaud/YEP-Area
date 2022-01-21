@@ -26,7 +26,7 @@ jobs:
         with:
           time: '10s'
       - name: Ping backend
-        run: docker exec server-container wget -q -O - http://localhost:5000/
+        run: docker exec server-container wget -q -O - http://localhost:5000/ping
 
   BuildFull:
     runs-on: ubuntu-latest
