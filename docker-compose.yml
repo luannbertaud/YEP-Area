@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  server:
+    container_name: server-container
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 8080:5000
+    image: server-image
+    extra_hosts:
+      - "localhost:host-gateway"
