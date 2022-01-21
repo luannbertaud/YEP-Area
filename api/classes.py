@@ -2,6 +2,7 @@
 
 from flask import Blueprint, request
 from uuid import uuid4 as uuid
+from twitter import TwitterAPIWrapper
 
 hooksBP = Blueprint('hooksBP', __name__)
 
@@ -11,7 +12,24 @@ class Action():
         pass
 
     def do(self, params) -> None:
-        pass
+        raise Exception("Not Implemented Error: Please consider implementing the `do` function for this Action")
+
+
+class TwitterTweetAction(Action):
+
+    def __init__(self, default_content) -> None:
+        token = "ZlA....OjE"
+        refresh = "YXp....OjE"
+
+        self.api =  TwitterAPIWrapper(token, refresh, "dX....aQ", "cC....dQ")
+        self.default_content = default_content
+        super().__init__()
+
+    def do(self, params):
+        if len(params) < 1:
+            return self.api.post_tweet(self.default_content)
+        return self.api.post_tweet(params[0])
+
 
 class Trigger():
 
@@ -25,7 +43,7 @@ class Trigger():
             a.do(params)
     
     def pull(self) -> None:
-        raise Exception("Not Implemented Error: Please consider implementing the `pull` function for this trigger")
+        raise Exception("Not Implemented Error: Please consider implementing the `pull` function for this Trigger")
 
 
 class GitHubTrigger(Trigger):
@@ -42,19 +60,22 @@ class GitHubTrigger(Trigger):
         return {"code" : 200}
 
 
-
-
-
-
 def registerTrigger(trigger : Trigger):
     print(f"Registering a [{trigger.type}] hook ({trigger.uuid[:4]}...{trigger.uuid[-4:]}) at /hooks/{trigger.type}/{trigger.uuid}")
     hooksBP.add_url_rule(trigger.type + "/" + trigger.uuid, endpoint=trigger.uuid, view_func=trigger.pull, methods=["POST", "GET"])
 
 
+
+
+
+
+actions = [
+    TwitterTweetAction("Triggered from push on github repository")
+]
+
 triggers = [
-    GitHubTrigger([], "github", "1"),
+    GitHubTrigger([actions[0]], "github", "1"),
     GitHubTrigger([], "github", "2")
 ]
 for t in triggers:
     registerTrigger(t)
-
