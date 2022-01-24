@@ -12,4 +12,6 @@ WORKDIR /app/android
 
 RUN rm -rf app/src/main/res/drawable-*
 
-CMD ['./gradlew', 'assembleRelease']
+RUN ./gradlew assembleRelease
+
+CMD ["bash", "-c", "echo pong"]
