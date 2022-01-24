@@ -44,6 +44,16 @@ jobs:
       - name: Ping web
         run: docker exec web-container wget -q -O - http://localhost:3000/ping
 
+  BuildMobile:
+    runs-on: ubuntu-latest
+    container: docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create mobile container
+        run: docker build -t mobile-image mobile/
+      - name: Check mobile container
+        run: docker run --name mobile-container mobile-image | grep pong
+
   BuildFull:
     runs-on: ubuntu-latest
     steps:

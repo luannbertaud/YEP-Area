@@ -22,3 +22,10 @@ services:
     image: web-image
     extra_hosts:
       - "localhost:host-gateway"
+
+  mobile:
+    container_name: mobile-container
+    build:
+      context: ./mobile
+      dockerfile: Dockerfile
+    image: mobile-image
