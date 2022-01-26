@@ -3,16 +3,17 @@
 import requests, pkce, base64
 from flask import Blueprint, request, redirect
 import urllib.parse as url_parse
-from tools.need_db import needs_db
-from tools.load_env import *
-from tools.fomarting import ensure_json
-from models.db_models import Users
 from peewee import DoesNotExist
 
-authBP = Blueprint('authBP', __name__)
+from tools.db import needs_db
+from tools.env import *
+from tools.fomarting import ensure_json
+from models.db import Users
+
+twitterAuthBP = Blueprint('twitterAuthBP', __name__)
 current_requests = []
 
-@authBP.route("/twitter/authorize", methods=["GET"])
+@twitterAuthBP.route("/authorize", methods=["GET"])
 def twitter_authorize():
     user = request.args.get('user')
     if not user:
@@ -26,7 +27,7 @@ def twitter_authorize():
     params += "&code_challenge_method=S256&code_challenge=" + url_parse.quote_plus(code_challenge)
     return redirect(url + params, code=302)
 
-@authBP.route("/twitter/", methods=["GET", "POST"])
+@twitterAuthBP.route("/", methods=["GET", "POST"])
 @needs_db
 def twitter_callback():
     code_verifier = current_requests[0]["verif"]

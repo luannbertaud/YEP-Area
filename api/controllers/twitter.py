@@ -4,8 +4,9 @@ import requests
 import base64
 
 from tools.fomarting import ensure_json
-from tools.db_interaction import get_tokens, tokens_reload
-from tools.load_env import TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET
+from tools.tokens import get_tokens, tokens_reload
+from tools.env import TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET
+from models.area import Action
 
 class TwitterAPIWrapper():
 
@@ -58,3 +59,16 @@ class TwitterAPIWrapper():
         }
         r = requests.delete(f"https://api.twitter.com/2/tweets/{id}", headers=headers)
         return ensure_json(r)
+
+
+class TwitterTweetAction(Action):
+
+    def __init__(self, rqUser, default_content) -> None:
+        self.api =  TwitterAPIWrapper(rqUser)
+        self.default_content = default_content
+        super().__init__()
+
+    def do(self, params):
+        if len(params) < 1:
+            return self.api.post_tweet(self.default_content)
+        return self.api.post_tweet(params[0])

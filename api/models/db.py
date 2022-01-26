@@ -3,7 +3,7 @@
 from peewee import Model as __Model
 from peewee import AutoField, TextField
 from playhouse.postgres_ext import JSONField
-from models.database_globals import db
+from models.db_globals import db
 
 class __BaseModel(__Model):
     class Meta:

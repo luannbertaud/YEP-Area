@@ -3,8 +3,8 @@
 from peewee import InterfaceError
 import psycopg2 as __driver
 from packaging import version as __version
-import models.database_globals as __DBglobals
-from models.db_models import DBdata, Users
+import models.db_globals as __DBglobals
+from models.db import DBdata, Users
 
 def __ensureVersionSystem():
     if not DBdata.table_exists():

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from peewee import PostgresqlDatabase
-from tools.load_env import *
+from tools.env import *
 
 DATABASE_PARAMS = {
     "name": POSTGRES_DB_NAME,

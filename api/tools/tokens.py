@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from tools.need_db import needs_db
-from models.db_models import Users
+from tools.db import needs_db
+from models.db import Users
 from peewee import DoesNotExist
 from functools import wraps
 
