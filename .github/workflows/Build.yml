@@ -68,3 +68,5 @@ jobs:
         run: docker exec server-container wget -q -O - http://localhost:5000/ping
       - name: Ping web
         run: docker exec web-container wget -q -O - http://localhost:3000/ping
+      - name: Ping database
+        run: docker exec database-container psql -U postgres -c \\l

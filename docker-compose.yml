@@ -29,3 +29,13 @@ services:
       context: ./mobile
       dockerfile: Dockerfile
     image: mobile-image
+
+  database:
+    container_name: database-container
+    ports:
+      - 5432:5432
+    image: postgres:11.8
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./data/postgres-container-data:/var/lib/postgresql/data
