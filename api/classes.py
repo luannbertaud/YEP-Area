@@ -3,6 +3,7 @@
 from flask import Blueprint, request
 from uuid import uuid4 as uuid
 from twitter import TwitterAPIWrapper
+from load_env import *
 
 hooksBP = Blueprint('hooksBP', __name__)
 
@@ -21,7 +22,7 @@ class TwitterTweetAction(Action):
         token = "ZlA....OjE"
         refresh = "YXp....OjE"
 
-        self.api =  TwitterAPIWrapper(token, refresh, "dX....aQ", "cC....dQ")
+        self.api =  TwitterAPIWrapper(token, refresh, TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET)
         self.default_content = default_content
         super().__init__()
 

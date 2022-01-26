@@ -7,3 +7,5 @@ peewee==3.14.8
 python-dotenv==0.19.2
 psycopg2-binary==2.9.2
 packaging==20.9
+pkce==1.0.3
+urllib3==1.25.7

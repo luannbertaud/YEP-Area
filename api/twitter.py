@@ -2,7 +2,6 @@
 
 import requests
 import base64
-from pprint import pprint
 
 def ensure_json(response):
     res = {'NOJSON': response}
