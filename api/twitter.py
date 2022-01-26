@@ -33,7 +33,12 @@ class TwitterAPIWrapper():
             "Authorization" : basic_auth
         }
         r = requests.post("https://api.twitter.com/2/oauth2/token", headers=headers, data=data)
-        return ensure_json(r)
+        r = ensure_json(r)
+        if ('NOJSON' in list(r.keys())):
+            return r
+        self.access_token = r["access_token"]
+        self.refresh_token = r["refresh_token"]
+        return r
 
     def post_tweet(self, content):
         data = { "text" : content }
