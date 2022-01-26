@@ -18,11 +18,8 @@ class Action():
 
 class TwitterTweetAction(Action):
 
-    def __init__(self, default_content) -> None:
-        token = "ZlA....OjE"
-        refresh = "YXp....OjE"
-
-        self.api =  TwitterAPIWrapper(token, refresh, TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET)
+    def __init__(self, rqUser, default_content) -> None:
+        self.api =  TwitterAPIWrapper(rqUser)
         self.default_content = default_content
         super().__init__()
 
@@ -41,7 +38,7 @@ class Trigger():
 
     def execute(self, params) -> None:
         for a in self.actions:
-            a.do(params)
+            print(f"[{self.type}] ({self.uuid[:4]}...{self.uuid[-4:]}) triggered: {a.do(params)}")
     
     def pull(self) -> None:
         raise Exception("Not Implemented Error: Please consider implementing the `pull` function for this Trigger")
@@ -49,8 +46,8 @@ class Trigger():
 
 class GitHubTrigger(Trigger):
 
-    def __init__(self, toTrigger=[], type="unknown", uuid=None) -> None:
-        super().__init__(toTrigger, type)
+    def __init__(self, toTrigger=[], uuid=None) -> None:
+        super().__init__(toTrigger, "github")
         # TODO remove custom uuid
         if uuid:
             self.uuid = uuid
@@ -71,12 +68,12 @@ def registerTrigger(trigger : Trigger):
 
 
 actions = [
-    TwitterTweetAction("Triggered from push on github repository")
+    TwitterTweetAction("luann", "Triggered from push on github repository")
 ]
 
 triggers = [
-    GitHubTrigger([actions[0]], "github", "1"),
-    GitHubTrigger([], "github", "2")
+    GitHubTrigger([actions[0]], "1"),
+    GitHubTrigger([], "2")
 ]
 for t in triggers:
     registerTrigger(t)

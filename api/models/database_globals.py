@@ -14,6 +14,7 @@ DATABASE_PARAMS = {
 db = PostgresqlDatabase(None)
 
 def init():
-    print("DB connection initialization")
+    print("DB connection initialization..", end="")
     global db
     db.init(DATABASE_PARAMS["name"], host=DATABASE_PARAMS["host"], port=DATABASE_PARAMS["port"], user=DATABASE_PARAMS["user"], password=DATABASE_PARAMS["password"])
+    print("..Initialized.")
