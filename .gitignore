@@ -1,4 +1,6 @@
 # Custom for personal scripts or files
 perso/
+data/postgres-container-data/
 
 .gitignore
+.env
