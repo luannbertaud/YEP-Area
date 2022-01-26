@@ -4,18 +4,10 @@ import requests, pkce, base64
 from flask import Blueprint, request, redirect
 import urllib.parse as url_parse
 from tools.load_env import *
+from tools.fomarting import ensure_json
 
 authBP = Blueprint('authBP', __name__)
 current_requests = []
-
-def ensure_json(response):
-    res = {'NOJSON': response}
-    try:
-        res = response.json()
-    except Exception as e:
-        print("Error: Response couldn't be parsed as json")
-        print(e)
-    return res
 
 @authBP.route("/twitter/authorize", methods=["GET"])
 def twitter_authorize():

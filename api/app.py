@@ -2,8 +2,8 @@
 
 from flask import Flask
 from flask_cors import CORS
-from classes import hooksBP
-from oauth import authBP
+from api.models.classes import hooksBP
+from api.controllers.oauth import authBP
 from controllers.areaDB import validateDatabase
 
 app = Flask("app")
