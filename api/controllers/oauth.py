@@ -3,8 +3,11 @@
 import requests, pkce, base64
 from flask import Blueprint, request, redirect
 import urllib.parse as url_parse
+from tools.need_db import needs_db
 from tools.load_env import *
 from tools.fomarting import ensure_json
+from models.db_models import Users
+from peewee import DoesNotExist
 
 authBP = Blueprint('authBP', __name__)
 current_requests = []
@@ -24,8 +27,10 @@ def twitter_authorize():
     return redirect(url + params, code=302)
 
 @authBP.route("/twitter/", methods=["GET", "POST"])
+@needs_db
 def twitter_callback():
     code_verifier = current_requests[0]["verif"]
+    rqUser = current_requests[0]["user"]
     data = {
         "code": request.args.get('code'),
         "grant_type" : "authorization_code",
@@ -39,6 +44,20 @@ def twitter_callback():
     }
     rq = requests.post("https://api.twitter.com/2/oauth2/token", headers=headers, data=data)
     r = ensure_json(rq)
-    r['user'] = current_requests[0]["user"]
+    r['user'] = rqUser
     del current_requests[0]
+    if rq.status_code != 200:
+        return {"code": rq.status_code, "message": r}
+    
+    tokens = {
+        "access_token": r['access_token'],
+        "refresh_token": r['refresh_token'],
+        "expire": "" #TODO calculate expiration
+    }
+    try:
+        dbUser = Users.get(Users.name == rqUser)
+    except DoesNotExist as e:
+        return {"code": 401, "message": "Unknown Area user"}
+    dbUser.twitterTokens = tokens
+    dbUser.save()
     return {"code": rq.status_code, "message": r}

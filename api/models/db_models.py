@@ -16,4 +16,5 @@ class Users(__BaseModel):
     id = AutoField()
     name = TextField()
     password = TextField(null=True)
-    email = TextField()
+    email = TextField(null=True)
+    twitterTokens = JSONField(null=True)
