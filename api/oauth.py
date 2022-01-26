@@ -3,7 +3,7 @@
 import requests, pkce, base64
 from flask import Blueprint, request, redirect
 import urllib.parse as url_parse
-from load_env import *
+from tools.load_env import *
 
 authBP = Blueprint('authBP', __name__)
 current_requests = []

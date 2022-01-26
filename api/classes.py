@@ -3,7 +3,7 @@
 from flask import Blueprint, request
 from uuid import uuid4 as uuid
 from twitter import TwitterAPIWrapper
-from load_env import *
+from tools.load_env import *
 
 hooksBP = Blueprint('hooksBP', __name__)
 
