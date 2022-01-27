@@ -1,0 +1,74 @@
+name: Build Area Containers
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+
+  BuildBackend:
+    runs-on: ubuntu-latest
+    container: docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create server container
+        run: docker build -t server-image api/
+      - name: Start server container
+        run: docker run -dp 5000:5000 --name server-container server-image
+      - name: Wait for backend to be up
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
+      - name: Ping backend
+        run: docker exec server-container wget -q -O - http://localhost:5000/ping
+
+  BuildWeb:
+    runs-on: ubuntu-latest
+    container: docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create web container
+        run: docker build -t web-image web/
+      - name: Start web container
+        run: docker run -dp 3000:3000 --name web-container web-image
+      - name: Wait for backend to be up
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
+      - name: Ping web
+        run: docker exec web-container wget -q -O - http://localhost:3000/ping
+
+  BuildMobile:
+    runs-on: ubuntu-latest
+    container: docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create mobile container
+        run: docker build -t mobile-image mobile/
+      - name: Check mobile container
+        run: docker run --name mobile-container mobile-image | grep pong
+
+  BuildFull:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Start compose stack
+        run:  docker-compose up -d
+      - name: Wait for services to be up
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
+      - name: Ping backend
+        run: docker exec server-container wget -q -O - http://localhost:5000/ping
+      - name: Ping web
+        run: docker exec web-container wget -q -O - http://localhost:3000/ping
+      - name: Ping database
+        run: docker exec database-container psql -U postgres -c \\l

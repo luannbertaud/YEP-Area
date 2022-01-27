@@ -1,0 +1,19 @@
+name: Mirroring
+on:
+  push:
+    branches:
+      - main
+      - develop
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            git@github.com:EpitechPromo2024/B-YEP-500-NAN-5-1-yearendproject-gildas.gonzalez.git
+          ssh_private_key:
+            ${{ secrets.SSH_KEY }}
