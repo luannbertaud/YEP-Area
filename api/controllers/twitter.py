@@ -64,6 +64,7 @@ class TwitterAPIWrapper():
 class TwitterTweetAction(Action):
 
     def __init__(self, rqUser, default_content, uuid=None) -> None:
+        self.rqUser = rqUser
         self.api =  TwitterAPIWrapper(rqUser)
         self.default_content = default_content
         super().__init__("twitter", rqUser, default_content, uuid=uuid)

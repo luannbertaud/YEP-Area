@@ -4,7 +4,7 @@ from flask import Flask
 from flask_cors import CORS
 # from controllers.hooks import hooksBP
 # from controllers.oauth.twitter import twitterAuthBP
-from controllers.widgets.adding import widgetsUpdateBP
+from controllers.widgets.update import widgetsUpdateBP
 
 app = Flask("app")
 CORS(app, origins="*")
