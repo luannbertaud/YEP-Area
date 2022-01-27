@@ -4,3 +4,4 @@ data/postgres-container-data/
 
 .gitignore
 .env
+.gitkeep
