@@ -8,10 +8,7 @@ from models.area import Trigger
 class GitHubTrigger(Trigger):
 
     def __init__(self, toTrigger=[], uuid=None) -> None:
-        super().__init__(toTrigger, "github")
-        # TODO remove custom uuid
-        if uuid:
-            self.uuid = uuid
+        super().__init__("github", toTrigger=toTrigger, uuid=uuid)
 
     def pull(self):
         # print(request.json)

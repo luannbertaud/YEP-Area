@@ -2,14 +2,16 @@
 
 from flask import Flask
 from flask_cors import CORS
-from controllers.hooks import hooksBP
-from controllers.oauth.twitter import twitterAuthBP
+# from controllers.hooks import hooksBP
+# from controllers.oauth.twitter import twitterAuthBP
+from controllers.widgets.adding import widgetsUpdateBP
 
 app = Flask("app")
 CORS(app, origins="*")
 
-app.register_blueprint(hooksBP, url_prefix="/hooks")
-app.register_blueprint(twitterAuthBP, url_prefix="/auth/twitter")
+# app.register_blueprint(hooksBP, url_prefix="/hooks")
+# app.register_blueprint(twitterAuthBP, url_prefix="/auth/twitter")
+app.register_blueprint(widgetsUpdateBP, url_prefix="/widgets")
 
 @app.route("/ping",)
 def app_ping():

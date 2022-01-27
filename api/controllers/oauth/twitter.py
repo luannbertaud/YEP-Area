@@ -11,7 +11,7 @@ from tools.fomarting import ensure_json
 from models.db import Users
 
 twitterAuthBP = Blueprint('twitterAuthBP', __name__)
-current_requests = []
+current_requests = [] #TODO this solution is deprecated, waiting for the client to send us the ?code
 
 @twitterAuthBP.route("/authorize", methods=["GET"])
 def twitter_authorize():
