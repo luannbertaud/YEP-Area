@@ -1,44 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { Component } from "react";
+import { HashRouter as Router, Route, NavLink } from "react-router-dom";
+import SignUpForm from "./pages/Login";
+import SignInForm from "./pages/Register";
 
+import "./App.css";
 
-function AppOld() {
-    return (
-        <div className="App">
-        <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-            Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            Learn React
-            </a>
-        </header>
-        </div>
-    );
-}
+class App extends Component {
+    render() {
+        return (
+            <Router basename="/react-auth-ui/">
+                <div className="App">
+                    <div className="appAside" />
+                    <div className="appForm">
+                        <div className="pageSwitcher">
+                            <NavLink
+                                to="/sign-in"
+                                activeClassName="pageSwitcherItem-active"
+                                className="pageSwitcherItem"
+                            >
+                                Sign In
+                            </NavLink>
+                            <NavLink
+                                exact
+                                to="/"
+                                activeClassName="pageSwitcherItem-active"
+                                className="pageSwitcherItem"
+                            >
+                                Sign Up
+                            </NavLink>
+                        </div>
 
-function Ping() {
-    return ("pong");
-}
+                        <div className="formTitle">
+                            <NavLink
+                                to="/sign-in"
+                                activeClassName="formTitleLink-active"
+                                className="formTitleLink"
+                            >
+                                Sign In
+                            </NavLink>{" "}
+                            or{" "}
+                            <NavLink
+                                exact
+                                to="/"
+                                activeClassName="formTitleLink-active"
+                                className="formTitleLink"
+                            >
+                                Sign Up
+                            </NavLink>
+                        </div>
 
-function App() {
-  return (
-    <div className="App">
-        <Router>
-            <Routes>
-                <Route path="/" exact element={<AppOld/>}/>
-                <Route path="/ping" exact element={<Ping/>}/>
-            </Routes>
-        </Router>
-    </div>
-  );
+                        <Route exact path="/" component={SignUpForm} />
+                        <Route path="/sign-in" component={SignInForm} />
+                    </div>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;
