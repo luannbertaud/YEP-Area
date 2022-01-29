@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class SignUpForm extends Component {
+class RegisterForm extends Component {
     constructor() {
         super();
 
@@ -39,13 +39,13 @@ class SignUpForm extends Component {
                 <form onSubmit={this.handleSubmit} className="formFields">
                     <div className="formField">
                         <label className="formFieldLabel" htmlFor="name">
-                            Full Name
+                            Name
                         </label>
                         <input
                             type="text"
                             id="name"
                             className="formFieldInput"
-                            placeholder="Enter your full name"
+                            placeholder="Enter your name"
                             name="name"
                             value={this.state.name}
                             onChange={this.handleChange}
@@ -79,27 +79,10 @@ class SignUpForm extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
-
                     <div className="formField">
-                        <label className="formFieldCheckboxLabel">
-                            <input
-                                className="formFieldCheckbox"
-                                type="checkbox"
-                                name="hasAgreed"
-                                value={this.state.hasAgreed}
-                                onChange={this.handleChange}
-                            />{" "}
-                            I agree all statements in{" "}
-                            <a href="null" className="formFieldTermsLink">
-                                terms of service
-                            </a>
-                        </label>
-                    </div>
-
-                    <div className="formField">
-                        <button className="formFieldButton">Sign Up</button>{" "}
-                        <Link to="/sign-in" className="formFieldLink">
-                            I'm already member
+                        <button className="formFieldButton" onClick={() => alert("RegisterButton")}>Sign Up</button>{" "}
+                        <Link to="/signIn" className="formFieldLink">
+                            I already have an account
                         </Link>
                     </div>
                 </form>
@@ -107,4 +90,4 @@ class SignUpForm extends Component {
         );
     }
 }
-export default SignUpForm;
+export default RegisterForm;

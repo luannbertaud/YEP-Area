@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
-    FacebookLoginButton,
-    InstagramLoginButton
+    GoogleLoginButton
 } from "react-social-login-buttons";
 
-class SignInForm extends Component {
+class LoginForm extends Component {
     constructor() {
         super();
 
@@ -70,19 +69,15 @@ class SignInForm extends Component {
                     </div>
 
                     <div className="formField">
-                        <button className="formFieldButton">Sign In</button>{" "}
+                        <button className="formFieldButton" onClick={() => alert("LoginButton")}>Sign In</button>{" "}
                         <Link to="/" className="formFieldLink">
-                            Create an account
+                            I don't have an account
                         </Link>
                     </div>
 
                     <div className="socialMediaButtons">
-                        <div className="facebookButton">
-                            <FacebookLoginButton onClick={() => alert("Hello")} />
-                        </div>
-
-                        <div className="instagramButton">
-                            <InstagramLoginButton onClick={() => alert("Hello")} />
+                        <div className="googleButton">
+                            <GoogleLoginButton onClick={() => alert("GoogleButton")} />
                         </div>
                     </div>
                 </form>
@@ -91,4 +86,4 @@ class SignInForm extends Component {
     }
 }
 
-export default SignInForm;
+export default LoginForm;
