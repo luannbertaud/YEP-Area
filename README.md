@@ -1,71 +1,118 @@
+
 # Action REAction
+
+  
 
 ## About
 
+## Usage
+
 ### Auth:
 
-native auth:
+  
+
+Native auth:
 - email (required)
 - firstname (optional)
 - lastname (optional)
-- password (required)
+- password
 
-IMPORTANT !
-every user using native auth must verifiy their adresse email 
+==IMPORTANT !== Every user using native auth must verifiy their adresse email
+<br>
 
-third parts login:
+Third parts login:
 - google ?
 - github ?
 
-## Technologies
+  
 
-### Archi Front Web : SCS
-### Archi Front Mobile : 
-### Archi Back : MC
+### Technologies
 
-### Front: react => Van, Pablo
-### Mobile: react native => Gildas, Baptiste
-### Server: python => Luann
-### BDD: postgreSQL
+ WEB
+- Archi: SCS
+- React
+- Van, Pablo
 
-## Docker
+ MOBILE
+- Archi: 
+- React Native
+- Gildas, Baptiste
 
-services: 
+ SERVER
+- Archi: MC
+- Python3, PostgreSQL
+- Luann
 
-bdd: mariadb
+
+<br><br>
+
+---
+
+*USERS TABLE*
+| Id (uuid)  |  Name | Password|Email|googleAuthTokens|{service}Tokens ...|
+|:----------:| -----:|--------:|----:|---------------:|------------------:|
+| PrimaryKey | !Null |  Null   |!Null|Null            |Null               |
+<br>
+
+*WIDGETS TABLE*
+| Id (uuid)  |Family          |Type                    |Args  |Childs     |
+|:----------:| --------------:|-----------------------:|-----:|----------:|
+| PrimaryKey | Trigger/Action |  Twitter/Discord/...   | JSON |Foreign Key|
+<br>
+
+*DBDATA*
+| Version  |
+|:--------:|
+| 0.0.1    |
+
+---
+<br><br>
+
+### Docker
+
+  
+
+Service: PostgreSQL
 - port: 3306
+<br>
 
-server: nodejs
-- port: 8080 
+Server: Python3
+- port: 8080
+<br>
 
-client_web:
+Client Web:
 - port: 8081
+<br>
 
-client_mobile:
- job: build the apk and put it into the build directory
+Client Mobile:
+- Job -> Build the apk and put it into the build directory
+
+  
 
 ## Services
+
+  
 
 ### REQUIRED: 6 Services & 15 Action, Reaction
 
 - Github
-- Gmail
 - Discord
 - Twitter
-- RSS
 - Intra Epitech
+- Evernote
+- Twitch
 
 ### Action (If) WIP:
 
 - Github
 - Intra Epitech
 - Twitter
-- Gmail
-- RSS
+- Twitch
 
 ### Reaction (Then) WIP:
 
 - Github
-- Gmail
 - Discord
 - Twitter
+- Twitch
+- Evernote
