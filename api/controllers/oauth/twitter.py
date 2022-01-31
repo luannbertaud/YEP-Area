@@ -3,21 +3,17 @@
 import requests, pkce, base64
 from flask import Blueprint, request, redirect
 import urllib.parse as url_parse
-from load_env import *
+from peewee import DoesNotExist
 
-authBP = Blueprint('authBP', __name__)
-current_requests = []
+from tools.db import needs_db
+from tools.env import *
+from tools.fomarting import ensure_json
+from models.db import Users
 
-def ensure_json(response):
-    res = {'NOJSON': response}
-    try:
-        res = response.json()
-    except Exception as e:
-        print("Error: Response couldn't be parsed as json")
-        print(e)
-    return res
+twitterAuthBP = Blueprint('twitterAuthBP', __name__)
+current_requests = [] #TODO this solution is deprecated, waiting for the client to send us the ?code
 
-@authBP.route("/twitter/authorize", methods=["GET"])
+@twitterAuthBP.route("/authorize", methods=["GET"])
 def twitter_authorize():
     user = request.args.get('user')
     if not user:
@@ -31,9 +27,11 @@ def twitter_authorize():
     params += "&code_challenge_method=S256&code_challenge=" + url_parse.quote_plus(code_challenge)
     return redirect(url + params, code=302)
 
-@authBP.route("/twitter/", methods=["GET", "POST"])
+@twitterAuthBP.route("/", methods=["GET", "POST"])
+@needs_db
 def twitter_callback():
     code_verifier = current_requests[0]["verif"]
+    rqUser = current_requests[0]["user"]
     data = {
         "code": request.args.get('code'),
         "grant_type" : "authorization_code",
@@ -47,6 +45,20 @@ def twitter_callback():
     }
     rq = requests.post("https://api.twitter.com/2/oauth2/token", headers=headers, data=data)
     r = ensure_json(rq)
-    r['user'] = current_requests[0]["user"]
+    r['user'] = rqUser
     del current_requests[0]
+    if rq.status_code != 200:
+        return {"code": rq.status_code, "message": r}
+    
+    tokens = {
+        "access_token": r['access_token'],
+        "refresh_token": r['refresh_token'],
+        "expire": "" #TODO calculate expiration
+    }
+    try:
+        dbUser = Users.get(Users.name == rqUser)
+    except DoesNotExist as e:
+        return {"code": 401, "message": "Unknown Area user"}
+    dbUser.twitterTokens = tokens
+    dbUser.save()
     return {"code": rq.status_code, "message": r}
