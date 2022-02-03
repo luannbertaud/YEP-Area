@@ -4,7 +4,7 @@ from crypt import methods
 from flask import Blueprint
 from tools.env import *
 # from controllers.twitter import TwitterTweetAction
-from controllers.github import githubHook
+from controllers.actions.github import githubHook
 
 hooksBP = Blueprint('hooksBP', __name__)
 

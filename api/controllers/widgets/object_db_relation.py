@@ -6,7 +6,7 @@ from tools.db import needs_db
 from tools.fomarting import get_initializing_parameters
 from models.db import Widgets
 # from controllers.github import Trigger
-from controllers.twitter import Reaction
+from controllers.reactions.twitter import Reaction
 
 
 # @needs_db

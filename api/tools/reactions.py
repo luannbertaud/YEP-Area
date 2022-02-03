@@ -3,7 +3,7 @@
 from tools.db import needs_db
 from models.db import Reactions
 from peewee import DoesNotExist
-import controllers.reactions as reactionList
+import controllers.reactions.all as reactionList
 
 @needs_db
 def executeReaction(uuid, params):

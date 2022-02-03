@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # from controllers.github import Trigger, GitHubTrigger
-from controllers.twitter import Reaction, TwitterTweetReaction
+from controllers.reactions.twitter import Reaction, TwitterTweetReaction
 
 # def create_trigger(w) -> Trigger:
 #     if (w['type'] == "github"):

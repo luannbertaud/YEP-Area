@@ -2,7 +2,7 @@
 
 from flask import Flask
 from flask_cors import CORS
-from controllers.hooks import hooksBP
+from controllers.actions.hooks import hooksBP
 # from controllers.oauth.twitter import twitterAuthBP
 # from controllers.widgets.update import widgetsUpdateBP
 
