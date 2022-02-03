@@ -1,9 +1,9 @@
 import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
-import { login, common } from './Styles';
+import { common, register } from './Styles';
 
-export default class LoginUser extends React.Component {
+export default class RegisterUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,12 +13,15 @@ export default class LoginUser extends React.Component {
             password: '',
             passwordError: '',
             passwordFocused: false,
+            confirm: '',
+            confirmError: '',
+            confirmFocused: false,
         }
     }
 
     render() {
         return (
-            <View style={login.view}>
+            <View style={register.view}>
                 <Image
                     source={require('../../../../../assets/images/logo.png')}
                     style={common.image}
@@ -50,12 +53,25 @@ export default class LoginUser extends React.Component {
                     onFocus={()=>{this.setState({passwordFocused: true})}}
                     onBlur={()=>{this.setState({passwordFocused: false})}}
                 />
+                <Input
+                    label='Confirm your password'
+                    placeholder='********'
+                    leftIcon={<Icon name='lock' size={20}/>}
+                    value={this.state.confirm}
+                    onChangeText={(newValue) => {this.setState({confirm: newValue})}}
+                    errorMessage={this.state.confirmError}
+                    inputStyle={common.text}
+                    labelStyle={this.state.confirmFocused ? common.labelFocus : common.labelBlur}
+                    inputContainerStyle={this.state.confirmFocused ? common.input : {}}
+                    onFocus={()=>{this.setState({confirmFocused: true})}}
+                    onBlur={()=>{this.setState({confirmFocused: false})}}
+                />
                 <View style={common.linkView}>
-                    <Text style={common.coloredText}>New to ARea ? </Text>
-                    <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Create an account</Text>
+                    <Text style={common.coloredText}>Already got an account ? </Text>
+                    <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Log in</Text>
                 </View>
                 <Button
-                    title='Login'
+                    title='Register'
                     titleStyle={common.text}
                     onPress={()=>{this.props.changeFade()}}
                 />
