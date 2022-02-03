@@ -54,6 +54,13 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Palanquin.ttf</string>
+		<string>Palanquin-Bold.ttf</string>
+		<string>Palanquin-ExtraLight.ttf</string>
+		<string>Palanquin-Light.ttf</string>
+		<string>Palanquin-Medium.ttf</string>
+		<string>Palanquin-Regular.ttf</string>
+		<string>Palanquin-SemiBold.ttf</string>
+		<string>Palanquin-Thin.ttf</string>
 	</array>
 </dict>
 </plist>

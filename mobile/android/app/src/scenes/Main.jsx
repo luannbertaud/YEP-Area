@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import LoginUser from '../components/auth/LoginUser';
 
 export default class Main extends React.Component
 {
@@ -10,20 +11,19 @@ export default class Main extends React.Component
             view: 0
         }
     }
+    //<Button onPress={()=>{this.setState({view: 1})}} title='Change view'/>
 
     render() {
         if (this.state.view == 0) {
             return (
-                <>
-                    <Text style={{fontFamily: 'Palanquin'}}>Signin</Text>
-                    <Button onPress={()=>{this.setState({view: 1})}}/>
-                </>
+                <View style={{backgroundColor: '#1454A4', height: '100%'}}>
+                    <LoginUser />
+                </View>
             )
         } else {
             return (
                 <>
-                    <Text style={{fontFamily: 'Palanquin'}}>Register</Text>
-                    <Button onPress={()=>{this.setState({view: 0})}} />
+                    <Button onPress={()=>{this.setState({view: 1})}} title='Change view'/>
                 </>
             )
         }
