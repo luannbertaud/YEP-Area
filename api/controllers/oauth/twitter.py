@@ -48,7 +48,7 @@ def twitter_callback():
     del current_requests[0]
     if rq.status_code != 200:
         return {"code": rq.status_code, "message": r}
-    
+    # TODO get username from endpoint
     tokens = {
         "access_token": r['access_token'],
         "refresh_token": r['refresh_token'],
