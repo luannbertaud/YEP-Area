@@ -11,6 +11,7 @@ import base64
 from tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SERV_URL
+from models.area import Action
 
 class GithubAPIWrapper():
 
@@ -19,7 +20,7 @@ class GithubAPIWrapper():
         self.load_tokens()
         self.client = {"id": GITHUB_CLIENT_ID, "secret": GITHUB_CLIENT_SECRET}
 
-    def load_tokens(self):
+    def load_tokens(self): #TODO in github the condition of failed request is not the same as twitter
         tokens = get_tokens(self.rqUser, "github")
         if "NOJSON" in list(tokens.keys()):
             raise Exception(f"Can't retrieve tokens for [{self.rqUser}] Area user, failed to init GithubAPI wrapper.")
@@ -52,6 +53,16 @@ class GithubAPIWrapper():
         }
         r = requests.post(f"https://api.github.com/repos/{owner}/{repo}/hooks", headers=headers, json=data)
         return ensure_json(r)
+
+class GithubWebhookAction(Action):
+
+    def __init__(self, rqUser, uuid=None) -> None:
+        self.rqUser = rqUser
+        self.api =  GithubAPIWrapper(rqUser)
+        super().__init__("github", rqUser, uuid=uuid)
+
+    def register(self, owner, repository, *args):
+        return self.api.create_webhook(owner, repository)
 
 def githubHook():
     data = request.json
