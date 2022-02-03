@@ -16,6 +16,8 @@ def __executeAction(uuid, params):
     except DoesNotExist as e:
         return False
 
+    if ("uuids" not in list(ac.children.keys())):
+        return res
     for c in ac.children["uuids"]:
         res = res and executeReaction(c, params)
     return res

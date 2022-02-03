@@ -20,7 +20,7 @@ def githubHook():
         return {"code": 200, "message": "received"}
     
     for u in query:
-        if u.github["login"] == repo_owner:
+        if ("login" in list(u.github.keys())) and u.github["login"] == repo_owner:
             area_user = u.uuid
     if area_user == None:
         return {"code": 200, "message": "received"}
@@ -33,7 +33,7 @@ def githubHook():
         return {"code": 200, "message": "received"}
 
     for a in query:
-        if a.content["repository"] == repo_name:
+        if ("repository" in list(a.content.keys())) and a.content["repository"] == repo_name:
             area_repo = a.uuid
     if not area_repo:
         return {"code": 200, "message": "received"}

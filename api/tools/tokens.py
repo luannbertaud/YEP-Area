@@ -20,6 +20,7 @@ def tokens_reload(f=None, reloader=None):
         def wrapper(*args, **kwargs):
             res = func(*args, **kwargs)
             if isinstance(res, dict) and (('status' in list(res.keys())) and res['status'] == 401):
+                print("INFO Invalid tokens, reloading")
                 reloader(self=args[0])
                 return func(*args, **kwargs)
             return res

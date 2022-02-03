@@ -2,7 +2,7 @@
 
 
 from flask import Blueprint, request
-from api.controllers.widgets.save_widgets import save_action, save_reaction
+from controllers.widgets.save_widgets import save_action, save_reaction
 
 widgetsUpdateBP = Blueprint('widgetsUpdateBP', __name__)
 

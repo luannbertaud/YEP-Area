@@ -59,6 +59,6 @@ def twitter_callback():
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
         return {"code": 401, "message": "Unknown Area user"}
-    dbUser.twitterTokens = tokens
+    dbUser.twitter = tokens
     dbUser.save()
     return {"code": rq.status_code, "message": r}
