@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
-import { View, ActivityIndicator, Image, Text } from 'react-native';
-import { styles } from './LoginUser.js';
+import { View, Image, Text } from 'react-native';
+import { login, common } from './Styles';
 
 export default class LoginUser extends React.Component {
     constructor(props) {
@@ -18,21 +18,21 @@ export default class LoginUser extends React.Component {
 
     render() {
         return (
-            <View style={styles.view}>
+            <View style={login.view}>
                 <Image
                     source={require('../../../../../assets/images/logo.png')}
-                    style={styles.image}
+                    style={common.image}
                 />
                 <Input
                     label='Enter your email'
                     placeholder='email@address.com'
-                    leftIcon={<Icon name='email' size={24}/>}
+                    leftIcon={<Icon name='mail' size={20}/>}
                     value={this.state.email}
                     onChangeText={(newValue) => {this.setState({email: newValue})}}
                     errorMessage={this.state.emailError}
-                    labelStyle={this.state.emailFocused ? styles.labelFocus : styles.labelBlur}
-                    inputContainerStyle={this.state.emailFocused ? styles.input : {}}
-                    inputStyle={styles.text}
+                    labelStyle={this.state.emailFocused ? common.labelFocus : common.labelBlur}
+                    inputContainerStyle={this.state.emailFocused ? common.input : {}}
+                    inputStyle={common.text}
                     onFocus={()=>{this.setState({emailFocused: true})}}
                     onBlur={()=>{this.setState({emailFocused: false})}}
 
@@ -40,19 +40,24 @@ export default class LoginUser extends React.Component {
                 <Input
                     label='Enter your password'
                     placeholder='********'
-                    leftIcon={<Icon name='lock' size={24}/>}
+                    leftIcon={<Icon name='lock' size={20}/>}
                     value={this.state.password}
                     onChangeText={(newValue) => {this.setState({password: newValue})}}
                     errorMessage={this.state.passwordError}
-                    inputStyle={styles.text}
-                    labelStyle={this.state.passwordFocused ? styles.labelFocus : styles.labelBlur}
-                    inputContainerStyle={this.state.passwordFocused ? styles.input : {}}
+                    inputStyle={common.text}
+                    labelStyle={this.state.passwordFocused ? common.labelFocus : common.labelBlur}
+                    inputContainerStyle={this.state.passwordFocused ? common.input : {}}
                     onFocus={()=>{this.setState({passwordFocused: true})}}
                     onBlur={()=>{this.setState({passwordFocused: false})}}
                 />
+                <View style={common.linkView}>
+                    <Text style={common.coloredText}>New to ARea ? </Text>
+                    <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Create an account</Text>
+                </View>
                 <Button
                     title='Login'
-                    titleStyle={styles.text}
+                    titleStyle={common.text}
+                    onPress={()=>{this.props.changeFade()}}
                 />
             </View>
         )
