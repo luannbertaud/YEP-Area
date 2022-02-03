@@ -20,9 +20,13 @@ class Users(__BaseModel):
     email = TextField(null=True)
     twitterTokens = JSONField(null=True)
 
-class Widgets(__BaseModel):
+class Reactions(__BaseModel):
     uuid = TextField(primary_key=True)
-    family = TextField()
     type = TextField()
-    args = JSONField(null=True)
-    toTrigger = TextField(null=True)
+    user = TextField()
+
+class Actions(__BaseModel):
+    uuid = TextField(primary_key=True)
+    type = TextField()
+    user = TextField()
+    children = JSONField(null=True)
