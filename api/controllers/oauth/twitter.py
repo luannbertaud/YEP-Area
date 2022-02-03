@@ -4,9 +4,8 @@ import requests, pkce, base64
 from flask import Blueprint, request, redirect
 import urllib.parse as url_parse
 from peewee import DoesNotExist
-
 from tools.db import needs_db
-from tools.env import *
+from tools.env import TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, SERV_URL
 from tools.fomarting import ensure_json
 from models.db import Users
 
@@ -59,6 +58,6 @@ def twitter_callback():
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
         return {"code": 401, "message": "Unknown Area user"}
-    dbUser.twitterTokens = tokens
+    dbUser.twitter = tokens
     dbUser.save()
     return {"code": rq.status_code, "message": r}

@@ -2,11 +2,10 @@
 
 import requests
 import base64
-
 from tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET
-from models.area import Action
+from models.area import Reaction
 
 class TwitterAPIWrapper():
 
@@ -61,15 +60,14 @@ class TwitterAPIWrapper():
         return ensure_json(r)
 
 
-class TwitterTweetAction(Action):
+class TwitterTweetReaction(Reaction):
 
-    def __init__(self, rqUser, default_content, uuid=None) -> None:
+    def __init__(self, rqUser, uuid=None) -> None:
         self.rqUser = rqUser
         self.api =  TwitterAPIWrapper(rqUser)
-        self.default_content = default_content
-        super().__init__("twitter", rqUser, default_content, uuid=uuid)
+        super().__init__("twitter", rqUser, uuid=uuid)
 
     def do(self, params):
         if len(params) < 1:
-            return self.api.post_tweet(self.default_content)
+            return self.api.post_tweet("Default content")
         return self.api.post_tweet(params[0])

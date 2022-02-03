@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
-from tools.db import needs_db
-from models.db import Users
 from peewee import DoesNotExist
 from functools import wraps
+from tools.db import needs_db
+from models.db import Users
 
 @needs_db
 def get_tokens(rqUser, tokenType):
     try:
-        dbUser = Users.get(Users.name == rqUser)
+        dbUser = Users.get(Users.uuid == rqUser)
     except DoesNotExist as e:
         return {"NOJSON": "Unknown Area user"}
-    return getattr(dbUser, tokenType+"Tokens")
+    return getattr(dbUser, tokenType)
 
 
 def tokens_reload(f=None, reloader=None):
@@ -20,6 +20,7 @@ def tokens_reload(f=None, reloader=None):
         def wrapper(*args, **kwargs):
             res = func(*args, **kwargs)
             if isinstance(res, dict) and (('status' in list(res.keys())) and res['status'] == 401):
+                print("INFO Invalid tokens, reloading")
                 reloader(self=args[0])
                 return func(*args, **kwargs)
             return res
