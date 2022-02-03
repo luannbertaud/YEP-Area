@@ -2,9 +2,7 @@
 
 
 from flask import Blueprint, request
-
-from controllers.widgets.object_db_relation import save_trigger, save_reaction
-from controllers.widgets.json_object_relation import create_trigger, create_reaction
+from api.controllers.widgets.save_widgets import save_action, save_reaction
 
 widgetsUpdateBP = Blueprint('widgetsUpdateBP', __name__)
 
@@ -14,15 +12,16 @@ def validate_data(data):
             assert(isinstance(d, dict))
             assert(isinstance(d["uuid"], str))
             assert(isinstance(d["type"], str))
+            assert(isinstance(d["user_uuid"], str))
             assert(isinstance(d["family"], str))
-            if ("args" in list(d.keys())):
-                assert(isinstance(d["args"], dict))
+            if ("content" in list(d.keys())):
+                assert(isinstance(d["content"], dict))
             else:
-                d["args"] = {}
-            if (("toTrigger" in list(d.keys())) and d["family"] == "trigger"):
-                assert(isinstance(d["toTrigger"], list))
+                d["content"] = {}
+            if (("children" in list(d.keys())) and d["family"] == "action"):
+                assert(isinstance(d["children"], dict))
             else:
-                d["toTrigger"] = []
+                d["children"] = {}
         except:
             return False
     return True
@@ -36,16 +35,14 @@ def widgets_update():
         return {"code": 400, "message": "Malformed JSON payload"}
     for w in data['widgets']:
         res = None
-        if w['family'] == "trigger":
+        if w['family'] == "action":
             try:
-                trigger = create_trigger(w)
-                res = save_trigger(trigger)
+                res = save_action(w)
             except Exception as e:
                 failed.append(str(e))
-        elif w['family'] == "action":
+        elif w['family'] == "reaction":
             try:
-                action = create_reaction(w)
-                res = save_reaction(action)
+                res = save_reaction(w)
             except Exception as e:
                 failed.append(str(e))
         if (res):
