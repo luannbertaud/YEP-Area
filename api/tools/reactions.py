@@ -3,19 +3,18 @@
 from tools.db import needs_db
 from models.db import Reactions
 from peewee import DoesNotExist
-from time import sleep
+import controllers.reactions as reactionList
 
 @needs_db
-def executeReaction(uuid):
+def executeReaction(uuid, params):
     rea = None
-    res = True
     
     try:
         rea = Reactions.get(Reactions.uuid == uuid)
     except DoesNotExist as e:
-        return False
+        return
+    if rea == None:
+        return
 
-    # TODO execute reaction
-    sleep(3)
-    print("hey")
-    return res
+    obj = getattr(reactionList, rea.type + "Reaction")(rqUser=rea.user_uuid, uuid=rea.uuid)
+    obj.do(params)

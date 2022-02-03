@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
-from distutils.text_file import TextFile
 from peewee import Model as __Model
-from peewee import AutoField, TextField, UUIDField
+from peewee import AutoField, TextField
 from playhouse.postgres_ext import JSONField
-from sqlalchemy import JSON
 from models.db_globals import db
 
 class __BaseModel(__Model):

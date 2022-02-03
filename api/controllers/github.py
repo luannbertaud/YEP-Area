@@ -12,8 +12,6 @@ def githubHook():
     area_user = None
     area_repo = None
 
-    print(f"GithubHook - Owner:[{repo_owner}] Repo:[{repo_name}]")
-
     try:
         query = Users.select().where(Users.github.is_null(False))
         if not query:
@@ -40,5 +38,5 @@ def githubHook():
     if not area_repo:
         return {"code": 200, "message": "received"}
 
-    executeAction(area_repo)
+    executeAction(area_repo, [f"GithubHook - Owner:[{repo_owner}] Repo:[{repo_name}]"])
     return {"code": 200, "message": "received"}

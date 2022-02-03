@@ -8,10 +8,10 @@ from functools import wraps
 @needs_db
 def get_tokens(rqUser, tokenType):
     try:
-        dbUser = Users.get(Users.name == rqUser)
+        dbUser = Users.get(Users.uuid == rqUser)
     except DoesNotExist as e:
         return {"NOJSON": "Unknown Area user"}
-    return getattr(dbUser, tokenType+"Tokens")
+    return getattr(dbUser, tokenType)
 
 
 def tokens_reload(f=None, reloader=None):

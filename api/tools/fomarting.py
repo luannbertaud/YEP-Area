@@ -11,9 +11,9 @@ def ensure_json(response):
         print(e)
     return res
 
-def get_initializing_parameters(obj):
-    res = {}
-    for param in inspect.signature(obj.__init__).parameters.values():
-        if param.default is param.empty:
-            res[param.name] = getattr(obj, param.name)
-    return res
+# def get_initializing_parameters(obj):
+#     res = {}
+#     for param in inspect.signature(obj.__init__).parameters.values():
+#         if param.default is param.empty:
+#             res[param.name] = getattr(obj, param.name)
+#     return res

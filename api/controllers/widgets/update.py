@@ -3,8 +3,8 @@
 
 from flask import Blueprint, request
 
-from controllers.widgets.object_db_relation import save_trigger, save_action
-from controllers.widgets.json_object_relation import create_trigger, create_action
+from controllers.widgets.object_db_relation import save_trigger, save_reaction
+from controllers.widgets.json_object_relation import create_trigger, create_reaction
 
 widgetsUpdateBP = Blueprint('widgetsUpdateBP', __name__)
 
@@ -44,8 +44,8 @@ def widgets_update():
                 failed.append(str(e))
         elif w['family'] == "action":
             try:
-                action = create_action(w)
-                res = save_action(action)
+                action = create_reaction(w)
+                res = save_reaction(action)
             except Exception as e:
                 failed.append(str(e))
         if (res):

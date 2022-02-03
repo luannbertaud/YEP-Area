@@ -7,7 +7,7 @@ from tools.reactions import executeReaction
 from threading import Thread
 
 
-def __executeAction(uuid):
+def __executeAction(uuid, params):
     ac = None
     res = True
     
@@ -17,11 +17,12 @@ def __executeAction(uuid):
         return False
 
     for c in ac.children["uuids"]:
-        res = res and executeReaction(c)
+        res = res and executeReaction(c, params)
     return res
 
 
 @needs_db
-def executeAction(uuid):
-    Thread(target=__executeAction, args=(uuid)).start()
+def executeAction(uuid, params):
+    print(f"~Action~ [{uuid}] {str(params[0])}")
+    Thread(target=__executeAction, args=(uuid, params)).start()
     
