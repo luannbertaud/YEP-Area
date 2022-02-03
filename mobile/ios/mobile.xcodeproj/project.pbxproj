@@ -13,6 +13,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		5425B44C470C4654A33E89B6 /* Palanquin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0F56F04B23141C4B2063FF0 /* Palanquin.ttf */; };
+		07638238881D4581821FB0B5 /* Palanquin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EEAD79DA93E476B9C366F0C /* Palanquin-Bold.ttf */; };
+		8F8B71C8DE094D36831A77D2 /* Palanquin-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9054A4491C74DA9BA723F43 /* Palanquin-ExtraLight.ttf */; };
+		52DF4360FD294B76AEADCF15 /* Palanquin-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C256960952B34EE78879D6DB /* Palanquin-Light.ttf */; };
+		316073C4405B4478A148C857 /* Palanquin-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91E76F49E4BD42AA9F7928D4 /* Palanquin-Medium.ttf */; };
+		6F2D1794E7AD4C2090B4FED1 /* Palanquin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D21CBEC9E64455E82157519 /* Palanquin-Regular.ttf */; };
+		480CB09D9532443B8C152A30 /* Palanquin-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5150236FAE44788B6967953 /* Palanquin-SemiBold.ttf */; };
+		1948786D9A5A47CD84D67780 /* Palanquin-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCA72441027445C3BC8D441C /* Palanquin-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +45,13 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		E0F56F04B23141C4B2063FF0 /* Palanquin.ttf */ = {isa = PBXFileReference; name = "Palanquin.ttf"; path = "../assets/fonts/Palanquin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1EEAD79DA93E476B9C366F0C /* Palanquin-Bold.ttf */ = {isa = PBXFileReference; name = "Palanquin-Bold.ttf"; path = "../assets/fonts/Palanquin-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F9054A4491C74DA9BA723F43 /* Palanquin-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Palanquin-ExtraLight.ttf"; path = "../assets/fonts/Palanquin-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C256960952B34EE78879D6DB /* Palanquin-Light.ttf */ = {isa = PBXFileReference; name = "Palanquin-Light.ttf"; path = "../assets/fonts/Palanquin-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		91E76F49E4BD42AA9F7928D4 /* Palanquin-Medium.ttf */ = {isa = PBXFileReference; name = "Palanquin-Medium.ttf"; path = "../assets/fonts/Palanquin-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3D21CBEC9E64455E82157519 /* Palanquin-Regular.ttf */ = {isa = PBXFileReference; name = "Palanquin-Regular.ttf"; path = "../assets/fonts/Palanquin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F5150236FAE44788B6967953 /* Palanquin-SemiBold.ttf */ = {isa = PBXFileReference; name = "Palanquin-SemiBold.ttf"; path = "../assets/fonts/Palanquin-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BCA72441027445C3BC8D441C /* Palanquin-Thin.ttf */ = {isa = PBXFileReference; name = "Palanquin-Thin.ttf"; path = "../assets/fonts/Palanquin-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +145,13 @@
 			isa = "PBXGroup";
 			children = (
 				E0F56F04B23141C4B2063FF0 /* Palanquin.ttf */,
+				1EEAD79DA93E476B9C366F0C /* Palanquin-Bold.ttf */,
+				F9054A4491C74DA9BA723F43 /* Palanquin-ExtraLight.ttf */,
+				C256960952B34EE78879D6DB /* Palanquin-Light.ttf */,
+				91E76F49E4BD42AA9F7928D4 /* Palanquin-Medium.ttf */,
+				3D21CBEC9E64455E82157519 /* Palanquin-Regular.ttf */,
+				F5150236FAE44788B6967953 /* Palanquin-SemiBold.ttf */,
+				BCA72441027445C3BC8D441C /* Palanquin-Thin.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -227,6 +248,13 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				5425B44C470C4654A33E89B6 /* Palanquin.ttf in Resources */,
+				07638238881D4581821FB0B5 /* Palanquin-Bold.ttf in Resources */,
+				8F8B71C8DE094D36831A77D2 /* Palanquin-ExtraLight.ttf in Resources */,
+				52DF4360FD294B76AEADCF15 /* Palanquin-Light.ttf in Resources */,
+				316073C4405B4478A148C857 /* Palanquin-Medium.ttf in Resources */,
+				6F2D1794E7AD4C2090B4FED1 /* Palanquin-Regular.ttf in Resources */,
+				480CB09D9532443B8C152A30 /* Palanquin-SemiBold.ttf in Resources */,
+				1948786D9A5A47CD84D67780 /* Palanquin-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
