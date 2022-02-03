@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
-import { login, common } from './Styles';
+import { login, common } from '../../styles/Styles';
 
 export default class LoginUser extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class LoginUser extends React.Component {
         return (
             <View style={login.view}>
                 <Image
-                    source={require('../../../../../assets/images/logo.png')}
+                    source={require('../../assets/images/logo.png')}
                     style={common.image}
                 />
                 <Input
