@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
+from peewee import DoesNotExist
 from tools.db import needs_db
 from models.db import Reactions
-from peewee import DoesNotExist
 import controllers.reactions.all as reactionList
 
 @needs_db

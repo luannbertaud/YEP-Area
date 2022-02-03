@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from tools.db import needs_db
-from models.db import Actions
 from peewee import DoesNotExist
-from tools.reactions import executeReaction
 from threading import Thread
+from models.db import Actions
+from tools.db import needs_db
+from tools.reactions import executeReaction
 
 
 def __executeAction(uuid, params):

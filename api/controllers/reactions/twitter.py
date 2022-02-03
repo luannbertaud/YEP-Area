@@ -2,7 +2,6 @@
 
 import requests
 import base64
-
 from tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET

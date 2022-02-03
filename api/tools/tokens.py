@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from tools.db import needs_db
-from models.db import Users
 from peewee import DoesNotExist
 from functools import wraps
+from tools.db import needs_db
+from models.db import Users
 
 @needs_db
 def get_tokens(rqUser, tokenType):
