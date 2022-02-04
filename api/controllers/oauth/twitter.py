@@ -44,14 +44,14 @@ def twitter_callback():
     }
     rq = requests.post("https://api.twitter.com/2/oauth2/token", headers=headers, data=data)
     r = ensure_json(rq)
-    r['user'] = rqUser
+    r['data']['user'] = rqUser
     del current_requests[0]
     if rq.status_code != 200:
         return {"code": rq.status_code, "message": r}
     # TODO get username from endpoint
     tokens = {
-        "access_token": r['access_token'],
-        "refresh_token": r['refresh_token'],
+        "access_token": r['data']['access_token'],
+        "refresh_token": r['data']['refresh_token'],
         "expire": "" #TODO calculate expiration
     }
     try:

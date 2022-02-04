@@ -19,8 +19,8 @@ def tokens_reload(f=None, reloader=None):
         @wraps(func)
         def wrapper(*args, **kwargs):
             res = func(*args, **kwargs)
-            if isinstance(res, dict) and (('status' in list(res.keys())) and res['status'] == 401):
-                print("INFO Invalid tokens, reloading")
+            if isinstance(res, dict) and (('code' in list(res.keys())) and int(str(res['code'])[0]) != 2):
+                print("INFO Invalid request, reloading tokens.")
                 reloader(self=args[0])
                 return func(*args, **kwargs)
             return res

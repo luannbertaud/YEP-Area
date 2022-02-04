@@ -40,22 +40,22 @@ def github_callback():
     }
     rq = requests.post("https://github.com/login/oauth/access_token", headers=headers, data=data)
     r = ensure_json(rq)
-    r['user'] = rqUser
+    r['data']['user'] = rqUser
     del current_requests[0]
     if rq.status_code != 200:
         return {"code": rq.status_code, "message": r}
 
-    rqu = requests.get("https://api.github.com/user", headers={"Accept": "application/json", "Authorization": f"token {r['access_token']}"})
+    rqu = requests.get("https://api.github.com/user", headers={"Accept": "application/json", "Authorization": f"token {r['data']['access_token']}"})
     ru = ensure_json(rqu)
-    r['login'] = ru["login"]
+    r['data']['login'] = ru['data']["login"]
     if rqu.status_code != 200:
         return {"code": rqu.status_code, "message": ru}
 
     tokens = {
-        "access_token": r['access_token'],
+        "access_token": r['data']['access_token'],
         "refresh_token": None,
         "expire": "", #TODO calculate expiration
-        "login": ru["login"],
+        "login": ru['data']["login"],
     }
     try:
         dbUser = Users.get(Users.name == rqUser)
