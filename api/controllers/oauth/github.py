@@ -54,7 +54,6 @@ def github_callback():
     tokens = {
         "access_token": r['data']['access_token'],
         "refresh_token": None,
-        "expire": "", #TODO calculate expiration
         "login": ru['data']["login"],
     }
     try:

@@ -20,7 +20,7 @@ class GithubAPIWrapper():
         self.load_tokens()
         self.client = {"id": GITHUB_CLIENT_ID, "secret": GITHUB_CLIENT_SECRET}
 
-    def load_tokens(self): #TODO in github the condition of failed request is not the same as twitter
+    def load_tokens(self):
         tokens = get_tokens(self.rqUser, "github")
         if "NOJSON" in list(tokens.keys()):
             raise Exception(f"Can't retrieve tokens for [{self.rqUser}] Area user, failed to init GithubAPI wrapper.")

@@ -52,7 +52,6 @@ def twitter_callback():
     tokens = {
         "access_token": r['data']['access_token'],
         "refresh_token": r['data']['refresh_token'],
-        "expire": "" #TODO calculate expiration
     }
     try:
         dbUser = Users.get(Users.name == rqUser)
