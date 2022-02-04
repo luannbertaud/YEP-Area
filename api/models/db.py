@@ -17,6 +17,7 @@ class Users(__BaseModel):
     name = TextField()
     password = TextField(null=True)
     email = TextField(null=True)
+    access_token = TextField(null=True)
     twitter = JSONField(null=True)
     github = JSONField(null=True)
 

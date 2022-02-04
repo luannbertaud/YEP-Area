@@ -6,7 +6,7 @@ from controllers.widgets.save_widgets import save_action, save_reaction
 
 widgetsUpdateBP = Blueprint('widgetsUpdateBP', __name__)
 
-def validate_data(data):
+def __validate_data(data):
     for d in data['widgets']:
         try:
             assert(isinstance(d, dict))
@@ -31,7 +31,7 @@ def widgets_update():
     data = request.json
     updated = []
     failed = []
-    if (not data or not validate_data(data)):
+    if (not data or not __validate_data(data)):
         return {"code": 400, "message": "Malformed JSON payload"}
     for w in data['widgets']:
         res = None
