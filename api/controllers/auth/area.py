@@ -42,11 +42,11 @@ def user_register():
     data = request.json
     u = None
     if (not __validate_data_register(data)):
-        return {"code": 400, "message": "Malformed JSON payload."}
+        return {"code": 400, "message": "Malformed JSON payload."}, 400
 
     try:
         Users.get(Users.name == data['user_name'])
-        return {"code": 401, "message": "Area user already exist."}
+        return {"code": 401, "message": "Area user already exist."}, 401
     except DoesNotExist as e:
         u = Users.create(
             name=data['user_name'],
@@ -54,7 +54,7 @@ def user_register():
             email=data['user_email']
         )
     if not u:
-        return {"code": 500, "message": "Could not create Area user."}
+        return {"code": 500, "message": "Could not create Area user."}, 500
     payload = {
         'user_uuid': u.uuid,
         'exp': datetime.utcnow() + timedelta(seconds=int(JWT_VALIDITY_DELTA)),
@@ -78,23 +78,22 @@ def user_login():
     data = request.json
     u = None
     if (not __validate_data_login(data)):
-        return {"code": 400, "message": "Malformed JSON payload. (user_name or user_email, + user_password)."}
+        return {"code": 400, "message": "Malformed JSON payload. (user_name or user_email, + user_password)."}, 400
 
     if ("user_name" in data.keys()):
         try:
             u = Users.get(Users.name == data['user_name'])
         except DoesNotExist as e:
-            return {"code": 400, "message": "Area user not found with provided credentials."}
+            return {"code": 400, "message": "Area user not found with provided credentials."}, 400
     else:
         try:
             u = Users.get(Users.email == data['user_email'])
         except DoesNotExist as e:
-            return {"code": 400, "message": "Area user not found with provided credentials."}
-
+            return {"code": 400, "message": "Area user not found with provided credentials."}, 400
     if not u:
-        return {"code": 500, "message": "Area user not found with provided credentials."}
+        return {"code": 500, "message": "Area user not found with provided credentials."}, 500
     if u.password != hashlib.sha256(data['user_password'].encode()).hexdigest():
-        return {"code": 400, "message": "Area user and password mismatch."}
+        return {"code": 400, "message": "Area user and password mismatch."}, 400
 
     payload = {
         'user_uuid': u.uuid,
@@ -108,18 +107,6 @@ def user_login():
         "user_uuid": u.uuid,
         "user_email": u.email,
     }
-
-# @authBP.route("logout", methods=["POST"])
-# @jwt_required()
-# def user_logout():
-#     playload = get_jwt()
-#     if (not verifyEmail(playload['sub'])):
-#         return {
-#             "status": 200,
-#         }
-#     return {
-#         "status": 401,
-#     }
 
 # @authBP.route("google/login", methods=["POST"])
 # def user_login_google():

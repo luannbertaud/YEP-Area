@@ -32,7 +32,7 @@ def widgets_update():
     updated = []
     failed = []
     if (not data or not __validate_data(data)):
-        return {"code": 400, "message": "Malformed JSON payload"}
+        return {"code": 400, "message": "Malformed JSON payload"}, 400
     for w in data['widgets']:
         res = None
         if w['family'] == "action":
@@ -48,5 +48,5 @@ def widgets_update():
         if (res):
             updated.append(res)
     if (len(updated) != len(data['widgets'])):
-        return {"code": 400, "message": f"Not all widgets could be updated: {', '.join(failed)}"}
+        return {"code": 400, "message": f"Not all widgets could be updated: {', '.join(failed)}"}, 400
     return {"code": 200, "message": f"Updated widgets: {', '.join(updated)}"}

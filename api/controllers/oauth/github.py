@@ -16,7 +16,7 @@ current_requests = [] #TODO this solution is deprecated, waiting for the client 
 def github_authorize():
     user = request.args.get('user')
     if not user:
-        return {"code": 401, "message": "Bad user parameter"}
+        return {"code": 401, "message": "Bad user parameter"}, 401
     current_requests.append({"user":user})
     url = "https://github.com/login/oauth/authorize"
     params = "?&state=state&scope=" + url_parse.quote_plus("repo")
@@ -59,7 +59,7 @@ def github_callback():
     try:
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
-        return {"code": 401, "message": "Unknown Area user"}
+        return {"code": 401, "message": "Unknown Area user"}, 401
     dbUser.github = tokens
     dbUser.save()
     return {"code": rq.status_code, "message": r}
