@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 SERV_URL = environ.get('SERV_URL')
 JWT_SECRET = environ.get('JWT_SECRET')
+JWT_VALIDITY_DELTA = environ.get('JWT_VALIDITY_DELTA')
 
 TWITTER_CLIENT_ID = environ.get('TWITTER_CLIENT_ID')
 TWITTER_CLIENT_SECRET = environ.get('TWITTER_CLIENT_SECRET')

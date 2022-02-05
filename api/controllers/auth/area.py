@@ -4,8 +4,10 @@ import jwt
 import hashlib
 from peewee import DoesNotExist
 from flask import Blueprint, request
-from tools.env import JWT_SECRET
+from tools.env import JWT_SECRET, JWT_VALIDITY_DELTA
 from models.db import Users
+from tools.tokens import verify_jwt
+from datetime import datetime, timedelta
 
 areaAuthBP = Blueprint("areaAuthBP", __name__)
 
@@ -24,6 +26,7 @@ def __validate_data(data):
 @areaAuthBP.route("/register", methods=["POST"])
 def user_register():
     data = request.json
+    u = None
     if (not __validate_data(data)):
         return {"code": 400, "message": "Malformed JSON payload."}
 
@@ -31,27 +34,30 @@ def user_register():
         Users.get(Users.name == data['user_name'])
         return {"code": 401, "message": "Area user already exist."}
     except DoesNotExist as e:
-        pass
-
-    u = Users.create(
-        name=data['user_name'],
-        password=hashlib.sha256(data['user_password'].encode()).hexdigest(),
-        email=data['user_email']
-    )
+        u = Users.create(
+            name=data['user_name'],
+            password=hashlib.sha256(data['user_password'].encode()).hexdigest(),
+            email=data['user_email']
+        )
+    if not u:
+        return {"code": 500, "message": "Could not create Area user."}
     payload = {
         'user_uuid': u.uuid,
-        'exp': 0,
+        'exp': datetime.utcnow() + timedelta(seconds=int(JWT_VALIDITY_DELTA)),
     }
-    u.access_token = jwt.encode(payload, JWT_SECRET, "HS256")
-    u.save()
     return {
         "message": "Register succesfull.",
         "code": 200,
-        "access_token": u.access_token,
+        "access_token": jwt.encode(payload, JWT_SECRET, "HS256"),
         "user_name": u.name,
         "user_uuid": u.uuid,
         "user_email": u.email,
     }
+
+@areaAuthBP.route("/verify", methods=["POST", "GET"])
+@verify_jwt
+def verify():
+    return {'code': 200, 'message': 'Token valid.'}
 
 # @authBP.route("login", methods=["POST"])
 # def user_login():

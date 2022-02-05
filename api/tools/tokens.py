@@ -2,8 +2,11 @@
 
 from peewee import DoesNotExist
 from functools import wraps
+from flask import request, Response
+import jwt
 from tools.db import needs_db
 from models.db import Users
+from tools.env import JWT_SECRET
 
 @needs_db
 def get_tokens(rqUser, tokenType):
@@ -28,3 +31,16 @@ def tokens_reload(f=None, reloader=None):
     if f:
         return _tokens_reload(f)
     return _tokens_reload
+
+
+def verify_jwt(func):
+    def wrapper(*args, **kwargs):
+        try:
+            if 'Authorization' not in list(request.headers.keys()):
+                raise jwt.DecodeError("No JWT token in header.")
+            token = request.headers['Authorization']
+            jwt.decode(token, JWT_SECRET, "HS256")
+        except (jwt.DecodeError, jwt.ExpiredSignatureError) as e:
+            return {"code": 401, "message": f"Invalid JWT token: {e}"}, 401
+        return func(*args, **kwargs)
+    return wrapper
