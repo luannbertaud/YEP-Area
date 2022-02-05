@@ -39,7 +39,6 @@ class TwitterAPIWrapper():
         r = ensure_json(r)
         if ('NOJSON' in list(r.keys())):
             return r
-        print(r)
         tokens = {
             "access_token": r['data']['access_token'],
             "refresh_token": r['data']['refresh_token'],
