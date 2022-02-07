@@ -6,6 +6,8 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    depends_on:
+      - database
     ports:
       - 8080:5000
     image: server-image
@@ -17,6 +19,11 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+    depends_on:
+      - mobile
+      - server
+    volumes:
+       - ./web/apk_vol:/apk_vol
     ports:
       - 8081:3000
     image: web-image
@@ -28,6 +35,8 @@ services:
     build:
       context: ./mobile
       dockerfile: Dockerfile
+    volumes:
+       - ./web/apk_vol:/apk_vol
     image: mobile-image
 
   database:
