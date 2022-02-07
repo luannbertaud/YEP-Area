@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
+import imp
 from peewee import DoesNotExist
 from tools.db import needs_db
 from models.db import Reactions, Actions
 import controllers.reactions.all as reactionList
+from controllers.widgets.register_widgets import register_action
 
 
 @needs_db
 def save_action(widget):
+    register_action(widget)
     try:
         w = Actions.get(Actions.uuid == widget["uuid"])
     except DoesNotExist as e:

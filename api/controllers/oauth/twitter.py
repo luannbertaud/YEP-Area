@@ -16,7 +16,7 @@ current_requests = [] #TODO this solution is deprecated, waiting for the client 
 def twitter_authorize():
     user = request.args.get('user')
     if not user:
-        return {"code": 401, "message": "Bad user parameter"}
+        return {"code": 401, "message": "Bad user parameter"}, 401
     code_verifier, code_challenge = pkce.generate_pkce_pair()
     current_requests.append({"user":user, "verif": code_verifier})
     url = "https://twitter.com/i/oauth2/authorize"
@@ -44,20 +44,19 @@ def twitter_callback():
     }
     rq = requests.post("https://api.twitter.com/2/oauth2/token", headers=headers, data=data)
     r = ensure_json(rq)
-    r['user'] = rqUser
+    r['data']['user'] = rqUser
     del current_requests[0]
     if rq.status_code != 200:
         return {"code": rq.status_code, "message": r}
-    
+    # TODO get username from endpoint
     tokens = {
-        "access_token": r['access_token'],
-        "refresh_token": r['refresh_token'],
-        "expire": "" #TODO calculate expiration
+        "access_token": r['data']['access_token'],
+        "refresh_token": r['data']['refresh_token'],
     }
     try:
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
-        return {"code": 401, "message": "Unknown Area user"}
+        return {"code": 401, "message": "Unknown Area user"}, 401
     dbUser.twitter = tokens
     dbUser.save()
     return {"code": rq.status_code, "message": r}
