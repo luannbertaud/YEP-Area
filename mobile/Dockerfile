@@ -14,7 +14,4 @@ RUN rm -rf app/src/main/res/drawable-*
 
 RUN ./gradlew assembleRelease
 
-RUN rm -f /apk_vol/client.apk
-RUN cp -f ./app/build/outputs/apk/release/app-release.apk /apk_vol/client.apk
-
-CMD ["bash", "-c", "echo pong"]
+CMD ["bash", "-c", "cp -f ./app/build/outputs/apk/release/app-release.apk /apk_vol/client.apk && echo pong"]
