@@ -56,7 +56,7 @@ export default class LoginUser extends React.Component {
                 </View>
                 <Button
                     title='Login'
-                    titleStyle={common.text}
+                    titleStyle={common.buttonText}
                     onPress={()=>{this.props.changeFade()}}
                 />
             </View>

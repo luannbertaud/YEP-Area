@@ -71,7 +71,7 @@ export default class RegisterUser extends React.Component {
                 </View>
                 <Button
                     title='Register'
-                    titleStyle={common.text}
+                    titleStyle={common.buttonText}
                     onPress={()=>{this.props.changeFade()}}
                 />
             </View>

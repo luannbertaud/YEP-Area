@@ -37,7 +37,7 @@ export default class Main extends React.Component
                             changeFade={()=>{this.moveLeft(this.state.loginPos)}}
                         />
                     </View>
-                    <View style={{width: '100%', marginLeft: '10%'}}>
+                    <View style={{width: '100%', marginLeft: '4%'}}>
                         <RegisterUser
                             changeFade={()=> {this.resetMove(this.state.loginPos)}}
                         />

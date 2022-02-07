@@ -7,6 +7,12 @@ const common = StyleSheet.create({
         alignContent: 'center',
         alignSelf: 'center',
     },
+    buttonText: {
+        fontWeight: 'bold',
+        fontFamily: 'Palanquin-Light',
+        alignContent: 'center',
+        alignSelf: 'center',
+    },
     image: {
         width: 100,
         height: 100,
