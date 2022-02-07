@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
-import { common, register } from '../../styles/Styles';
+import { common, register } from '../../styles/AuthStyles';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
