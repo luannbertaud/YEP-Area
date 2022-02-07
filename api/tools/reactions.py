@@ -12,9 +12,12 @@ def executeReaction(uuid, params):
     try:
         rea = Reactions.get(Reactions.uuid == uuid)
     except DoesNotExist as e:
-        return
+        return False
     if rea == None:
-        return
+        return False
 
-    obj = getattr(reactionList, rea.type + "Reaction")(rqUser=rea.user_uuid, uuid=rea.uuid)
+    print(f"~Reaction~ [{uuid}] {str(params)}")
+
+    obj = getattr(reactionList, rea.type + "Reaction")(rqUser=rea.user_uuid, uuid=rea.uuid, **(rea.content))
     obj.do(params)
+    return True

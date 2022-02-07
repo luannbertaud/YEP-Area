@@ -4,7 +4,6 @@ from flask import request
 from peewee import DoesNotExist
 from models.db import Actions, Users
 from tools.actions import executeAction
-import urllib.parse as url_parse
 
 import requests
 import base64
@@ -89,7 +88,7 @@ def githubHook():
         return {"code": 200, "message": "ERROR could not find corresponding area user"}
 
     try:
-        query = Actions.select().where(Actions.type == "github", Actions.user_uuid == area_user)
+        query = Actions.select().where(Actions.type == "GithubWebhook", Actions.user_uuid == area_user)
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:
@@ -97,7 +96,8 @@ def githubHook():
 
     for a in query:
         if ("repository" in list(a.content.keys())) and a.content["repository"] == repo_name:
-            area_repo = a.uuid
+            if ("owner" in list(a.content.keys())) and a.content["owner"] == repo_owner:
+                area_repo = a.uuid
     if not area_repo:
         return {"code": 200, "message": "ERROR could not find corresponding area action"}
 

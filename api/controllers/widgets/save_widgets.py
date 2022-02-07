@@ -5,11 +5,18 @@ from peewee import DoesNotExist
 from tools.db import needs_db
 from models.db import Reactions, Actions
 import controllers.reactions.all as reactionList
-from controllers.widgets.register_widgets import register_action
+import controllers.actions.all as actionList
+from controllers.widgets.register_widgets import register_action, register_reaction
 
 
 @needs_db
 def save_action(widget):
+    if (widget["family"] != "action"):
+        return None
+    try:
+        getattr(actionList, widget["type"]+"Action")
+    except:
+        raise Exception(f"Can't create [{widget['uuid']}], invalid type")
     register_action(widget)
     try:
         w = Actions.get(Actions.uuid == widget["uuid"])
@@ -31,12 +38,14 @@ def save_reaction(widget):
         getattr(reactionList, widget["type"]+"Reaction")
     except:
         raise Exception(f"Can't create [{widget['uuid']}], invalid type")
+    register_reaction(widget)
     try:
         w = Reactions.get(Reactions.uuid == widget["uuid"])
     except DoesNotExist as e:
-        Reactions.create(uuid=widget["uuid"], type=widget["type"], user_uuid=widget["user_uuid"])
+        Reactions.create(uuid=widget["uuid"], type=widget["type"], user_uuid=widget["user_uuid"], content=widget["content"])
         return widget["uuid"]
     w.type = widget["type"]
     w.user_uuid = widget["user_uuid"]
+    w.content = widget["content"]
     w.save()
     return widget["uuid"]

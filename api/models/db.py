@@ -24,6 +24,7 @@ class Reactions(__BaseModel):
     uuid = TextField(primary_key=True)
     type = TextField()
     user_uuid = TextField()
+    content = JSONField()
 
 class Actions(__BaseModel):
     uuid = TextField(primary_key=True)
