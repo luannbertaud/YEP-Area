@@ -1,7 +1,9 @@
 # Custom for personal scripts or files
 perso/
 data/postgres-container-data/
+assets/
 
 .gitignore
 .env
 .gitkeep
+.eslintrc.js
