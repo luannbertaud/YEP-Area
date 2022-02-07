@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
 import { login, common } from '../../styles/AuthStyles';
+import { signin } from '../../services/auth/GoogleSignin';
 
 export default class LoginUser extends React.Component {
     constructor(props) {

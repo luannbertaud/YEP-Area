@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
 import { common, register } from '../../styles/AuthStyles';
+import { signin } from '../../services/auth/GoogleSignin';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class RegisterUser extends React.Component {
             password: '',
             passwordError: '',
             passwordFocused: false,
+            signinGoogle: false
         }
     }
 
@@ -72,7 +74,8 @@ export default class RegisterUser extends React.Component {
                 <Button
                     title='Register'
                     titleStyle={common.buttonText}
-                    onPress={()=>{this.props.changeFade()}}
+                    onPress={()=>{signin()}}
+                    disabled={this.state.signinGoogle}
                 />
             </View>
         )
