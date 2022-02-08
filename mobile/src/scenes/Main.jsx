@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, View, Animated, Button } from 'react-native';
 import LoginUser from '../components/auth/LoginUser';
 import RegisterUser from '../components/auth/RegisterUser';
+import Homepage from '../components/Homepage';
 
-export default class Main extends React.Component
-{
+export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,12 @@ export default class Main extends React.Component
 
     render() {
         return (
-            <View style={{backgroundColor: '#1454A4', height: '100%'}}>
+            <>
+                <View style={{backgroundColor: '#E0E0E0', height: '100%'}}>
+                    <Homepage />
+                </View>
+            </>
+            /* <View style={{backgroundColor: '#1454A4', height: '100%'}}>
                 <Animated.View style={{transform: [{translateX: this.state.loginPos}], flexDirection: 'row'}}>
                     <View style={{width: '100%'}}>
                         <LoginUser 
@@ -43,10 +48,26 @@ export default class Main extends React.Component
                         />
                     </View>
                 </Animated.View>
-            </View>
+            </View> */
         );
     }
 }
+
+/* <View style={{backgroundColor: '#1454A4', height: '100%'}}>
+                <Animated.View style={{transform: [{translateX: this.state.loginPos}], flexDirection: 'row'}}>
+                    <View style={{width: '100%'}}>
+                        <Homepage/>
+                        <LoginUser 
+                            changeFade={()=>{this.moveLeft(this.state.loginPos)}}
+                        />
+                    </View>
+                    <View style={{width: '100%', marginLeft: '4%'}}>
+                        <RegisterUser
+                            changeFade={()=> {this.resetMove(this.state.loginPos)}}
+                        />
+                    </View>
+                </Animated.View>
+            </View> */
 
 /*
     <Animated.View style={[{opacity: this.state.registerFade, position: 'absolute', width: '100%'}]}>

@@ -61,7 +61,7 @@ const register = StyleSheet.create({
         marginTop: '25%',
         borderRadius: 10,
         shadowColor: 'black',
-        shadowOffset: {width: 10, height: 12},
+        shadowOffset: { width: 10, height: 12 },
         shadowOpacity: 1,
         shadowRadius: 10.00,
         elevation: 24
@@ -78,15 +78,62 @@ const login = StyleSheet.create({
         marginTop: '40%',
         borderRadius: 10,
         shadowColor: 'black',
-        shadowOffset: {width: 10, height: 12},
+        shadowOffset: { width: 10, height: 12 },
         shadowOpacity: 1,
         shadowRadius: 10.00,
         elevation: 24
     }
 });
 
+const homepage = StyleSheet.create({
+    headerContainer: {
+        flex: 1,
+        padding: 20,
+        flexDirection: "row",
+    },
+    headerImage: {
+        width: '90%',
+        marginTop: -20,
+        paddingLeft: '2%',
+    },
+    profile: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 40,
+        flexDirection: "row",
+    },
+    headerName: {
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 28,
+    },
+    button: {
+        backgroundColor: "#2B357F",
+        padding: 20,
+        paddingHorizontal: 60,
+        borderRadius: 50
+    },
+    buttonText: {
+        fontWeight: "bold",
+        fontSize: 18,
+        color: "white"
+    },
+    container: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    noAppletText: {
+        color: 'grey',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+});
+
 export {
     common,
     login,
-    register
+    register,
+    homepage
 };
