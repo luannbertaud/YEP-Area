@@ -8,7 +8,26 @@ export default class Homepage extends React.Component {
         super(props);
     }
 
-    
+    hasApplet = false
+
+    renderApplets() {
+        return (
+            <>
+                <Text style={homepage.headerName}>Yes</Text>
+            </>
+        )
+    }
+
+    renderNoneApplet() {
+        return (
+            <>
+                <View style={{ marginTop: 80 }}>
+                    <Text style={homepage.noAppletText}>You don't have any AREA yet</Text>
+                </View>
+            </>
+        )
+    }
+
 
     render() {
         return (
@@ -26,6 +45,14 @@ export default class Homepage extends React.Component {
                                 <Icon style={homepage.headerIcon} name="person" size={50} />
                             </TouchableOpacity>
                         </View>
+                    </View>
+                    <View style={homepage.container}>
+                        <TouchableOpacity onPress={() => alert("Create a new applet !")} style={homepage.button}>
+                            <Text style={homepage.buttonText}>Create an AREA</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={homepage.container}>
+                        {this.hasApplet === false ? this.renderNoneApplet() : this.renderApplets()}
                     </View>
                 </ScrollView>
             </>
