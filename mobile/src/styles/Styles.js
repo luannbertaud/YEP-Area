@@ -113,6 +113,7 @@ const homepage = StyleSheet.create({
         backgroundColor: "#2B357F",
         padding: 20,
         paddingHorizontal: 60,
+        marginTop: -20,
         borderRadius: 50
     },
     buttonText: {
@@ -128,6 +129,30 @@ const homepage = StyleSheet.create({
         color: 'grey',
         fontSize: 24,
         fontWeight: 'bold',
+    },
+    cardHeading: {
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginBottom: 13,
+        color: "white",
+    },
+    cardText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: "white",
+    },
+    card: {
+        borderRadius: 25,
+        paddingVertical: 45,
+        paddingHorizontal: 25,
+        width: '100%',
+        marginVertical: 20,
+    },
+    shadowProp: {
+        shadowColor: '#171717',
+        shadowOffset: { width: -2, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
     },
 });
 
