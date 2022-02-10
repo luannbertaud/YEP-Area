@@ -6,7 +6,7 @@ export default class Card extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: false,
+            isEnabled: this.props.active,
         }
     }
 
@@ -21,7 +21,8 @@ export default class Card extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Switch
-                            trackColor={{ false: "#767577", true: "#8B8B8B" }}
+                            style={homepage.slider}
+                            trackColor={{ false: "#767577", true: "#9EC336" }}
                             thumbColor={this.state.isEnabled ? "#f4f3f4" : "#f4f3f4"}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => this.setState({ isEnabled: !this.state.isEnabled })}

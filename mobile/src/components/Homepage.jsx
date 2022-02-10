@@ -12,9 +12,9 @@ export default class Homepage extends React.Component {
             name: 'Jeff',
             hasApplet: true,
             cards: [
-                { name: 'AREA applet name 1', color: '#6AB4D9', A: 'twitch', REA: ['discord'] },
-                { name: 'AREA applet name 2', color: '#279BD6', A: 'github', REA: ['twitter', 'discord'] },
-                { name: 'AREA applet name 3', color: '#1354A4', A: 'github', REA: ['google'] },
+                { name: 'Vendredi tout est permis avec Arthur', color: '#6AB4D9', active: true, A: 'twitch', REA: ['discord'] },
+                { name: 'AREA applet name 2', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord'] },
+                { name: 'AREA applet name 3', color: '#1354A4', active: true, A: 'github', REA: ['google'] },
             ],
         }
     }
@@ -25,7 +25,7 @@ export default class Homepage extends React.Component {
                 <View style={[homepage.container, { padding: 30 }]}>
                     {this.state.cards.map((cardid, key) => {
                         return (
-                            <Card key={key} name={cardid.name} color={cardid.color} A={cardid.A} REA={cardid.REA}/>
+                            <Card key={key} name={cardid.name} color={cardid.color} active={cardid.active} A={cardid.A} REA={cardid.REA}/>
                         )
                     })}
                 </View>

@@ -133,7 +133,7 @@ const homepage = StyleSheet.create({
     cardHeading: {
         fontSize: 36,
         fontWeight: 'bold',
-        marginBottom: 13,
+        marginBottom: 50,
         color: "white",
     },
     cardText: {
@@ -153,6 +153,9 @@ const homepage = StyleSheet.create({
         shadowOffset: { width: -2, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
+    },
+    slider: {
+        marginBottom: -20,
     },
 });
 
