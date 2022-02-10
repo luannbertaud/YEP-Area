@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
+    GithubLoginButton,
     GoogleLoginButton
 } from "react-social-login-buttons";
+import { GoogleLogin } from 'react-google-login';
 
 class LoginForm extends Component {
     constructor() {
@@ -75,10 +77,12 @@ class LoginForm extends Component {
                         </Link>
                     </div>
 
-                    <div className="socialMediaButtons">
-                        <div className="googleButton">
-                            <GoogleLoginButton onClick={() => alert("GoogleButton")} />
-                        </div>
+                    <div>
+                        <GoogleLogin
+                            buttonText="Login with Google"
+                            style={{ marginTop: '100px', color: "white" }}
+                            onClick={() => alert("LoginButton")}
+                        />
                     </div>
                 </form>
             </div>
