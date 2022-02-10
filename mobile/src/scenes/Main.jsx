@@ -47,33 +47,3 @@ export default class Main extends React.Component
         );
     }
 }
-
-/*
-    <Animated.View style={[{opacity: this.state.registerFade, position: 'absolute', width: '100%'}]}>
-    <LoginUser
-    changeFade={()=>{
-    this.fadeOut(this.state.registerFade);
-    this.fadeIn(this.state.loginFade);
-    }}
-    />
-</Animated.View>
-*/
-
-
-/*
-    fadeIn = (fade) => {
-        Animated.timing(fade, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: true
-        }).start();
-    };
-
-    fadeOut = (fade) => {
-        Animated.timing(fade, {
-            toValue: 0,
-            duration: 1000,
-            useNativeDriver: true
-        }).start();
-    }
-*/

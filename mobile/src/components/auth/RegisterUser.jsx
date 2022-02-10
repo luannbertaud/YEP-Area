@@ -3,6 +3,8 @@ import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
 import { common, register } from '../../styles/AuthStyles';
 import { signin } from '../../services/auth/GoogleSignin';
+import { registerUser } from '../../services/auth/Auth';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
@@ -19,6 +21,17 @@ export default class RegisterUser extends React.Component {
             passwordFocused: false,
             signinGoogle: false
         }
+    }
+
+    register = async () => {
+        await registerUser(this.state.name, this.state.email, this.state.password)
+        .then(() => {})
+        .catch((error) => {
+            switch (error) {
+                default:
+                    this.setState({nameError: 'An error occured'});
+            }
+        });
     }
 
     render() {
@@ -74,8 +87,11 @@ export default class RegisterUser extends React.Component {
                 <Button
                     title='Register'
                     titleStyle={common.buttonText}
-                    onPress={()=>{signin()}}
+                    onPress={()=>{registerUser()}}
                     disabled={this.state.signinGoogle}
+                />
+                <GoogleSigninButton
+                    onPress={()=>signin()}
                 />
             </View>
         )
