@@ -56,7 +56,6 @@ class App extends Component {
                         <Route path="/login" component={LoginForm} />
                     </div>
                 </div>
-                <Route path="/home" element={<Homepage/>} />
             </Router>
         );
     }
