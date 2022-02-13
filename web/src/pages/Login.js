@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
+import {withCookies} from 'react-cookie';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -28,17 +29,22 @@ class LoginForm extends Component {
     }
     onClickLogin() {
         const { cookies } = this.props;
-        axios.post('http://localhost:8080/auth/login', {
+        axios.post('http://localhost:8080/auth/area/login', {
             username: this.state.username,
             password: this.state.password
         }).then((response) => {
             cookies.set('auth', response.data.auth, {path: '/'});
             this.setState({
                 redirect: true,
-                redirectUrl: "/",
+                redirectUrl: "/register",
             })
         }).catch((err) => {
-            console.log(err.response);
+            console.log(err);
+            cookies.set('token', {path: '/'});
+            this.setState({
+                redirect: true,
+                redirectUrl: '/',
+            })
         });
 
     }
@@ -46,7 +52,6 @@ class LoginForm extends Component {
     render() {
         return (
             <div className="formCenter">
-                <form className="formFields" onSubmit={this.handleSubmit}>
                     <div className="formField">
                         <label className="formFieldLabel" htmlFor="name">
                             Name
@@ -77,7 +82,7 @@ class LoginForm extends Component {
 
                     <div className="formField">
                         <button className="formFieldButton" onClick={this.onClickLogin}>Sign In</button>{" "}
-                        <Link to="/" className="formFieldLink">
+                        <Link to="/register" className="formFieldLink">
                             I don't have an account
                         </Link>
                     </div>
@@ -89,10 +94,9 @@ class LoginForm extends Component {
                             onClick={() => alert("LoginButton")}
                         />
                     </div>
-                </form>
             </div>
         );
     }
 }
 
-export default LoginForm;
+export default withCookies(LoginForm);

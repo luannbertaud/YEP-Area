@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {withCookies} from 'react-cookie';
 
 class RegisterForm extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class RegisterForm extends Component {
         })
     }
     onClickRegister() {
-        axios.post('http://localhost:8080/auth/register', {
+        axios.post('http://localhost:8080/auth/area/register', {
             username: this.state.username,
             mail: this.state.mail,
             password: this.state.password
@@ -98,4 +99,4 @@ class RegisterForm extends Component {
         );
     }
 }
-export default RegisterForm;
+export default withCookies(RegisterForm);
