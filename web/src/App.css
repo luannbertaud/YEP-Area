@@ -120,6 +120,7 @@
     display: inline-block;
     border-bottom: 1.5px solid #1457AD;
     padding-bottom: 5px;
+    margin-left: 10px;
   }
   
   .formFieldCheckboxLabel {
@@ -155,4 +156,30 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 250px;
+  }
+
+  .loginButton{
+    width: 100px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+
+  .google{
+    background-color: #df4930;
+  }
+
+  .github{
+    background-color: black;
+  }
+
+  .icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }

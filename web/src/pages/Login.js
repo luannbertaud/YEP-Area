@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { GoogleLogin } from 'react-google-login';
+import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import {withCookies} from 'react-cookie';
+import Google from '../resources/google.png'
+import Github from '../resources/github.png'
+
+import '../App.css'
 
 class LoginForm extends Component {
     constructor(props) {
@@ -87,12 +91,15 @@ class LoginForm extends Component {
                         </Link>
                     </div>
 
-                    <div>
-                        <GoogleLogin
-                            buttonText="Login with Google"
-                            style={{ marginTop: '100px', color: "white" }}
-                            onClick={() => alert("LoginButton")}
-                        />
+                    <div className="buttonAuth">
+                        <div className="loginButton google" onClick={() => alert("LoginButton")}>
+                            <img src={Google} alt="" className="icon" />
+                            Google
+                         </div>
+                         <div className="loginButton github" onClick={() => alert("LoginButton")}>
+                            <img src={Github} alt="" className="icon" />
+                            Github
+                         </div>
                     </div>
             </div>
         );

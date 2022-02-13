@@ -39,21 +39,6 @@ class App extends Component
                         </div>
                         <div className="appForm">
                             <div className="pageSwitcher">
-                                <NavLink
-                                    to="/login"
-                                    activeClassName="pageSwitcherItem-active"
-                                    className="pageSwitcherItem"
-                                >
-                                    Sign In
-                                </NavLink>
-                                <NavLink
-                                    exact
-                                    to="/register"
-                                    activeClassName="pageSwitcherItem-active"
-                                    className="pageSwitcherItem"
-                                >
-                                    Sign Up
-                                </NavLink>
                             </div>
 
                             <div className="formTitle">
