@@ -1,39 +1,46 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {
-    GithubLoginButton,
-    GoogleLoginButton
-} from "react-social-login-buttons";
 import { GoogleLogin } from 'react-google-login';
+import axios from 'axios';
 
 class LoginForm extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props)
         this.state = {
-            email: "",
-            password: ""
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+            username: undefined,
+            password: undefined,
+            redirect: undefined,
+            redirectUrl: undefined,
+        }
+        this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onClickLogin = this.onClickLogin.bind(this);
     }
-
-    handleChange(event) {
-        let target = event.target;
-        let value = target.type === "checkbox" ? target.checked : target.value;
-        let name = target.name;
-
+    onUsernameChange(event) {
         this.setState({
-            [name]: value
-        });
+            username: event.target.value
+        })
     }
+    onPasswordChange(event) {
+        this.setState({
+            password: event.target.value
+        })
+    }
+    onClickLogin() {
+        const { cookies } = this.props;
+        axios.post('http://localhost:8080/auth/login', {
+            username: this.state.username,
+            password: this.state.password
+        }).then((response) => {
+            cookies.set('auth', response.data.auth, {path: '/'});
+            this.setState({
+                redirect: true,
+                redirectUrl: "/",
+            })
+        }).catch((err) => {
+            console.log(err.response);
+        });
 
-    handleSubmit(event) {
-        event.preventDefault();
-
-        console.log("The form was submitted with the following data:");
-        console.log(this.state);
     }
 
     render() {
@@ -41,17 +48,16 @@ class LoginForm extends Component {
             <div className="formCenter">
                 <form className="formFields" onSubmit={this.handleSubmit}>
                     <div className="formField">
-                        <label className="formFieldLabel" htmlFor="email">
-                            E-Mail Address
+                        <label className="formFieldLabel" htmlFor="name">
+                            Name
                         </label>
                         <input
-                            type="email"
-                            id="email"
+                            type="text"
+                            id="name"
                             className="formFieldInput"
-                            placeholder="Enter your email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
+                            placeholder="Enter your name"
+                            name="name"
+                            onChange={this.onUsernameChange}
                         />
                     </div>
 
@@ -65,13 +71,12 @@ class LoginForm extends Component {
                             className="formFieldInput"
                             placeholder="Enter your password"
                             name="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
+                            onChange={this.onPasswordChange}
                         />
                     </div>
 
                     <div className="formField">
-                        <button className="formFieldButton" onClick={() => alert("LoginButton")}>Sign In</button>{" "}
+                        <button className="formFieldButton" onClick={this.onClickLogin}>Sign In</button>{" "}
                         <Link to="/" className="formFieldLink">
                             I don't have an account
                         </Link>

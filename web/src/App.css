@@ -6,12 +6,12 @@
 
   .appAside {
     width: 50%;
-    background-color: #12130f;
+    background-color: white;
   }
 
   .appForm {
     width: 50%;
-    background-color: #12130f;
+    background-color: white;
     padding: 25px 40px;
     overflow: auto;
   }
@@ -72,7 +72,7 @@
   }
   
   .formTitleLink-active {
-    color: white;
+    color: black;
     border-bottom: 1px solid #1457AD;
   }
   
@@ -84,13 +84,13 @@
     display: block;
     text-transform: uppercase;
     font-size: 0.9em;
-    color: white;
+    color: #616e7f;
   }
   .formFieldInput {
     width: 85%;
     background-color: transparent;
     border: none;
-    color: white;
+    color: #616e7f;
     outline: none;
     border-bottom: 1px solid #445366;
     font-size: 1em;

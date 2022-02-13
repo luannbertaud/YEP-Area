@@ -1,36 +1,47 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 class RegisterForm extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props)
         this.state = {
-            email: "",
-            password: "",
-            name: "",
-            hasAgreed: false
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+            username: undefined,
+            mail: undefined,
+            password: undefined,
+            redirectLogin: undefined,
+        }
+        this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onMailChange = this.onMailChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onClickRegister = this.onClickRegister.bind(this);
     }
-
-    handleChange(event) {
-        let target = event.target;
-        let value = target.type === "checkbox" ? target.checked : target.value;
-        let name = target.name;
-
+    onUsernameChange(event) {
         this.setState({
-            [name]: value
-        });
+            username: event.target.value
+        })
     }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        console.log("The form was submitted with the following data:");
-        console.log(this.state);
+    onMailChange(event) {
+        this.setState({
+            mail: event.target.value
+        })
+    }
+    onPasswordChange(event) {
+        this.setState({
+            password: event.target.value
+        })
+    }
+    onClickRegister() {
+        axios.post('http://localhost:8080/auth/register', {
+            username: this.state.username,
+            mail: this.state.mail,
+            password: this.state.password
+        }).then((response) => {
+            if (response.status === 200)
+                this.setState({ redirectLogin: true });
+        }).catch((err) => {
+            console.log(err.response);
+        });
     }
 
     render() {
@@ -47,22 +58,7 @@ class RegisterForm extends Component {
                             className="formFieldInput"
                             placeholder="Enter your name"
                             name="name"
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="formFieldInput"
-                            placeholder="Enter your password"
-                            name="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
+                            onChange={this.onUsernameChange}
                         />
                     </div>
                     <div className="formField">
@@ -75,13 +71,25 @@ class RegisterForm extends Component {
                             className="formFieldInput"
                             placeholder="Enter your email"
                             name="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
+                            onChange={this.onMailChange}
                         />
                     </div>
                     <div className="formField">
-                        <button className="formFieldButton" onClick={() => alert("RegisterButton")}>Sign Up</button>{" "}
-                        <Link to="/signIn" className="formFieldLink">
+                        <label className="formFieldLabel" htmlFor="password">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="formFieldInput"
+                            placeholder="Enter your password"
+                            name="password"
+                            onChange={this.onPasswordChange}
+                        />
+                    </div>
+                    <div className="formField">
+                        <button className="formFieldButton" onClick={this.onClickRegister}>Sign Up</button>{" "}
+                        <Link to="/login" className="formFieldLink">
                             I already have an account
                         </Link>
                     </div>
