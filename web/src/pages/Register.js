@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import {withCookies} from 'react-cookie';
+import { withCookies } from 'react-cookie';
 
 class RegisterForm extends Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class RegisterForm extends Component {
             mail: undefined,
             password: undefined,
             redirectLogin: undefined,
+            token: undefined,
         }
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onMailChange = this.onMailChange.bind(this);
@@ -34,10 +35,12 @@ class RegisterForm extends Component {
     }
     onClickRegister() {
         axios.post('http://localhost:8080/auth/area/register', {
-            username: this.state.username,
-            mail: this.state.mail,
-            password: this.state.password
+            "user_name": this.state.username,
+            "user_email": this.state.mail,
+            "user_password": this.state.password
         }).then((response) => {
+            console.log(response.data)
+            this.state.token = response.data.access_token;
             if (response.status === 200)
                 this.setState({ redirectLogin: true });
         }).catch((err) => {
@@ -45,10 +48,22 @@ class RegisterForm extends Component {
         });
     }
 
+    verifyToken() {
+        axios.get('http://localhost:8080/auth/area/verify', {
+            headers: { Authorization: this.state.token }
+        }).then((response) => {
+            console.log(response.data)
+        }).catch((err) => {
+            console.log(err.response);
+        });
+    }
+
     render() {
+        if (this.state.redirectLogin)
+            this.verifyToken();
         return (
             <div className="formCenter">
-                <form onSubmit={this.handleSubmit} className="formFields">
+                <div className="formFields">
                     <div className="formField">
                         <label className="formFieldLabel" htmlFor="name">
                             Name
@@ -94,9 +109,10 @@ class RegisterForm extends Component {
                             I already have an account
                         </Link>
                     </div>
-                </form>
+                </div>
             </div>
         );
     }
 }
+
 export default withCookies(RegisterForm);

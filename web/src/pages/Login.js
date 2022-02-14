@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
-import {withCookies} from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import Google from '../resources/google.png'
 import Github from '../resources/github.png'
 
@@ -34,17 +34,17 @@ class LoginForm extends Component {
     onClickLogin() {
         const { cookies } = this.props;
         axios.post('http://localhost:8080/auth/area/login', {
-            username: this.state.username,
-            password: this.state.password
+            "user_name": this.state.username,
+            "user_password": this.state.password
         }).then((response) => {
-            cookies.set('auth', response.data.auth, {path: '/'});
+            cookies.set('auth', response.data.auth, { path: '/' });
             this.setState({
                 redirect: true,
                 redirectUrl: "/register",
             })
         }).catch((err) => {
             console.log(err);
-            cookies.set('token', {path: '/'});
+            cookies.set('token', { path: '/' });
             this.setState({
                 redirect: true,
                 redirectUrl: '/',
@@ -56,51 +56,51 @@ class LoginForm extends Component {
     render() {
         return (
             <div className="formCenter">
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            className="formFieldInput"
-                            placeholder="Enter your name"
-                            name="name"
-                            onChange={this.onUsernameChange}
-                        />
-                    </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="name">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        className="formFieldInput"
+                        placeholder="Enter your name"
+                        name="name"
+                        onChange={this.onUsernameChange}
+                    />
+                </div>
 
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="formFieldInput"
-                            placeholder="Enter your password"
-                            name="password"
-                            onChange={this.onPasswordChange}
-                        />
-                    </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="password">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        className="formFieldInput"
+                        placeholder="Enter your password"
+                        name="password"
+                        onChange={this.onPasswordChange}
+                    />
+                </div>
 
-                    <div className="formField">
-                        <button className="formFieldButton" onClick={this.onClickLogin}>Sign In</button>{" "}
-                        <Link to="/register" className="formFieldLink">
-                            I don't have an account
-                        </Link>
-                    </div>
+                <div className="formField">
+                    <button className="formFieldButton" onClick={this.onClickLogin}>Sign In</button>{" "}
+                    <Link to="/register" className="formFieldLink">
+                        I don't have an account
+                    </Link>
+                </div>
 
-                    <div className="buttonAuth">
-                        <div className="loginButton google" onClick={() => alert("LoginButton")}>
-                            <img src={Google} alt="" className="icon" />
-                            Google
-                         </div>
-                         <div className="loginButton github" onClick={() => alert("LoginButton")}>
-                            <img src={Github} alt="" className="icon" />
-                            Github
-                         </div>
+                <div className="buttonAuth">
+                    <div className="loginButton google" onClick={() => alert("LoginButton")}>
+                        <img src={Google} alt="" className="icon" />
+                        Google
                     </div>
+                    <div className="loginButton github" onClick={() => alert("LoginButton")}>
+                        <img src={Github} alt="" className="icon" />
+                        Github
+                    </div>
+                </div>
             </div>
         );
     }

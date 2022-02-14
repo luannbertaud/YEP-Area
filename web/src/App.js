@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { HashRouter as Router, Route, NavLink } from "react-router-dom";
 import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
-import {withCookies} from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import Homepage from "./pages/Homepage"
 
 import "./App.css";
 
-class App extends Component 
-{
+class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -35,7 +34,7 @@ class App extends Component
                 {this.state.logged === true ? <h1>Hello</h1> : <Router>
                     <div className="App">
                         <div className="appAside">
-                            <img src={require("./resources/logoArea.png")} class="logoFormat logoCenter"/>
+                            <img src={require("./resources/logoArea.png")} className="logoFormat logoCenter" />
                         </div>
                         <div className="appForm">
                             <div className="pageSwitcher">
@@ -58,8 +57,8 @@ class App extends Component
                                     Sign Up
                                 </NavLink>
                             </div>
-                            <Route path="/register" component={RegisterForm}/>
-                            <Route path="/login" component={LoginForm}/>
+                            <Route path="/register" component={RegisterForm} />
+                            <Route path="/login" component={LoginForm} />
                         </div>
                     </div>
                 </Router>}
