@@ -20,6 +20,8 @@ services:
         POSTGRES_PORT: ${POSTGRES_PORT}
         POSTGRES_HOST: ${POSTGRES_HOST}
         POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
+    depends_on:
+      - database
     ports:
       - 8080:5000
     image: server-image
