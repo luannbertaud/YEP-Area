@@ -11,7 +11,7 @@ export default class Homepage extends React.Component {
         this.state = {
             name: 'Jeff',
             hasApplet: true,
-            cards: [
+            card: [
                 { name: 'Vendredi tout est permis avec Arthur', color: '#6AB4D9', active: true, A: 'twitch', REA: ['discord'] },
                 { name: 'AREA applet name 2', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord'] },
                 { name: 'AREA applet name 3', color: '#1354A4', active: true, A: 'github', REA: ['google'] },
@@ -21,15 +21,13 @@ export default class Homepage extends React.Component {
 
     renderApplets() {
         return (
-            <>
-                <View style={[homepage.container, { padding: 30 }]}>
-                    {this.state.cards.map((cardid, key) => {
-                        return (
-                            <Card key={key} name={cardid.name} color={cardid.color} active={cardid.active} A={cardid.A} REA={cardid.REA}/>
-                        )
-                    })}
-                </View>
-            </>
+            <View style={[homepage.container, { padding: 30 }]}>
+                {this.state.card.map((cards, key) => {
+                    return (
+                        <Card key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
+                    )
+                })}
+            </View>
         )
     }
 
@@ -57,7 +55,7 @@ export default class Homepage extends React.Component {
                         <View style={{ flex: 3 }}>
                             <TouchableOpacity style={homepage.profile} onPress={() => alert("Account settings")}>
                                 <Text style={homepage.headerName}>{this.state.name}</Text>
-                                <Icon style={homepage.headerIcon} name="face" size={50} />
+                                <Icon name="account-circle" size={50} />
                             </TouchableOpacity>
                         </View>
                     </View>

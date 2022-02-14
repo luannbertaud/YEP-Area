@@ -31,7 +31,7 @@ export default class Main extends React.Component {
     render() {
         return (
             <>
-                <View style={{backgroundColor: '#E0E0E0', height: '100%'}}>
+                <View style={{backgroundColor: '#e5e5e5', height: '100%'}}>
                     <Homepage />
                 </View>
             </>

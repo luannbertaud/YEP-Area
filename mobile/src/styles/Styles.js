@@ -154,8 +154,16 @@ const homepage = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
     },
-    slider: {
+    footerCard: {
+        flex: 2,
+        flexDirection: "row",
+        alignItems: 'center',
         marginBottom: -20,
+        backgroundColor: '',
+    },
+    slider: {
+        //marginBottom: -20,
+        
     },
 });
 
