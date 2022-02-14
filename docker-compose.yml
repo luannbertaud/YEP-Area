@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  server:
+    container_name: server-container
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    ports:
+      - 8080:5000
+    image: server-image
+    extra_hosts:
+      - "localhost:host-gateway"
+
+  web:
+    container_name: web-container
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    depends_on:
+      - mobile
+      - server
+    volumes:
+       - ./web/apk_vol:/apk_vol
+    ports:
+      - 8081:3000
+    image: web-image
+    extra_hosts:
+      - "localhost:host-gateway"
+
+  mobile:
+    container_name: mobile-container
+    build:
+      context: ./mobile
+      dockerfile: Dockerfile
+    volumes:
+       - ./web/apk_vol:/apk_vol
+    image: mobile-image
+
+  database:
+    container_name: database-container
+    ports:
+      - 5432:5432
+    image: postgres:11.8
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./data/postgres-container-data:/var/lib/postgresql/data

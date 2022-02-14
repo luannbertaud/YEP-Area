@@ -1,0 +1,12 @@
+flask==1.1.2
+flask-cors==3.0.10
+flask-bcrypt==0.7.1
+flask-jwt-extended==4.3.1
+requests==2.22.0
+peewee==3.14.8
+python-dotenv==0.19.2
+psycopg2-binary==2.9.2
+packaging==20.9
+pkce==1.0.3
+urllib3==1.25.7
+discord==1.7.3
