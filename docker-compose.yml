@@ -6,8 +6,20 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    depends_on:
-      - database
+      args:
+        SERV_URL: ${SERV_URL}
+        JWT_SECRET: ${JWT_SECRET}
+        JWT_VALIDITY_DELTA: ${JWT_VALIDITY_DELTA}
+        TWITTER_CLIENT_ID: ${TWITTER_CLIENT_ID}
+        TWITTER_CLIENT_SECRET: ${TWITTER_CLIENT_SECRET}
+        GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+        GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+        DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PORT: ${POSTGRES_PORT}
+        POSTGRES_HOST: ${POSTGRES_HOST}
+        POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
     ports:
       - 8080:5000
     image: server-image
@@ -44,6 +56,8 @@ services:
     ports:
       - 5432:5432
     image: postgres:11.8
+    extra_hosts:
+      - "localhost:host-gateway"
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
