@@ -5,33 +5,29 @@ import { common, register } from '../../styles/AuthStyles';
 import { signin } from '../../services/auth/GoogleSignin';
 import { registerUser } from '../../services/auth/Auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { navigateWithParameters } from '../../services/navigation';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            nameError: '',
             nameFocused: false,
             email: '',
-            emailError: '',
             emailFocused: false,
             password: '',
-            passwordError: '',
             passwordFocused: false,
-            signinGoogle: false
+            errorMessage: ''
         }
     }
 
     register = async () => {
         await registerUser(this.state.name, this.state.email, this.state.password)
-        .then(() => {})
+        .then((accesToken) => {navigateWithParameters(this.props.navigation, "Board", {accesToken: accesToken})})
         .catch((error) => {
-            switch (error) {
-                default:
-                    this.setState({nameError: 'An error occured'});
-            }
+            this.setState({errorMessage: "An errror occured. Please try again."});
         });
+        this.setState({name: '', email: '', password: ''});
     }
 
     render() {
@@ -80,6 +76,7 @@ export default class RegisterUser extends React.Component {
                     onFocus={()=>{this.setState({passwordFocused: true})}}
                     onBlur={()=>{this.setState({passwordFocused: false})}}
                 />
+                <Text style={common.error}>{this.state.errorMessage}</Text>
                 <View style={common.linkView}>
                     <Text style={common.coloredText}>Already got an account ? </Text>
                     <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Log in</Text>
@@ -87,7 +84,7 @@ export default class RegisterUser extends React.Component {
                 <Button
                     title='Register'
                     titleStyle={common.buttonText}
-                    onPress={()=>{registerUser()}}
+                    onPress={()=>{this.register()}}
                     disabled={this.state.signinGoogle}
                 />
                 <GoogleSigninButton

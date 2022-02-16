@@ -1,16 +1,25 @@
 import axios from 'axios';
 
 async function registerUser(name, email, password) {
-    console.log("Starting task");
+    var access_token;
+
     await axios.post(
-        'http://172.20.0.1:8080/auth/area/register', 
-        {user_name: name, user_email: email, user_password: password
-    }).then((result) => {console.log(result)})
-    .catch((error) => {console.log(error)})
-    .finally(()=>{console.log("Task successfully done.")});
+        'http://127.0.0.2:8080/auth/area/register', 
+        {user_name: name, user_email: email, user_password: password}
+    ).then((result) => {access_token = result.data.access_token})
+    .catch((error) => {throw "Error"});
+    return (access_token);
 }
 
 async function loginUser(email, password) {
+    var access_token;
+
+    await axios.post(
+        'http://127.0.0.2:8080/auth/area/login',
+        {user_email: email, user_password: password}
+    ).then((result) => {access_token = result.data.access_token})
+    .catch((error) => {throw "Error"});
+    return (access_token);
 }
 
 export {

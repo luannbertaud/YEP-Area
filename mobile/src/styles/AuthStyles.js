@@ -48,6 +48,12 @@ const common = StyleSheet.create({
         color: 'blue',
         fontFamily: 'Palanquin',
         fontWeight: 'normal'
+    },
+    error: {
+        fontWeight: 'normal',
+        fontFamily: 'Palanquin',
+        color: 'red',
+        alignSelf: 'center'
     }
 });
 
