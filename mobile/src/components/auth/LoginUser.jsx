@@ -25,6 +25,12 @@ export default class LoginUser extends React.Component {
         this.setState({email: '', password: ''})
     }
 
+    loginWithGoogle = async() => {
+        await signin()
+        .then((id) => {navigateWithParameters(this.props.navigation, "Board", {acces_token: id})})
+        .catch(()=>{});
+    }
+
     render() {
         return (
             <View style={login.view}>
@@ -68,6 +74,13 @@ export default class LoginUser extends React.Component {
                     title='Login'
                     titleStyle={common.buttonText}
                     onPress={()=>{this.props.changeFade()}}
+                />
+                <Button
+                    icon={common.googleIcon}
+                    buttonStyle={common.googleButton}
+                    titleStyle={common.googleText}
+                    title='Signin with Google'
+                    onPress={()=>this.loginWithGoogle()}
                 />
             </View>
         )

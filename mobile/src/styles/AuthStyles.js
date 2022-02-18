@@ -8,8 +8,8 @@ const common = StyleSheet.create({
         alignSelf: 'center',
     },
     buttonText: {
-        fontWeight: 'bold',
-        fontFamily: 'Palanquin-Light',
+        fontWeight: 'normal',
+        fontFamily: 'Palanquin-SemiBold',
         alignContent: 'center',
         alignSelf: 'center',
     },
@@ -54,6 +54,23 @@ const common = StyleSheet.create({
         fontFamily: 'Palanquin',
         color: 'red',
         alignSelf: 'center'
+    },
+    googleIcon: {
+        name: 'google',
+        type: 'font-awesome',
+        size: 15,
+        color: 'black',
+    },
+    googleButton: {
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'black',
+        marginTop: '2%'
+    },
+    googleText: {
+        color: 'black',
+        fontWeight: 'normal',
+        fontFamily: 'Palanquin-SemiBold'
     }
 });
 
@@ -82,7 +99,7 @@ const login = StyleSheet.create({
         width: '75%',
         padding: '5%',
         backgroundColor: 'white',
-        marginTop: '40%',
+        marginTop: '30%',
         borderRadius: 10,
         shadowColor: 'black',
         shadowOffset: {width: 10, height: 12},

@@ -4,7 +4,6 @@ import { View, Image, Text } from 'react-native';
 import { common, register } from '../../styles/AuthStyles';
 import { signin } from '../../services/auth/GoogleSignin';
 import { registerUser } from '../../services/auth/Auth';
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { navigateWithParameters } from '../../services/navigation';
 
 export default class RegisterUser extends React.Component {
@@ -28,6 +27,12 @@ export default class RegisterUser extends React.Component {
             this.setState({errorMessage: "An errror occured. Please try again."});
         });
         this.setState({name: '', email: '', password: ''});
+    }
+
+    registerWithGoogle = async() => {
+        await signin()
+        .then((id) => {navigateWithParameters(this.props.navigation, "Board", {id: id})})
+        .catch(()=>{});
     }
 
     render() {
@@ -87,8 +92,12 @@ export default class RegisterUser extends React.Component {
                     onPress={()=>{this.register()}}
                     disabled={this.state.signinGoogle}
                 />
-                <GoogleSigninButton
-                    onPress={()=>signin()}
+                <Button
+                    icon={common.googleIcon}
+                    buttonStyle={common.googleButton}
+                    titleStyle={common.googleText}
+                    title='Signin with Google'
+                    onPress={()=>this.registerWithGoogle()}
                 />
             </View>
         )
