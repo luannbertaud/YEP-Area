@@ -2,17 +2,15 @@ import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-si
 
 async function signin() {
     GoogleSignin.configure();
+
     try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
+        console.log(userInfo.user.id);
+        GoogleSignin.signOut();
     } catch (error) {
-        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-            return ("signin-cancelled");
-        } else if (error.code == statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-            return ("signin-impossible");
-        }
+        throw (error);
     }
-    //call api to signin
 }
 
 async function signout() {

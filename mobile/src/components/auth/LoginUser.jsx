@@ -3,18 +3,32 @@ import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
 import { login, common } from '../../styles/AuthStyles';
 import { signin } from '../../services/auth/GoogleSignin';
+import { loginUser } from '../../services/auth/Auth';
+import { navigateWithParameters } from '../../services/navigation';
 
 export default class LoginUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            emailError: '',
             emailFocused: false,
             password: '',
-            passwordError: '',
             passwordFocused: false,
+            errorMessage: '',
         }
+    }
+
+    login = async() => {
+        await loginUser(this.state.email, this.state.password)
+        .then((acces_token) => {navigateWithParameters(this.props.navigation, "Board", {acces_token: acces_token})})
+        .catch(()=>{this.setState("An error occured. Please try again")});
+        this.setState({email: '', password: ''})
+    }
+
+    loginWithGoogle = async() => {
+        await signin()
+        .then((id) => {navigateWithParameters(this.props.navigation, "Board", {acces_token: id})})
+        .catch(()=>{});
     }
 
     render() {
@@ -51,6 +65,7 @@ export default class LoginUser extends React.Component {
                     onFocus={()=>{this.setState({passwordFocused: true})}}
                     onBlur={()=>{this.setState({passwordFocused: false})}}
                 />
+                <Text style={common.error}></Text>
                 <View style={common.linkView}>
                     <Text style={common.coloredText}>New to ARea ? </Text>
                     <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Create an account</Text>
@@ -59,6 +74,13 @@ export default class LoginUser extends React.Component {
                     title='Login'
                     titleStyle={common.buttonText}
                     onPress={()=>{this.props.changeFade()}}
+                />
+                <Button
+                    icon={common.googleIcon}
+                    buttonStyle={common.googleButton}
+                    titleStyle={common.googleText}
+                    title='Signin with Google'
+                    onPress={()=>this.loginWithGoogle()}
                 />
             </View>
         )
