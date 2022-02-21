@@ -67,6 +67,8 @@ export default class Register extends React.Component {
     }
     
     render() {
+        if (this.state.redirectLogin)
+            this.verifyToken();
         return (
             <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">

@@ -1,0 +1,10 @@
+# Custom for personal scripts or files
+perso/
+data/postgres-container-data/
+.vscode/
+
+web/apk_vol/client.apk
+.gitignore
+.env
+
+node_modules
