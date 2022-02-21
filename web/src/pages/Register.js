@@ -1,9 +1,17 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import {withCookies} from 'react-cookie';
+import { Box, Container, Grid, Typography } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-class RegisterForm extends Component {
+const theme = createTheme();
+
+export default class Register extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -11,6 +19,7 @@ class RegisterForm extends Component {
             mail: undefined,
             password: undefined,
             redirectLogin: undefined,
+            token: undefined,
         }
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onMailChange = this.onMailChange.bind(this);
@@ -34,10 +43,12 @@ class RegisterForm extends Component {
     }
     onClickRegister() {
         axios.post('http://localhost:8080/auth/area/register', {
-            username: this.state.username,
-            mail: this.state.mail,
-            password: this.state.password
+            "user_name": this.state.username,
+            "user_email": this.state.mail,
+            "user_password": this.state.password
         }).then((response) => {
+            console.log(response.data)
+            this.state.token = response.data.access_token;
             if (response.status === 200)
                 this.setState({ redirectLogin: true });
         }).catch((err) => {
@@ -45,58 +56,83 @@ class RegisterForm extends Component {
         });
     }
 
+    verifyToken() {
+        axios.get('http://localhost:8080/auth/area/verify', {
+            headers: { Authorization: this.state.token }
+        }).then((response) => {
+            console.log(response.data)
+        }).catch((err) => {
+            console.log(err.response);
+        });
+    }
+    
     render() {
         return (
-            <div className="formCenter">
-                <form onSubmit={this.handleSubmit} className="formFields">
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            type="text"
+            <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+            <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Register
+                    </Typography>
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             id="name"
-                            className="formFieldInput"
-                            placeholder="Enter your name"
+                            label="Username"
                             name="name"
+                            autoComplete="name"
+                            autoFocus
                             onChange={this.onUsernameChange}
                         />
-                    </div>
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="email">
-                            E-Mail Address
-                        </label>
-                        <input
-                            type="email"
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             id="email"
-                            className="formFieldInput"
-                            placeholder="Enter your email"
+                            label="Email adress"
                             name="email"
+                            autoComplete="email"
+                            autoFocus
                             onChange={this.onMailChange}
                         />
-                    </div>
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="formFieldInput"
-                            placeholder="Enter your password"
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             name="password"
+                            label="Password"
+                            type="password"
                             onChange={this.onPasswordChange}
+                            id="password"
+                            autoComplete="current-password"
                         />
-                    </div>
-                    <div className="formField">
-                        <button className="formFieldButton" onClick={this.onClickRegister}>Sign Up</button>{" "}
-                        <Link to="/login" className="formFieldLink">
-                            I already have an account
-                        </Link>
-                    </div>
-                </form>
-            </div>
+                        <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={this.onClickRegister}>
+                            Sign Up
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link to={"/login"}>
+                                    {"You already have a account ? Sign in"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                {this.state.redirectLogin !== undefined ? <Navigate to="/login" /> : null}
+            </Container>
+            </ThemeProvider>
         );
     }
 }
-export default withCookies(RegisterForm);

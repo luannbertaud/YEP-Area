@@ -1,71 +1,18 @@
-import React, { Component } from "react";
-import { HashRouter as Router, Route, NavLink } from "react-router-dom";
-import LoginForm from "./pages/Login";
-import RegisterForm from "./pages/Register";
-import {withCookies} from 'react-cookie';
-import Homepage from "./pages/Homepage"
+import {Route, Routes} from "react-router-dom";
+import Homepage from './pages/Homepage'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
-import "./App.css";
-
-class App extends Component 
-{
-    constructor(props) {
-        super(props)
-        this.state = {
-            logged: false,
-        }
-    }
-
-    componentDidMount() {
-        const { cookies } = this.props;
-        const token = cookies.get('token');
-        if (token === undefined) {
-            //NOT LOGGED !
-        } else {
-            //CHECK THE TOKEN ...
-            this.setState({
-                logged: true
-            })
-        }
-    }
-
-    render() {
-        return (
-            <>
-                {this.state.logged === true ? <h1>Hello</h1> : <Router>
-                    <div className="App">
-                        <div className="appAside">
-                            <img src={require("./resources/logoArea.png")} class="logoFormat logoCenter"/>
-                        </div>
-                        <div className="appForm">
-                            <div className="pageSwitcher">
-                            </div>
-
-                            <div className="formTitle">
-                                <NavLink
-                                    to="/login"
-                                    activeClassName="formTitleLink-active"
-                                    className="formTitleLink"
-                                >
-                                    Sign In
-                                </NavLink>
-                                <NavLink
-                                    exact
-                                    to="/register"
-                                    activeClassName="formTitleLink-active"
-                                    className="formTitleLink"
-                                >
-                                    Sign Up
-                                </NavLink>
-                            </div>
-                            <Route path="/register" component={RegisterForm}/>
-                            <Route path="/login" component={LoginForm}/>
-                        </div>
-                    </div>
-                </Router>}
-            </>
-        );
-    }
+function App() {
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Homepage/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+      </Routes>
+    </div>
+  );
 }
 
-export default withCookies(App);
+export default App;

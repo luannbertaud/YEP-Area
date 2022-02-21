@@ -1,14 +1,19 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import GoogleLogin from 'react-google-login';
-import axios from 'axios';
-import {withCookies} from 'react-cookie';
-import Google from '../resources/google.png'
-import Github from '../resources/github.png'
+import React from 'react'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import axios from "axios";
+import {withCookies} from "react-cookie";
+import {Link, Navigate} from "react-router-dom";
+import {Box, Container, Grid, Typography} from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-import '../App.css'
+const theme = createTheme();
 
-class LoginForm extends Component {
+class Login extends React.Component {
+
     constructor(props) {
         super(props)
         this.state = {
@@ -34,17 +39,17 @@ class LoginForm extends Component {
     onClickLogin() {
         const { cookies } = this.props;
         axios.post('http://localhost:8080/auth/area/login', {
-            username: this.state.username,
-            password: this.state.password
+            "user_name": this.state.username,
+            "user_password": this.state.password
         }).then((response) => {
-            cookies.set('auth', response.data.auth, {path: '/'});
+            cookies.set('auth', response.data.auth, { path: '/' });
             this.setState({
                 redirect: true,
-                redirectUrl: "/register",
+                redirectUrl: "/",
             })
         }).catch((err) => {
             console.log(err);
-            cookies.set('token', {path: '/'});
+            cookies.set('token', { path: '/' });
             this.setState({
                 redirect: true,
                 redirectUrl: '/',
@@ -55,55 +60,64 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="formCenter">
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            className="formFieldInput"
-                            placeholder="Enter your name"
-                            name="name"
+            <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div class="modal-content rounded-5 shadow" >
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Username"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
                             onChange={this.onUsernameChange}
                         />
-                    </div>
-
-                    <div className="formField">
-                        <label className="formFieldLabel" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="formFieldInput"
-                            placeholder="Enter your password"
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             name="password"
+                            label="Password"
+                            type="password"
                             onChange={this.onPasswordChange}
+                            id="password"
+                            autoComplete="current-password"
                         />
-                    </div>
-
-                    <div className="formField">
-                        <button className="formFieldButton" onClick={this.onClickLogin}>Sign In</button>{" "}
-                        <Link to="/register" className="formFieldLink">
-                            I don't have an account
-                        </Link>
-                    </div>
-
-                    <div className="buttonAuth">
-                        <div className="loginButton google" onClick={() => alert("LoginButton")}>
-                            <img src={Google} alt="" className="icon" />
-                            Google
-                         </div>
-                         <div className="loginButton github" onClick={() => alert("LoginButton")}>
-                            <img src={Github} alt="" className="icon" />
-                            Github
-                         </div>
-                    </div>
-            </div>
+                        <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={this.onClickLogin}>
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link to={"/register"}>
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                {this.state.redirect !== undefined ? <Navigate to={this.state.redirectUrl}/> : null}
+                </div>
+            </Container>
+            </ThemeProvider>
         );
     }
 }
 
-export default withCookies(LoginForm);
+export default withCookies(Login);
