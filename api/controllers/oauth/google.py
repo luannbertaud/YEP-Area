@@ -28,11 +28,11 @@ def google_authorize():
     }
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
         config,
-        scopes=['https://www.googleapis.com/auth/gmail.metadata'])
+        scopes=['https://www.googleapis.com/auth/gmail.compose'])
 
     flow.redirect_uri = SERV_URL + "auth/google"
     flow.redirect_uri = SERV_URL + "auth/google"
-    authorization_url, _ = flow.authorization_url(access_type='offline', prompt='consent', include_granted_scopes='true')
+    authorization_url, _ = flow.authorization_url(access_type='offline', prompt='consent')
     current_requests.append({"user":user})
     return redirect(authorization_url, code=302)
 
@@ -52,7 +52,7 @@ def google_callback():
     }
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
         config,
-        scopes=['https://www.googleapis.com/auth/gmail.metadata'])
+        scopes=['https://www.googleapis.com/auth/gmail.compose'])
     flow.redirect_uri = SERV_URL + "auth/google"
 
     authorization_response = request.url
@@ -61,9 +61,15 @@ def google_callback():
     except Exception as e:
         return {"code": 401, "message": f"Error fetching access_token: {e}"}, 401
     # TODO get username from endpoint
+
     tokens = {
-        "access_token": flow.credentials.token,
-        "refresh_token": flow.credentials.refresh_token
+        'token': flow.credentials.token,
+        'access_token': flow.credentials.token,
+        'refresh_token': flow.credentials.refresh_token,
+        'token_uri': flow.credentials.token_uri,
+        'client_id': flow.credentials.client_id,
+        'client_secret': flow.credentials.client_secret,
+        'scopes': flow.credentials.scopes
     }
     try:
         dbUser = Users.get(Users.name == rqUser)
