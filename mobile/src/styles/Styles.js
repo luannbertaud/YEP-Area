@@ -157,13 +157,7 @@ const homepage = StyleSheet.create({
     footerCard: {
         flex: 2,
         flexDirection: "row",
-        alignItems: 'center',
         marginBottom: -20,
-        backgroundColor: '',
-    },
-    slider: {
-        //marginBottom: -20,
-        
     },
 });
 
