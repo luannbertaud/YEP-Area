@@ -18,8 +18,7 @@ class Users(__BaseModel):
     password = TextField(null=True)
     email = TextField(null=True)
     googleToken = TextField(null=True)
-    twitter = JSONField(null=True)
-    github = JSONField(null=True)
+    oauth = JSONField(null=True)
 
 class Reactions(__BaseModel):
     uuid = TextField(primary_key=True)

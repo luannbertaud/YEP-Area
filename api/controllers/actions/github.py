@@ -75,14 +75,14 @@ def githubHook():
         return {"code": 200, "message": "OK pong"}
 
     try:
-        query = Users.select().where(Users.github.is_null(False))
+        query = Users.select().where(Users.oauth.is_null(False))
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:
         return {"code": 200, "message": "ERROR no users connected to github"}
     
     for u in query:
-        if ("login" in list(u.github.keys())) and u.github["login"] == repo_owner:
+        if ("github" in list(u.oauth.keys())) and ("login" in list(u.oauth["github"].keys())) and (u.oauth["github"]["login"] == repo_owner):
             area_user = u.uuid
     if area_user == None:
         return {"code": 200, "message": "ERROR could not find corresponding area user"}

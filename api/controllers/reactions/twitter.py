@@ -47,7 +47,7 @@ class TwitterAPIWrapper():
             dbUser = Users.get(Users.uuid == self.rqUser)
         except DoesNotExist as e:
             return {"NOJSON": 400, "message": "No corresponding area user."}
-        dbUser.twitter = tokens
+        dbUser.oauth["twitter"] = tokens
         dbUser.save()
         self.load_tokens()
         return r

@@ -60,6 +60,8 @@ def github_callback():
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
         return {"code": 401, "message": "Unknown Area user"}, 401
-    dbUser.github = tokens
+    if not dbUser.oauth:
+        dbUser.oauth = {}
+    dbUser.oauth["github"] = tokens
     dbUser.save()
     return {"code": rq.status_code, "message": r}
