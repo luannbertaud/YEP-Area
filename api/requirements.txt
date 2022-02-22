@@ -11,3 +11,7 @@ pkce==1.0.3
 urllib3==1.25.7
 discord==1.7.3
 google-api-python-client==2.37.0
+google-auth-oauthlib==0.4.4
+google-auth-httplib2==0.1.0
+google-auth==1.29.0
+itsdangerous==1.1.0

@@ -7,4 +7,4 @@ ENV PYTHONUNBUFFERED=1
 ENV FLASK_APP="/app/app:app"
 EXPOSE 5000
 
-CMD ["python3", "-m", "flask", "run", "--host", "0.0.0.0"]
+CMD ["python3", "-m", "flask", "run", "--host", "0.0.0.0", "--cert=/app/certificates/fullchain.pem", "--key=/app/certificates/privkey.pem"]
