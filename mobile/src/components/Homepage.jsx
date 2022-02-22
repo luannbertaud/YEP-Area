@@ -13,8 +13,11 @@ export default class Homepage extends React.Component {
             hasApplet: true,
             card: [
                 { name: 'Vendredi tout est permis avec Arthur', color: '#6AB4D9', active: true, A: 'twitch', REA: ['discord'] },
-                { name: 'AREA applet name 2', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord'] },
-                { name: 'AREA applet name 3', color: '#1354A4', active: true, A: 'github', REA: ['google'] },
+                { name: 'AREA applet name Marc', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord',] },
+                { name: 'AREA applet name Franck', color: '#1354A4', active: false, A: 'github', REA: ['google', 'twitter'] },
+                { name: 'AREA applet name Guillaume', color: '#6AB4D9', active: false, A: 'twitter', REA: ['twitch'] },
+                { name: 'AREA applet name David', color: '#279BD6', active: true, A: 'discord', REA: ['github'] },
+                { name: 'AREA applet name Luc', color: '#1354A4', active: false, A: 'github', REA: ['twitter'] },
             ],
         }
     }
@@ -24,7 +27,9 @@ export default class Homepage extends React.Component {
             <View style={[homepage.container, { padding: 30 }]}>
                 {this.state.card.map((cards, key) => {
                     return (
-                        <Card key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
+
+                        <Card onpress={() => alert("Card Detail")} key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
+
                     )
                 })}
             </View>
@@ -60,7 +65,7 @@ export default class Homepage extends React.Component {
                         </View>
                     </View>
                     <View style={homepage.container}>
-                        <TouchableOpacity onPress={() => alert("Create a new applet !")} style={homepage.button}>
+                        <TouchableOpacity onPress={() => this.setState({ hasApplet: !this.state.hasApplet })} style={homepage.button}>
                             <Text style={homepage.buttonText}>Create an AREA</Text>
                         </TouchableOpacity>
                     </View>
