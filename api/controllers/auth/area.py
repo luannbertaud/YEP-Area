@@ -134,12 +134,12 @@ def user_login_google():
     if not u:
         u = Users.create(
             name=user['given_name'],
-            googleToken=user["sub"],
+            googleToken=data['idToken'],
             email=user['email']
         )
     else:
-        if u.googleToken != user["sub"]:
-            return {"code": 400, "message": "Area user and password mismatch."}, 400
+        u.googleToken = data['idToken']
+        u.save()
 
     payload = {
         'user_uuid': u.uuid,
