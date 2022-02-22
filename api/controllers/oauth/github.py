@@ -49,7 +49,7 @@ def github_callback():
     ru = ensure_json(rqu)
     r['data']['login'] = ru['data']["login"]
     if rqu.status_code != 200:
-        return {"code": rqu.status_code, "message": ru}
+        return {"code": rqu.status_code, "message": ru}, rqu.status_code
 
     tokens = {
         "access_token": r['data']['access_token'],
