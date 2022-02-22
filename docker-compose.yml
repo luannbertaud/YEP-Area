@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         SERV_URL: ${SERV_URL}
+        SERV_ENABLE_SSL: ${SERV_ENABLE_SSL}
         JWT_SECRET: ${JWT_SECRET}
         JWT_VALIDITY_DELTA: ${JWT_VALIDITY_DELTA}
         TWITTER_CLIENT_ID: ${TWITTER_CLIENT_ID}
