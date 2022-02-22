@@ -1,46 +1,31 @@
-import React from 'react';
-import {withCookies} from "react-cookie";
-import {Navigate} from "react-router-dom";
-import {Box, Typography} from "@mui/material";
+import React, {useState} from "react";
+import './Homepage.css';
+import background from './assets/back.png';
+import off from './assets/off.png';
+import app1 from './assets/applet1.png';
+import app2 from './assets/applet2.png';
+import {Switch} from "antd";
 
-class Homepage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      redirect: undefined,
-      redirectUrl: undefined,
-    }
-    const { cookies } = this.props;
-    this.cookies = cookies;
+
+function Homepage()
+{
+  const [toggle, setToggle] = useState(false);
+
+  const toggler = () => {
+    toggle ? setToggle(false): setToggle(true);
   }
 
-  componentDidMount() {
-    let auth = this.cookies.get('auth');
-    if (auth === undefined || auth === null || auth === 'null' || auth.length === 0)
-        this.setState({
-            redirect: true,
-            redirectUrl: "/login"
-        });
-    this.auth = auth;
-  }
-
-  showApp() {
-    <div>
-      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Typography variant={"h2"}>
-            Home
-        </Typography>
-      </Box>
+  return (
+    <div style={{height:'100vh', width:'100vw', overflow:'hidden', backgroundImage:`url(${background})`, backgroundSize:'cover'}}>
+      <img src={app1} alt="" className="appGithub" />
+      <img src={app2} alt="" className="appTwitch" />
+      <div>
+        <Switch  onClick={toggler} className="Toggle1"/>
+        <Switch  onClick={toggler} className="Toggle2"/>
+      </div>
+      <img src={off} alt="" className="OFF" />
     </div>
-  }
-
-  render() {
-    return (
-        <div>
-            {this.state.redirect !== undefined ? <Navigate to={this.state.redirectUrl}/> : this.showApp()}
-        </div>
-    );
-  }
+  );
 }
 
-export default withCookies(Homepage);
+export default Homepage;

@@ -1,0 +1,40 @@
+.appGithub
+{
+    position: absolute;
+    width: 257px;
+    height: 250px;
+    left: 258px;
+    top: 409px;
+}
+
+.appTwitch
+{
+    position: relative;
+    width: 257px;
+    height: 250px;
+    left: 736px;
+    top: 409px;
+}
+
+.Toggle1
+{
+    position: relative;
+    left: 275px;
+    top: 360px;
+}
+
+.Toggle2
+{
+    position: relative;
+    left: 710px;
+    top: 360px;
+}
+
+.OFF
+{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    left: 1750px;
+    top: 82px;
+}
