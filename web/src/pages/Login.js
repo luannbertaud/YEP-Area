@@ -5,12 +5,16 @@ import axios from "axios";
 import {withCookies} from "react-cookie";
 import {Link, Navigate} from "react-router-dom";
 import {Box, Container, Grid, Typography} from "@mui/material";
-import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Google from "../resources/google.png"
+import Area from "../resources/logoArea.png"
+import {GoogleLogin} from 'react-google-login';
+
+import "./style.css"
 
 const theme = createTheme();
+const GOOGLE_CLIENT_ID = "32273301299-mu3b4fgikth03ooaj9nfuj55r71e8pdu.apps.googleusercontent.com";
 
 class Login extends React.Component {
 
@@ -57,13 +61,16 @@ class Login extends React.Component {
         });
 
     }
+    responseGoogle = (response) => {
+        console.log(response);
+      }
 
     render() {
         return (
             <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <div class="modal-content rounded-5 shadow" >
+            <div class="modal-content rounded-5 shadow">
                 <Box
                     sx={{
                         marginTop: 8,
@@ -71,9 +78,7 @@ class Login extends React.Component {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
-                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <img src={Area}/>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
@@ -110,6 +115,23 @@ class Login extends React.Component {
                                 </Link>
                             </Grid>
                         </Grid>
+                        <GoogleLogin
+                            clientId={GOOGLE_CLIENT_ID}
+                            render={renderProps => (
+                                <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                    <div className="loginButton google">
+                                        <img src={Google} alt="" className="icon"/>
+                                            Login with Google
+                                    </div>
+                                </button>
+                              )}
+                            buttonText="Login"
+                            onSuccess={(res) => {console.log(res)}}
+                            onFailure={(res) => {console.log(res)}}
+                            cookiePolicy={'single_host_origin'}
+                            // prompt='consent'
+                            // responseType='token'
+                        />
                     </Box>
                 </Box>
                 {this.state.redirect !== undefined ? <Navigate to={this.state.redirectUrl}/> : null}

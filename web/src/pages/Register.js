@@ -4,10 +4,12 @@ import Button from '@mui/material/Button';
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Google from "../resources/google.png"
+import Area from "../resources/logoArea.png"
+
+import "./style.css"
 
 const theme = createTheme();
 
@@ -80,11 +82,9 @@ export default class Register extends React.Component {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
-                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <img src={Area}/>
                     <Typography component="h1" variant="h5">
-                        Register
+                        Sign up
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -126,10 +126,14 @@ export default class Register extends React.Component {
                         <Grid container>
                             <Grid item>
                                 <Link to={"/login"}>
-                                    {"You already have a account ? Sign in"}
+                                    {"You already have a account? Sign in"}
                                 </Link>
                             </Grid>
                         </Grid>
+                        <div className="loginButton google">
+                            <img src={Google} alt="" className="icon"/>
+                            Login with Google
+                        </div>
                     </Box>
                 </Box>
                 {this.state.redirectLogin !== undefined ? <Navigate to="/login" /> : null}
