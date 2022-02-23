@@ -2,18 +2,31 @@ import React from 'react';
 import { Text, View, Switch, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { homepage } from '../styles/Styles.js';
+import { useNavigation } from '@react-navigation/native';
 
 export default class Card extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
             isEnabled: this.props.active,
         }
+        this.onPressDetails = this.onPressDetails.bind(this)
+    }
+
+    onPressDetails() {
+        this.props.navigation.navigate('Applet', {
+            name: this.props.name,
+            color: this.props.color,
+            active: this.props.active,
+            A: this.props.A,
+            REA: this.props.REA,
+        });
     }
 
     render() {
         return (
-            <TouchableOpacity style={{ width: '100%' }}>
+            <TouchableOpacity style={{ width: '100%' }} onPress={() => this.onPressDetails()}>
                 <View style={[homepage.card, { backgroundColor: this.props.color }, homepage.shadowProp]}>
                     <View style={{ marginTop: -30 }}>
                         <Text style={homepage.cardHeading}>

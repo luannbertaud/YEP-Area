@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, Switch, TouchableOpacity } from 'react-native';
-import { Icon, ThemeConsumer } from 'react-native-elements';
+import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { homepage } from '../styles/Styles.js';
 import Card from './Card.jsx';
 
@@ -27,9 +27,7 @@ export default class Homepage extends React.Component {
             <View style={[homepage.container, { padding: 30 }]}>
                 {this.state.card.map((cards, key) => {
                     return (
-
                         <Card onpress={() => alert("Card Detail")} key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
-
                     )
                 })}
             </View>
