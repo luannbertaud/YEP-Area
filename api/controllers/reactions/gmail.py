@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 
-import requests
+import json
 import base64
 from peewee import DoesNotExist
-from tools.fomarting import ensure_json
-from tools.tokens import get_tokens, tokens_reload
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from email.mime.text import MIMEText
+from tools.tokens import get_tokens
 from tools.env import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from models.area import Reaction
 from models.db import Users
 from tools.db import needs_db
 
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
-import json
-from email.mime.text import MIMEText
 
 
 class GmailAPIWrapper():
@@ -23,6 +21,7 @@ class GmailAPIWrapper():
         self.load_tokens()
         self.client = {"id": GOOGLE_CLIENT_ID, "secret": GOOGLE_CLIENT_SECRET}
 
+    @needs_db
     def load_tokens(self):
         tokens = get_tokens(self.rqUser, "google")
         if "NOJSON" in list(tokens.keys()):
@@ -33,7 +32,6 @@ class GmailAPIWrapper():
         self.credentials = Credentials(**tokens)
         self.service = build('gmail', 'v1', credentials=self.credentials)
         updated = json.loads(self.credentials.to_json())
-        print(updated)
         if (updated == tokens):
             return
         updated["access_token"] = updated["token"]
@@ -71,14 +69,16 @@ class GmailAPIWrapper():
         return labels
 
 
-# class TwitterTweetReaction(Reaction):
+class GmailSendEmailReaction(Reaction):
 
-#     def __init__(self, rqUser, uuid=None) -> None:
-#         self.rqUser = rqUser
-#         self.api =  TwitterAPIWrapper(rqUser)
-#         super().__init__("twitter", rqUser, uuid=uuid)
+    def __init__(self, rqUser, receiver, subject, uuid=None) -> None:
+        self.rqUser = rqUser
+        self.receiver = receiver
+        self.subject = subject
+        self.api =  GmailAPIWrapper(rqUser)
+        super().__init__("google", rqUser, uuid=uuid)
 
-#     def do(self, params):
-#         if len(params) < 1:
-#             return self.api.post_tweet("Default content")
-#         return self.api.post_tweet(params[0])
+    def do(self, params):
+        if len(params) < 1:
+            return self.api.send_email(self.receiver, self.subject, "Default content")
+        return self.api.send_email(self.receiver, self.subject, params[0])
