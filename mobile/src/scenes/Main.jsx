@@ -38,12 +38,14 @@ export default class Main extends React.Component {
             /* <View style={{backgroundColor: '#1454A4', height: '100%'}}>
                 <Animated.View style={{transform: [{translateX: this.state.loginPos}], flexDirection: 'row'}}>
                     <View style={{width: '100%'}}>
-                        <LoginUser 
+                        <LoginUser
+                            navigation={this.props.navigation}
                             changeFade={()=>{this.moveLeft(this.state.loginPos)}}
                         />
                     </View>
                     <View style={{width: '100%', marginLeft: '4%'}}>
                         <RegisterUser
+                            navigation={this.props.navigation}
                             changeFade={()=> {this.resetMove(this.state.loginPos)}}
                         />
                     </View>

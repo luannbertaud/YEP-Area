@@ -1,22 +1,38 @@
 import React from 'react';
 import { Input, Button, Icon } from 'react-native-elements';
 import { View, Image, Text } from 'react-native';
-import { common, register } from '../../styles/Styles';
+import { common, register } from '../../styles/AuthStyles';
+import { signin } from '../../services/auth/GoogleSignin';
+import { registerUser } from '../../services/auth/Auth';
+import { navigateWithParameters } from '../../services/navigation';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            nameError: '',
             nameFocused: false,
             email: '',
-            emailError: '',
             emailFocused: false,
             password: '',
-            passwordError: '',
             passwordFocused: false,
+            errorMessage: ''
         }
+    }
+
+    register = async () => {
+        await registerUser(this.state.name, this.state.email, this.state.password)
+        .then((accesToken) => {navigateWithParameters(this.props.navigation, "Board", {accesToken: accesToken})})
+        .catch((error) => {
+            this.setState({errorMessage: "An errror occured. Please try again."});
+        });
+        this.setState({name: '', email: '', password: ''});
+    }
+
+    registerWithGoogle = async() => {
+        await signin()
+        .then((id) => {navigateWithParameters(this.props.navigation, "Board", {id: id})})
+        .catch(()=>{});
     }
 
     render() {
@@ -65,6 +81,7 @@ export default class RegisterUser extends React.Component {
                     onFocus={()=>{this.setState({passwordFocused: true})}}
                     onBlur={()=>{this.setState({passwordFocused: false})}}
                 />
+                <Text style={common.error}>{this.state.errorMessage}</Text>
                 <View style={common.linkView}>
                     <Text style={common.coloredText}>Already got an account ? </Text>
                     <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Log in</Text>
@@ -72,7 +89,15 @@ export default class RegisterUser extends React.Component {
                 <Button
                     title='Register'
                     titleStyle={common.buttonText}
-                    onPress={()=>{this.props.changeFade()}}
+                    onPress={()=>{this.register()}}
+                    disabled={this.state.signinGoogle}
+                />
+                <Button
+                    icon={common.googleIcon}
+                    buttonStyle={common.googleButton}
+                    titleStyle={common.googleText}
+                    title='Signin with Google'
+                    onPress={()=>this.registerWithGoogle()}
                 />
             </View>
         )

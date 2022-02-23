@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">mobile</string>
+    <string name="app_name">ARea</string>
+    <string name="server_client_id">839251961355-hrqb57djmjjo34gt0ig7q9ofk15v51dm.apps.googleusercontent.com</string>
 </resources>
