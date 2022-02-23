@@ -28,7 +28,7 @@ def google_authorize():
     }
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
         config,
-        scopes=['https://www.googleapis.com/auth/gmail.compose'])
+        scopes=['https://mail.google.com/'])
 
     flow.redirect_uri = SERV_URL + "auth/google"
     flow.redirect_uri = SERV_URL + "auth/google"
@@ -52,7 +52,7 @@ def google_callback():
     }
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
         config,
-        scopes=['https://www.googleapis.com/auth/gmail.compose'])
+        scopes=['https://mail.google.com/'])
     flow.redirect_uri = SERV_URL + "auth/google"
 
     authorization_response = request.url

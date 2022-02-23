@@ -18,6 +18,7 @@ class GmailAPIWrapper():
 
     def __init__(self, rqUser) -> None:
         self.rqUser = rqUser
+        self.lastHistoryId = None
         self.load_tokens()
         self.client = {"id": GOOGLE_CLIENT_ID, "secret": GOOGLE_CLIENT_SECRET}
 
@@ -67,6 +68,32 @@ class GmailAPIWrapper():
         except Exception as error:
             print(f'An error occurred: {error}')
         return labels
+
+    def register_watcher(self):
+        request = {
+            'labelIds': ['INBOX'],
+            'topicName': 'projects/mapvoyage/topics/area'
+        }
+        res = self.service.users().watch(userId='me', body=request).execute()
+        return res
+
+    def get_last_email_content(self, historyId):
+        if (not self.lastHistoryId):
+            self.lastHistoryId = int(historyId) - 500
+        history = self.service.users().history().list(userId="me", labelId="INBOX", startHistoryId=self.lastHistoryId).execute()
+        if ("history" not in history.keys()):
+            return {"NOJSON": 400, "message": f"No new email found since this history id. {history}"}
+        message_id = None
+        for h in history["history"][::-1]:
+            if ("messagesAdded" in h):
+                message_id = h["messagesAdded"][0]["message"]["id"]
+                break
+        if (not message_id):
+            return {"NOJSON": 400, "message": f"No new email found since this history id. {history}"}
+        message = self.service.users().messages().get(userId="me", id=str(message_id)).execute()
+        res = base64.urlsafe_b64decode(message["payload"]["parts"][0]["body"]["data"])
+        self.lastHistoryId = historyId
+        return res.decode("utf-8") 
 
 
 class GmailSendEmailReaction(Reaction):
