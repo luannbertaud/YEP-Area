@@ -15,16 +15,6 @@ from googleapiclient.discovery import build
 import json
 from email.mime.text import MIMEText
 
-def __credentials_to_dict(credentials):
-  return {
-    'token': credentials.token,
-    'access_token': credentials.token,
-    'refresh_token': credentials.refresh_token,
-    'token_uri': credentials.token_uri,
-    'client_id': credentials.client_id,
-    'client_secret': credentials.client_secret,
-    'scopes': credentials.scopes
-}
 
 class GmailAPIWrapper():
 
@@ -55,51 +45,28 @@ class GmailAPIWrapper():
         dbUser.save()
         self.load_tokens()
 
-    def create_message(self, sender, to, subject, message_text):
-        """Cr   eate a message for an email.
-
-        Args:
-            sender: Email address of the sender.
-            to: Email address of the receiver.
-            subject: The subject of the email message.
-            message_text: The text of the email message.
-
-        Returns:
-            An object containing a base64url encoded email object.
-        """
+    def send_email(self, to, subject, message_text):
         message = MIMEText(message_text)
         message['to'] = to
-        message['from'] = sender
         message['subject'] = subject
-        return {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
-
-
-    def send_email(self, sender, to, subject, message_text):
-        message = self.create_message(sender, to, subject, message_text)
-        print(message)
+        rmessage = {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
         try:
-            message = (self.service.users().messages().send(userId="me", body=message).execute())
-            print('Message Id: %s' % message['id'])
-            return message
-        except Exception as error:
-            print('An error occurred: %s' % error)
+            message = (self.service.users().messages().send(userId="me", body=rmessage).execute())
+            return {'data': message, 'code': 200}
+        except Exception as e:
+            return {"NOJSON": 400, "message": f"Can't send email: {e}"}
 
     def get_labels(self):
         try:
-            # Call the Gmail API
-            
             results = self.service.users().labels().list(userId='me').execute()
             labels = results.get('labels', [])
-
             if not labels:
                 print('No labels found.')
                 return
             print('Labels:')
             for label in labels:
                 print(label['name'])
-
         except Exception as error:
-            # TODO(developer) - Handle errors from gmail API.
             print(f'An error occurred: {error}')
         return labels
 
