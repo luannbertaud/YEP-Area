@@ -17,3 +17,4 @@ google-auth==1.29.0
 googleapis-common-protos==1.54
 google-pasta==0.2.0
 itsdangerous==1.1.0
+spotify==2.19.0

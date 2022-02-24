@@ -13,3 +13,4 @@ web/apk_vol/client.apk
 *.key
 *.key.org
 *.sh
+.cache

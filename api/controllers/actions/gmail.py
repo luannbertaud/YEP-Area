@@ -53,11 +53,11 @@ def gmailHook():
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:
-        return {"code": 400, "message": "ERROR this user does not have any gmail action"}, 402
+        return {"code": 400, "message": "ERROR this user does not have any gmail action"}, 400
 
     area_email = query[0] #TODO Maybe registering multiple email addresses
     if not area_email:
-        return {"code": 400, "message": "ERROR could not find corresponding area action"}, 403
+        return {"code": 400, "message": "ERROR could not find corresponding area action"}, 400
 
     api = GmailAPIWrapper(area_user)
     email_content = api.get_last_email_content(str(gmail_historyId))
