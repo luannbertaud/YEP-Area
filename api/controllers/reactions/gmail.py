@@ -6,6 +6,7 @@ from peewee import DoesNotExist
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
+from copy import deepcopy
 from tools.tokens import get_tokens
 from tools.env import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from models.area import Reaction
@@ -29,13 +30,18 @@ class GmailAPIWrapper():
             raise Exception(f"Can't retrieve tokens for [{self.rqUser}] Area user, failed to init GmailAPI wrapper.")
         self.access_token = tokens["access_token"]
         self.refresh_token = tokens["refresh_token"]
-        del tokens["access_token"]
-        self.credentials = Credentials(**tokens)
+
+        tcreds = deepcopy(tokens)
+        del tcreds["access_token"]
+        del tcreds["login"]
+        self.credentials = Credentials(**tcreds)
         self.service = build('gmail', 'v1', credentials=self.credentials)
         updated = json.loads(self.credentials.to_json())
-        if (updated == tokens):
+        if (updated == tcreds):
             return
         updated["access_token"] = updated["token"]
+        updated["login"] = tokens["login"]
+
         try:
             dbUser = Users.get(Users.uuid == self.rqUser)
         except DoesNotExist as e:
@@ -76,6 +82,10 @@ class GmailAPIWrapper():
         }
         res = self.service.users().watch(userId='me', body=request).execute()
         return res
+    
+    def get_userinfo(self):
+        user_info = self.service.users().getProfile(userId='me').execute()
+        return user_info
 
     def get_last_email_content(self, historyId):
         if (not self.lastHistoryId):
@@ -103,7 +113,7 @@ class GmailSendEmailReaction(Reaction):
         self.receiver = receiver
         self.subject = subject
         self.api =  GmailAPIWrapper(rqUser)
-        super().__init__("google", rqUser, uuid=uuid)
+        super().__init__("gmail", rqUser, uuid=uuid)
 
     def do(self, params):
         if len(params) < 1:

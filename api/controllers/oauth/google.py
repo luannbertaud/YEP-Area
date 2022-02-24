@@ -3,6 +3,8 @@
 from flask import Blueprint, request, redirect
 from peewee import DoesNotExist
 import google_auth_oauthlib.flow
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
 from tools.db import needs_db
 from tools.env import SERV_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from models.db import Users
@@ -28,7 +30,7 @@ def google_authorize():
     }
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
         config,
-        scopes=['https://mail.google.com/'])
+        scopes=['https://mail.google.com/', 'https://www.googleapis.com/auth/userinfo.profile'])
 
     flow.redirect_uri = SERV_URL + "auth/google"
     flow.redirect_uri = SERV_URL + "auth/google"
@@ -52,7 +54,7 @@ def google_callback():
     }
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
         config,
-        scopes=['https://mail.google.com/'])
+        scopes=['https://mail.google.com/', 'https://www.googleapis.com/auth/userinfo.profile'])
     flow.redirect_uri = SERV_URL + "auth/google"
 
     authorization_response = request.url
@@ -64,13 +66,16 @@ def google_callback():
 
     tokens = {
         'token': flow.credentials.token,
-        'access_token': flow.credentials.token,
         'refresh_token': flow.credentials.refresh_token,
         'token_uri': flow.credentials.token_uri,
         'client_id': flow.credentials.client_id,
         'client_secret': flow.credentials.client_secret,
         'scopes': flow.credentials.scopes
     }
+    gservice = build('gmail', 'v1', credentials=Credentials(**tokens))
+    user_infos = gservice.users().getProfile(userId='me').execute()
+    tokens["login"] = user_infos["emailAddress"]
+    tokens["access_token"] = tokens["token"]
     try:
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
