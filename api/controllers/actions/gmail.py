@@ -17,7 +17,7 @@ from controllers.reactions.gmail import GmailAPIWrapper
 # from tools.env import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SERV_URL
 from models.area import Action
 
-class GithubWebhookAction(Action):
+class GmailWebhookAction(Action):
 
     def __init__(self, rqUser, uuid=None) -> None:
         self.rqUser = rqUser
@@ -29,43 +29,37 @@ class GithubWebhookAction(Action):
 
 def gmailHook():
     data = request.json
-    # pprint(data)
-    # api = GmailAPIWrapper("0")
-    # historyId = json.loads(base64.urlsafe_b64decode(data["message"]["data"]))["historyId"]
-    # print(historyId)
-    # executeReaction("1111", [api.get_last_email_content(str(historyId))])
-    return {"code": 200, "message": "ok"}
-    headers = request.headers
-    historyId = json.loads(base64.urlsafe_b64decode(data["message"]["data"]))["historyId"]
+    payload = json.loads(base64.urlsafe_b64decode(data["message"]["data"]))
+    gmail_login = payload["emailAddress"]
+    gmail_historyId = payload["historyId"]
     area_user = None
-    area_repo = None
+    area_email = None
 
     try:
         query = Users.select().where(Users.oauth.is_null(False))
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:
-        return {"code": 200, "message": "ERROR no users connected to github"}
+        return {"code": 401, "message": "ERROR no users connected to gmail"}, 401
     
     for u in query:
-        if ("google" in list(u.oauth.keys())) and ("login" in list(u.oauth["github"].keys())) and (u.oauth["github"]["login"] == repo_owner):
+        if ("google" in list(u.oauth.keys())) and ("login" in list(u.oauth["google"].keys())) and (u.oauth["google"]["login"] == gmail_login):
             area_user = u.uuid
     if area_user == None:
-        return {"code": 200, "message": "ERROR could not find corresponding area user"}
+        return {"code": 400, "message": "ERROR could not find corresponding area user"}, 400
 
     try:
-        query = Actions.select().where(Actions.type == "GithubWebhook", Actions.user_uuid == area_user)
+        query = Actions.select().where(Actions.type == "GmailWebhook", Actions.user_uuid == area_user)
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:
-        return {"code": 200, "message": "ERROR this user does not have any github action"}
+        return {"code": 400, "message": "ERROR this user does not have any gmail action"}, 402
 
-    for a in query:
-        if ("repository" in list(a.content.keys())) and a.content["repository"] == repo_name:
-            if ("owner" in list(a.content.keys())) and a.content["owner"] == repo_owner:
-                area_repo = a.uuid
-    if not area_repo:
-        return {"code": 200, "message": "ERROR could not find corresponding area action"}
+    area_email = query[0] #TODO Maybe registering multiple email addresses
+    if not area_email:
+        return {"code": 400, "message": "ERROR could not find corresponding area action"}, 403
 
-    executeAction(area_repo, [f"GithubHook - Owner:[{repo_owner}] Repo:[{repo_name}]"])
+    api = GmailAPIWrapper(area_user)
+    email_content = api.get_last_email_content(str(gmail_historyId))
+    executeAction(area_email, [f"GmailHook - Email:[{gmail_login}] Content:[{email_content}]", ])
     return {"code": 200, "message": "OK"}
