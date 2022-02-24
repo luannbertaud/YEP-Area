@@ -99,7 +99,7 @@ Client Mobile:
 - Github
 - Twitter
 - Discord
-- Twitch
+- Spotify
 - Intra Epitech
 
 ### Action (If) WIP:
@@ -108,7 +108,7 @@ Client Mobile:
 - Github
 - Twitter
 - Discord
-- Twitch
+- Spotify
 - Intra Epitech
   
 ### Reaction (Then) WIP:
@@ -117,4 +117,4 @@ Client Mobile:
 - Github
 - Twitter
 - Discord
-- Twitch
+- Spotify
