@@ -95,24 +95,26 @@ Client Mobile:
 
 ### REQUIRED: 6 Services & 15 Action, Reaction
 
+- Google
 - Github
-- Discord
 - Twitter
-- Intra Epitech
-- Evernote
+- Discord
 - Twitch
+- Intra Epitech
 
 ### Action (If) WIP:
 
+- Google
 - Github
-- Intra Epitech
 - Twitter
+- Discord
 - Twitch
-
+- Intra Epitech
+  
 ### Reaction (Then) WIP:
 
+- Google
 - Github
-- Discord
 - Twitter
+- Discord
 - Twitch
-- Evernote
