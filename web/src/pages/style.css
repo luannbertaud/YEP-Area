@@ -1,5 +1,5 @@
 .loginButton{
-    width: 240px;
+    width: auto;
     padding: 15px 25px;
     border-radius: 5px;
     color: white;
@@ -7,8 +7,9 @@
     align-items: center;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 30px;
-    margin-left: 80px
+    border: none;
+    margin: 30px auto auto;
+    box-shadow: none;
   }
 
 .google{
@@ -18,6 +19,11 @@
 .icon{
   width: 20px;
   height: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
-  
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

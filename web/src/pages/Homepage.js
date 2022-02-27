@@ -1,31 +1,61 @@
-import React, {useState} from "react";
-import './Homepage.css';
-import background from './assets/back.png';
-import off from './assets/off.png';
-import app1 from './assets/applet1.png';
-import app2 from './assets/applet2.png';
-import {Switch} from "antd";
+import React from 'react';
+import {withCookies} from "react-cookie";
+import NavBar from "../components/Navbar"
+import Applet from "../components/Applet"
+import { Box, Grid } from "@mui/material";
 
+class Homepage extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        appletList: [],
+        redirect: undefined,
+        redirectUrl: undefined,
+      }
+      const { cookies } = this.props;
+      this.cookies = cookies;
+      this.logout = this.logout.bind(this);
+    }
+    componentDidMount() {
+        let auth = this.cookies.get('auth');
+        if (auth === undefined || auth === null || auth === 'null' || auth.length === 0)
+            this.setState({
+                redirect: true,
+                redirectUrl: "/login"
+            });
+        this.auth = auth;
+    }
+    showApp() {
+      return (
+        <div>
+          <Box>
+            <NavBar onCreateApplet={(applet) => {this.setState({
+              ...this.state,
+              appletList: [...this.state.appletList, applet],
+            })}} />
+          </Box>
+          <Grid container columns={{ xs: 4, sm: 8, md: 12 }} style={{gap: "16px", padding: "25px"}}>
+            {this.state.appletList.map((applet) => <Applet/>)}
+          </Grid>
+          
+        </div>)
+    }
+    logout() {
+        this.cookies.set('auth', null, {path: '/'});
+        this.setState({
+            redirect: true,
+            redirectUrl: "/login"
+        })
+    }
 
-function Homepage()
-{
-  const [toggle, setToggle] = useState(false);
-
-  const toggler = () => {
-    toggle ? setToggle(false): setToggle(true);
-  }
-
-  return (
-    <div style={{height:'100vh', width:'100vw', overflow:'hidden', backgroundImage:`url(${background})`, backgroundSize:'cover'}}>
-      <img src={app1} alt="" className="appGithub" />
-      <img src={app2} alt="" className="appTwitch" />
-      <div>
-        <Switch  onClick={toggler} className="Toggle1"/>
-        <Switch  onClick={toggler} className="Toggle2"/>
-      </div>
-      <img src={off} alt="" className="OFF" />
-    </div>
-  );
+    render() {
+        return (
+            <div>
+              {this.showApp()}
+              {/*{this.state.redirect !== undefined ? <Navigate to={this.state.redirectUrl}/> : this.showApp()}*/}
+            </div>
+        );
+    }
 }
 
-export default Homepage;
+export default withCookies(Homepage);

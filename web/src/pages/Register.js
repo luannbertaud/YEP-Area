@@ -8,10 +8,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Google from "../resources/google.png"
 import Area from "../resources/logoArea.png"
+import {GoogleLogin} from 'react-google-login';
 
 import "./style.css"
 
 const theme = createTheme();
+const GOOGLE_CLIENT_ID = "839251961355-h2h85ulbdsnvngoic1ipl6oqrpfi69so.apps.googleusercontent.com";
 
 export default class Register extends React.Component {
     constructor(props) {
@@ -50,7 +52,7 @@ export default class Register extends React.Component {
             "user_password": this.state.password
         }).then((response) => {
             console.log(response.data)
-            this.state.token = response.data.access_token;
+            this.state.token.setState(response.data.access_token);
             if (response.status === 200)
                 this.setState({ redirectLogin: true });
         }).catch((err) => {
@@ -72,15 +74,20 @@ export default class Register extends React.Component {
         if (this.state.redirectLogin)
             this.verifyToken();
         return (
+            < div  style={{backgroundColor: "#249BD3", height: '100vh', overflow: 'hidden'}}>
             <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
             <CssBaseline />
+            <div className="modal-content rounded-5 shadow">
                 <Box
                     sx={{
                         marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: 'white',
+                        borderRadius: 4,
+                        padding: "50px",
                     }}>
                     <img src={Area}/>
                     <Typography component="h1" variant="h5">
@@ -130,15 +137,28 @@ export default class Register extends React.Component {
                                 </Link>
                             </Grid>
                         </Grid>
-                        <div className="loginButton google">
-                            <img src={Google} alt="" className="icon"/>
-                            Login with Google
-                        </div>
+                        <GoogleLogin
+                            clientId={GOOGLE_CLIENT_ID}
+                            render={renderProps => (
+                                <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton google">
+                                    <img src={Google} alt="" className="icon"/>
+                                        Register with Google
+                                </button>
+                              )}
+                            buttonText="Login"
+                            onSuccess={(res) => {console.log(res)}}
+                            onFailure={(res) => {console.log(res)}}
+                            cookiePolicy={'single_host_origin'}
+                            // prompt='consent'
+                            // responseType='token'
+                        />
                     </Box>
                 </Box>
                 {this.state.redirectLogin !== undefined ? <Navigate to="/login" /> : null}
+                </div>
             </Container>
             </ThemeProvider>
+            </div>
         );
     }
 }

@@ -23,6 +23,7 @@ class Login extends React.Component {
         this.state = {
             username: undefined,
             password: undefined,
+            idToken: undefined,
             redirect: undefined,
             redirectUrl: undefined,
         }
@@ -67,16 +68,20 @@ class Login extends React.Component {
 
     render() {
         return (
-            <ThemeProvider theme={theme}>
+           < div  style={{backgroundColor: "#249BD3", height: '100vh', overflow: 'hidden'}}>
+            <ThemeProvider theme={theme} >
             <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <div class="modal-content rounded-5 shadow">
+            <div className="modal-content rounded-5 shadow">
                 <Box
                     sx={{
                         marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: 'white',
+                        borderRadius: 4,
+                        padding: "50px",
                     }}>
                     <img src={Area}/>
                     <Typography component="h1" variant="h5">
@@ -111,26 +116,22 @@ class Login extends React.Component {
                         <Grid container>
                             <Grid item>
                                 <Link to={"/register"}>
-                                    {"Don't have an account? Sign Up"}
+                                    {"Don't have an account? Sign up"}
                                 </Link>
                             </Grid>
                         </Grid>
                         <GoogleLogin
                             clientId={GOOGLE_CLIENT_ID}
                             render={renderProps => (
-                                <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                    <div className="loginButton google">
-                                        <img src={Google} alt="" className="icon"/>
-                                            Login with Google
-                                    </div>
+                                <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton google">
+                                    <img src={Google} alt="" className="icon"/>
+                                        Login with Google
                                 </button>
                               )}
                             buttonText="Login"
                             onSuccess={(res) => {console.log(res)}}
                             onFailure={(res) => {console.log(res)}}
                             cookiePolicy={'single_host_origin'}
-                            // prompt='consent'
-                            // responseType='token'
                         />
                     </Box>
                 </Box>
@@ -138,6 +139,7 @@ class Login extends React.Component {
                 </div>
             </Container>
             </ThemeProvider>
+            </div>
         );
     }
 }

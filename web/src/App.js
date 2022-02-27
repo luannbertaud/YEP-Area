@@ -5,7 +5,7 @@ import Register from './pages/Register'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ height: '100vh' }} >
       <Routes>
         <Route path="/" element={<Homepage/>}/>
         <Route path="/login" element={<Login/>}/>
