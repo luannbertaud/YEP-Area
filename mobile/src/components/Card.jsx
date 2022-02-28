@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, Switch, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { homepage } from '../styles/Styles.js';
-import { useNavigation } from '@react-navigation/native';
+import { homepage } from '../styles/AuthStyles.js';
+import { navigateWithParameters } from '../services/navigation';
 
 export default class Card extends React.Component {
 
@@ -15,12 +15,14 @@ export default class Card extends React.Component {
     }
 
     onPressDetails() {
-        this.props.navigation.navigate('Applet', {
+        navigateWithParameters(this.props.navigation, 'Applet', {
+            username: this.props.username,
             name: this.props.name,
             color: this.props.color,
             active: this.props.active,
             A: this.props.A,
             REA: this.props.REA,
+            //navigation: this.props.navigation,
         });
     }
 
@@ -42,7 +44,7 @@ export default class Card extends React.Component {
                             onValueChange={() => this.setState({ isEnabled: !this.state.isEnabled })}
                             value={this.state.isEnabled}
                         />
-                        <View style={{ flexDirection: "row", marginLeft: 60 }}>
+                        <View style={{ flexDirection: "row", marginLeft: 60}}>
                             <Icon type="fontisto" name={this.props.A} size={35} color="white" />
                             <Icon name='arrow-right' size={35} color="white" />
                             {this.props.REA.map((REAs, key) => {

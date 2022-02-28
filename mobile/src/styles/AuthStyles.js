@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { BottomSheet } from 'react-native-elements/dist/bottomSheet/BottomSheet';
 
 const common = StyleSheet.create({
     text: {
@@ -109,9 +110,8 @@ const login = StyleSheet.create({
     }
 });
 
-const homepage = StyleSheet.create({
+const header = StyleSheet.create({
     headerContainer: {
-        flex: 1,
         padding: 20,
         flexDirection: "row",
     },
@@ -133,6 +133,16 @@ const homepage = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 28,
     },
+    headerNameDetails: {
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 28,
+    },
+});
+
+const homepage = StyleSheet.create({
     button: {
         backgroundColor: "#2B357F",
         padding: 20,
@@ -157,8 +167,8 @@ const homepage = StyleSheet.create({
     cardHeading: {
         fontSize: 36,
         fontWeight: 'bold',
-        marginBottom: 50,
         color: "white",
+        marginBottom: 50,
     },
     cardText: {
         fontSize: 16,
@@ -185,9 +195,37 @@ const homepage = StyleSheet.create({
     },
 });
 
+const applet = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+    },
+    topView: {
+        //height: '25%',
+        width: '100%',
+        textAlign: 'left',
+        alignItems: 'flex-start'
+    },
+    BottomView: {
+        height: '50px',
+    },
+    appletTitle: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: "white",
+    },
+    appletEdit: {
+        fontSize: 18,
+        color: "white",
+        fontWeight: '600',
+        textDecorationLine: 'underline',
+    },
+});
+
 export {
     common,
     login,
     register,
-    homepage
+    homepage,
+    applet,
+    header,
 };

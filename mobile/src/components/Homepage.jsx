@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { homepage } from '../styles/Styles.js';
+import { homepage, header } from '../styles/AuthStyles.js';
 import Card from './Card.jsx';
 
 export default class Homepage extends React.Component {
@@ -27,10 +27,11 @@ export default class Homepage extends React.Component {
             <View style={[homepage.container, { padding: 30 }]}>
                 {this.state.card.map((cards, key) => {
                     return (
-                        <Card onpress={() => alert("Card Detail")} key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
-                    )
-                })}
+                        <Card navigation={this.props.navigation} username={this.state.name} key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
+                        )
+                    })}
             </View>
+        
         )
     }
 
@@ -49,15 +50,15 @@ export default class Homepage extends React.Component {
         return (
             <>
                 <ScrollView>
-                    <View style={homepage.headerContainer}>
+                    <View style={header.headerContainer}>
                         <View style={{ flex: 3 }}>
-                            <TouchableOpacity onPress={() => alert("Return to home")}>
-                                <Image resizeMode="contain" style={homepage.headerImage} source={require("../assets/images/logo.png")}></Image>
+                            <TouchableOpacity onPress={(null)}>
+                                <Image resizeMode="contain" style={header.headerImage} source={require("../assets/images/logo.png")}></Image>
                             </TouchableOpacity>
                         </View>
                         <View style={{ flex: 3 }}>
-                            <TouchableOpacity style={homepage.profile} onPress={() => alert("Account settings")}>
-                                <Text style={homepage.headerName}>{this.state.name}</Text>
+                            <TouchableOpacity style={header.profile} onPress={() => alert("Account settings")}>
+                                <Text style={header.headerName}>{this.state.name}</Text>
                                 <Icon name="account-circle" size={50} />
                             </TouchableOpacity>
                         </View>

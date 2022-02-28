@@ -5,7 +5,7 @@ import Main from './src/scenes/Main';
 import LoginUser from './src/components/auth/LoginUser';
 import RegisterUser from './src/components/auth/RegisterUser';
 import Applet from './src/components/Applet';
-import Homepage from './src/components/Homepage';
+import Homepage from './src/components/Homepage.jsx';
 import Board from './src/scenes/Board';
 
 const Stack = createNativeStackNavigator();

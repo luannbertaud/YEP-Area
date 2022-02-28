@@ -32,7 +32,7 @@ export default class Main extends React.Component {
         return (
             <>
                 <View style={{backgroundColor: '#e5e5e5', height: '100%'}}>
-                    <Homepage />
+                    <Homepage navigation={this.props.navigation}/>
                 </View>
             </>
             /* <View style={{backgroundColor: '#1454A4', height: '100%'}}>
