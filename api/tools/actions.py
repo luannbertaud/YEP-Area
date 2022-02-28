@@ -15,6 +15,8 @@ def __executeAction(uuid, params):
         ac = Actions.get(Actions.uuid == uuid)
     except DoesNotExist as e:
         return False
+    if (ac.enabled != True):
+        return False
 
     if ("uuids" not in list(ac.children.keys())):
         return res

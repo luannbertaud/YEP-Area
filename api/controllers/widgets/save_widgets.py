@@ -21,7 +21,7 @@ def save_action(widget):
     try:
         w = Actions.get(Actions.uuid == widget["uuid"])
     except DoesNotExist as e:
-        Actions.create(uuid=widget["uuid"], type=widget["type"], user_uuid=widget["user_uuid"], content=widget["content"], children=widget["children"])
+        Actions.create(uuid=widget["uuid"], type=widget["type"], user_uuid=widget["user_uuid"],  enabled=widget["enabled"], content=widget["content"], children=widget["children"])
         return widget["uuid"]
     w.type = widget["type"]
     w.user_uuid = widget["user_uuid"]
@@ -43,7 +43,7 @@ def save_reaction(widget):
     try:
         w = Reactions.get(Reactions.uuid == widget["uuid"])
     except DoesNotExist as e:
-        Reactions.create(uuid=widget["uuid"], type=widget["type"], user_uuid=widget["user_uuid"], content=widget["content"])
+        Reactions.create(uuid=widget["uuid"], type=widget["type"], user_uuid=widget["user_uuid"],  enabled=widget["enabled"], content=widget["content"])
         return widget["uuid"]
     w.type = widget["type"]
     w.user_uuid = widget["user_uuid"]

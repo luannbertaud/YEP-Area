@@ -1,20 +1,12 @@
 #!/usr/bin/env python3
 
+import json
 import base64
 from flask import request
 from peewee import DoesNotExist
 from models.db import Actions, Users
 from tools.actions import executeAction
-from tools.reactions import executeReaction
-from pprint import pprint
-import json
 from controllers.reactions.gmail import GmailAPIWrapper
-
-# import requests
-# import base64
-# from tools.fomarting import ensure_json
-# from tools.tokens import get_tokens, tokens_reload
-# from tools.env import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SERV_URL
 from models.area import Action
 
 class GmailWebhookAction(Action):
@@ -26,6 +18,9 @@ class GmailWebhookAction(Action):
 
     def register(self, *args):
         return self.api.register_watcher()
+
+    def unregister(self, *args):
+        return self.api.revoke_watcher()
 
 def gmailHook():
     data = request.json

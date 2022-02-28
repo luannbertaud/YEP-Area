@@ -6,7 +6,6 @@ from models.db import Actions, Users
 from tools.actions import executeAction
 
 import requests
-import base64
 from tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SERV_URL
@@ -36,6 +35,24 @@ class GithubAPIWrapper():
         return ensure_json(r)
 
     @tokens_reload(reloader=load_tokens)
+    def revoke_webhook(self, owner, repo):
+        headers = {
+            "Accept": "application/json",
+            "Authorization": f"token {self.access_token}"
+        }
+        r = requests.get(f"https://api.github.com/repos/{owner}/{repo}/hooks", headers=headers)
+        r = ensure_json(r)
+        hook_id = -1
+        for h in  r['data']:
+            if (h['config']['url'] == SERV_URL+"hooks/github"):
+                hook_id = h['id']
+                break
+        if (hook_id == -1):
+            return None
+        r = requests.delete(f"https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}", headers=headers)
+        return {"code": 200, "message": "OK"}
+
+    @tokens_reload(reloader=load_tokens)
     def create_webhook(self, owner, repo):
         data = { "config" : {
                 "url": SERV_URL+"hooks/github",
@@ -62,6 +79,9 @@ class GithubWebhookAction(Action):
 
     def register(self, owner, repository, *args):
         return self.api.create_webhook(owner, repository)
+
+    def unregister(self, owner, repository, *args):
+        return self.api.revoke_webhook(owner, repository)
 
 def githubHook():
     data = request.json

@@ -24,3 +24,6 @@ class Action():
 
     def register(self, *args) -> None:
         raise Exception("Not Implemented Error: Please consider implementing the `register` function for this Action")
+
+    def unregister(self, *args) -> None:
+        raise Exception("Not Implemented Error: Please consider implementing the `unregister` function for this Action")

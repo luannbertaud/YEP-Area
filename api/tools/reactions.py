@@ -13,7 +13,7 @@ def executeReaction(uuid, params):
         rea = Reactions.get(Reactions.uuid == uuid)
     except DoesNotExist as e:
         return False
-    if rea == None:
+    if (rea == None) or (rea.enabled != True):
         return False
 
     print(f"~Reaction~ [{uuid}] {str(params)}")
