@@ -13,6 +13,7 @@ def __validate_data(data):
             assert(isinstance(d["uuid"], str))
             assert(isinstance(d["type"], str))
             assert(isinstance(d["user_uuid"], str))
+            assert(isinstance(d["enabled"], bool))
             assert(isinstance(d["family"], str))
             if ("content" in list(d.keys())):
                 assert(isinstance(d["content"], dict))

@@ -25,6 +25,7 @@ def save_action(widget):
         return widget["uuid"]
     w.type = widget["type"]
     w.user_uuid = widget["user_uuid"]
+    w.enabled = widget["enabled"]
     w.content = widget["content"]
     w.children = widget["children"]
     w.save()
@@ -46,6 +47,7 @@ def save_reaction(widget):
         return widget["uuid"]
     w.type = widget["type"]
     w.user_uuid = widget["user_uuid"]
+    w.enabled = widget["enabled"]
     w.content = widget["content"]
     w.save()
     return widget["uuid"]
