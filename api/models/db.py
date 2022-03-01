@@ -22,6 +22,8 @@ class Users(__BaseModel):
 
 class Reactions(__BaseModel):
     uuid = TextField(primary_key=True)
+    title = TextField(null=True)
+    description = TextField(null=True)
     type = TextField()
     user_uuid = TextField()
     enabled = BooleanField()
@@ -29,6 +31,8 @@ class Reactions(__BaseModel):
 
 class Actions(__BaseModel):
     uuid = TextField(primary_key=True)
+    title = TextField(null=True)
+    description = TextField(null=True)
     type = TextField()
     user_uuid = TextField()
     enabled = BooleanField()

@@ -15,6 +15,14 @@ def __validate_data(data):
             assert(isinstance(d["user_uuid"], str))
             assert(isinstance(d["enabled"], bool))
             assert(isinstance(d["family"], str))
+            if ("title" in list(d.keys())):
+                assert(isinstance(d["title"], str))
+            else:
+                d["title"] = ""
+            if ("description" in list(d.keys())):
+                assert(isinstance(d["description"], str))
+            else:
+                d["description"] = ""
             if ("content" in list(d.keys())):
                 assert(isinstance(d["content"], dict))
             else:
