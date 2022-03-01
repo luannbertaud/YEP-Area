@@ -67,14 +67,8 @@ def widgets_update():
     return {"code": 200, "message": f"Updated widgets: {', '.join(updated)}"}
 
 
-@widgetsBP.route("/get", methods=["GET"])
-@verify_jwt
-def widgets_get():
+def __get_service_widgets(service, user_uuid):
     res = []
-    service = request.args.get('service')
-    auth = request.headers['Authorization']
-    user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
-    print(user_uuid)
     service_mapper = {
         "github": ["GithubWebhookAction"],
         "google": ["GmailWebhookAction", "GmailSendEmailReaction"],
@@ -105,4 +99,20 @@ def widgets_get():
                 pass
             for a in query:
                 res.append(action_to_json(a))
+    return res
+
+@widgetsBP.route("/get", methods=["GET"])
+@verify_jwt
+def widgets_get():
+    res = []
+    services = request.args.get('services')
+    if not services:
+        services = ["github","google","spotify","twitter","discord"]
+    else:
+        services = services.replace(".", ",").replace(";", ",").split(",")
+    print(services)
+    auth = request.headers['Authorization']
+    user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
+    for service in services:
+        res += __get_service_widgets(service, user_uuid)
     return {"widgets": res}
