@@ -9,7 +9,7 @@ from controllers.oauth.twitter import twitterAuthBP
 from controllers.oauth.github import githubAuthBP
 from controllers.oauth.google import googleAuthBP
 from controllers.oauth.spotify import spotifyAuthBP
-from controllers.widgets.update import widgetsUpdateBP
+from controllers.widgets.widgets import widgetsBP
 
 app = Flask("app")
 CORS(app, origins="*")
@@ -20,7 +20,7 @@ app.register_blueprint(twitterAuthBP, url_prefix="/auth/twitter")
 app.register_blueprint(githubAuthBP, url_prefix="/auth/github")
 app.register_blueprint(googleAuthBP, url_prefix="/auth/google")
 app.register_blueprint(spotifyAuthBP, url_prefix="/auth/spotify")
-app.register_blueprint(widgetsUpdateBP, url_prefix="/widgets")
+app.register_blueprint(widgetsBP, url_prefix="/widgets")
 
 validateDatabase()
 

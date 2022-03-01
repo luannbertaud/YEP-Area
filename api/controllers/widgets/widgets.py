@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 
-
+import jwt
 from flask import Blueprint, request
+from peewee import DoesNotExist
 from controllers.widgets.save_widgets import save_action, save_reaction
+from models.db import Actions, Reactions, Users
+from tools.tokens import verify_jwt
+from tools.env import JWT_SECRET
 
-widgetsUpdateBP = Blueprint('widgetsUpdateBP', __name__)
+widgetsBP = Blueprint('widgetsBP', __name__)
 
 def __validate_data(data):
     for d in data['widgets']:
@@ -35,7 +39,8 @@ def __validate_data(data):
             return False
     return True
 
-@widgetsUpdateBP.route("/update", methods=["POST"])
+
+@widgetsBP.route("/update", methods=["POST"])
 def widgets_update():
     data = request.json
     updated = []
@@ -59,3 +64,44 @@ def widgets_update():
     if (len(updated) != len(data['widgets'])):
         return {"code": 400, "message": f"Not all widgets could be updated: {', '.join(failed)}"}, 400
     return {"code": 200, "message": f"Updated widgets: {', '.join(updated)}"}
+
+
+@widgetsBP.route("/get", methods=["GET"])
+# @verify_jwt
+def widgets_get():
+    res = []
+    service = request.args.get('service')
+    auth = request.headers['Authorization']
+    user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
+    print(user_uuid)
+    service_mapper = {
+        "github": ["GithubWebhookAction"],
+        "google": ["GmailWebhookAction", "GmailSendEmailReaction"],
+        "spotify": ["SpotifyNextReaction"],
+        "twitter": ["TwitterTweetReaction"],
+        "discord": ["DiscordMessageReaction"],
+    }
+    if ((not service) or (service not in service_mapper.keys())):
+        return {"code": 400, "message": "Missing or unknown Area service."}, 400
+    for area in service_mapper[service]:
+        if (area[-len('Reaction'):] == 'Reaction'):
+            area = area[:-len('Reaction')]
+            try:
+                query = Reactions.select().where(Reactions.user_uuid == user_uuid, Reactions.type == area)
+                if not query:
+                    raise DoesNotExist("Empty query")
+            except DoesNotExist as e:
+                pass
+            for r in query:
+                res.append(r.uuid) #TODO reaction to json
+        elif (area[-len('Action'):] == 'Action'):
+            area = area[:-len('Action')]
+            try:
+                query = Actions.select().where(Actions.user_uuid == user_uuid, Actions.type == area)
+                if not query:
+                    raise DoesNotExist("Empty query")
+            except DoesNotExist as e:
+                pass
+            for a in query:
+                res.append(a.uuid) #TODO action to json
+    return {"uuid":res}
