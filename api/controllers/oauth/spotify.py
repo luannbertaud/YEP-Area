@@ -5,6 +5,7 @@ from peewee import DoesNotExist
 import spotipy
 from tools.db import needs_db
 from tools.env import SERV_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+from tools.tokens import verify_jwt
 from models.db import Users
 
 
@@ -12,6 +13,7 @@ spotifyAuthBP = Blueprint('spotifyAuthBP', __name__)
 current_requests = [] #TODO this solution is deprecated, waiting for the client to send us the ?code
 
 @spotifyAuthBP.route("/authorize", methods=["GET"])
+@verify_jwt
 def spotify_authorize():
     user = request.args.get('user')
     if not user:

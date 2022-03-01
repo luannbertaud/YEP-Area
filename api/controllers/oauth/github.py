@@ -7,12 +7,14 @@ from peewee import DoesNotExist
 from tools.db import needs_db
 from tools.env import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SERV_URL
 from tools.fomarting import ensure_json
+from tools.tokens import verify_jwt
 from models.db import Users
 
 githubAuthBP = Blueprint('githubAuthBP', __name__)
 current_requests = [] #TODO this solution is deprecated, waiting for the client to send us the ?code
 
 @githubAuthBP.route("/authorize", methods=["GET"])
+@verify_jwt
 def github_authorize():
     user = request.args.get('user')
     if not user:

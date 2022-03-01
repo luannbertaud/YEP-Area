@@ -7,6 +7,7 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from tools.db import needs_db
 from tools.env import SERV_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+from tools.tokens import verify_jwt
 from models.db import Users
 
 
@@ -14,6 +15,7 @@ googleAuthBP = Blueprint('googleAuthBP', __name__)
 current_requests = [] #TODO this solution is deprecated, waiting for the client to send us the ?code
 
 @googleAuthBP.route("/authorize", methods=["GET"])
+@verify_jwt
 def google_authorize():
     user = request.args.get('user')
     if not user:

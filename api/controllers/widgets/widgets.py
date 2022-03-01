@@ -42,6 +42,7 @@ def __validate_data(data):
 
 
 @widgetsBP.route("/update", methods=["POST"])
+@verify_jwt
 def widgets_update():
     data = request.json
     updated = []
