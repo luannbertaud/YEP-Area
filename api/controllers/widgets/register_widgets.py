@@ -10,8 +10,10 @@ def register_action(action):
     for r in required:
         if r not in list(action["content"].keys()):
             raise Exception(f"Can't create [{action['uuid']}], invalid content parameters")
-    #TODO maintenant
-    return ac.register(**(action["content"]))
+    if (action["enabled"]):
+        return ac.register(**(action["content"]))
+    else:
+        return ac.unregister(**(action["content"]))
 
 
 def register_reaction(reaction):

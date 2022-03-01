@@ -80,7 +80,11 @@ class GmailAPIWrapper():
             'labelIds': ['INBOX'],
             'topicName': 'projects/mapvoyage/topics/area'
         }
-        res = self.service.users().watch(userId='me', body=request).execute() #TODO revoke
+        res = self.service.users().watch(userId='me', body=request).execute()
+        return res
+
+    def revoke_watcher(self):
+        res = self.service.users().stop(userId='me').execute()
         return res
     
     def get_userinfo(self):
