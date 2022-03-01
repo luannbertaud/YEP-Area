@@ -3,6 +3,8 @@ import { Text, View, Switch, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { homepage } from '../styles/AuthStyles.js';
 import { navigateWithParameters } from '../services/navigation';
+import ToggleSwitch from 'toggle-switch-react-native'
+
 
 export default class Card extends React.Component {
 
@@ -22,7 +24,6 @@ export default class Card extends React.Component {
             active: this.props.active,
             A: this.props.A,
             REA: this.props.REA,
-            //navigation: this.props.navigation,
         });
     }
 
@@ -36,15 +37,15 @@ export default class Card extends React.Component {
                         </Text>
                     </View>
                     <View style={homepage.footerCard}>
-                        <Switch
-                            style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }], }}
-                            trackColor={{ false: "#767577", true: "#e5e5e5" }}
-                            thumbColor={this.state.isEnabled ? "#f4f3f4" : "#f4f3f4"}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={() => this.setState({ isEnabled: !this.state.isEnabled })}
-                            value={this.state.isEnabled}
+                        <ToggleSwitch
+                            isOn={this.state.isEnabled}
+                            onColor="#e5e5e5"
+                            offColor="#767577"
+                            size="large"
+                            onToggle={() => this.setState({ isEnabled: !this.state.isEnabled })}
                         />
-                        <View style={{ flexDirection: "row", marginLeft: 60}}>
+
+                        <View style={{ flexDirection: "row", marginLeft: 60 }}>
                             <Icon type="fontisto" name={this.props.A} size={35} color="white" />
                             <Icon name='arrow-right' size={35} color="white" />
                             {this.props.REA.map((REAs, key) => {

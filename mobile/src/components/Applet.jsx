@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View, Switch, Image, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 import { applet, header } from '../styles/AuthStyles.js';
 import { navigateTo } from '../services/navigation';
+import ToggleSwitch from 'toggle-switch-react-native'
 
 export default class Applet extends React.Component {
     constructor(props) {
@@ -21,8 +22,6 @@ export default class Applet extends React.Component {
         const { A } = this.props.route.params
         const { REA } = this.props.route.params
 
-        console.log(active)
-        console.log(this.state.isEnabled)
         return (
             <>
                 <View style={[header.headerContainer, { backgroundColor: color }]}>
@@ -32,7 +31,7 @@ export default class Applet extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 3 }}>
-                        <TouchableOpacity style={header.profile} onPress={() => alert("Account settings")}>
+                        <TouchableOpacity style={header.profile} onPress={() => navigateTo(this.props.navigation, "Profile")}>
                             <Text style={header.headerNameDetails}>{username}</Text>
                             <Icon name="account-circle" size={50} color='white' />
                         </TouchableOpacity>
@@ -46,7 +45,7 @@ export default class Applet extends React.Component {
                             <Text style={applet.appletTitle}>{name}</Text>
                         </View>
                         <View style={{ flex: 2, paddingLeft: 10 }}>
-                            <Text style={applet.appletEdit}>Edit AREA</Text>
+                            <Text style={applet.appletEdit} onPress={() => alert("Edit name")}>Edit AREA</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: "row", paddingLeft: 10, marginVertical: 20 }}>
@@ -59,15 +58,38 @@ export default class Applet extends React.Component {
                         })}
                     </View>
                 </View>
-                <View style={{backgroundColor: color}}>
-                    <Switch
-                        //style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }]}}
-                        trackColor={{ false: "#767577", true: "#e5e5e5" }}
-                        thumbColor={active ? "#f4f3f4" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={() => this.setState({ isEnabled: !this.state.isEnabled })}
-                        value={this.state.isEnabled}
-                    />  
+
+                <View style={{ alignItems: 'center', marginTop: 60 }}>
+                    <ToggleSwitch
+                        isOn={this.state.isEnabled}
+                        onColor="#9FCE2F"
+                        offColor="#e5e5e5"
+                        label="Activate"
+                        labelStyle={{ color: "black", fontWeight: "900", fontSize: 20 }}
+                        size="large"
+                        onToggle={() => this.setState({ isEnabled: !this.state.isEnabled })}
+                    />
+                    <Button
+                        title="Delete"
+                        icon={{
+                            name: 'delete',
+                            size: 20,
+                            color: 'white',
+                        }}
+                        iconContainerStyle={{ marginRight: 10 }}
+                        titleStyle={{ fontWeight: '700' }}
+                        buttonStyle={{
+                            backgroundColor: '#E84D22',
+                            borderColor: 'transparent',
+                            borderWidth: 0,
+                            borderRadius: 30,
+                        }}
+                        containerStyle={{
+                            width: 150,
+                            marginHorizontal: 50,
+                            marginVertical: 40,
+                        }}
+                    />
                 </View>
             </>
         )

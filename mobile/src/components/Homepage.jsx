@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
+import { navigateTo } from '../services/navigation';
 import { homepage, header } from '../styles/AuthStyles.js';
 import Card from './Card.jsx';
 
@@ -12,12 +13,12 @@ export default class Homepage extends React.Component {
             name: 'Jeff',
             hasApplet: true,
             card: [
-                { name: 'Vendredi tout est permis avec Arthur', color: '#6AB4D9', active: true, A: 'twitch', REA: ['discord'] },
-                { name: 'AREA applet name Marc', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord',] },
-                { name: 'AREA applet name Franck', color: '#1354A4', active: false, A: 'github', REA: ['google', 'twitter'] },
-                { name: 'AREA applet name Guillaume', color: '#6AB4D9', active: false, A: 'twitter', REA: ['twitch'] },
-                { name: 'AREA applet name David', color: '#279BD6', active: true, A: 'discord', REA: ['github'] },
-                { name: 'AREA applet name Luc', color: '#1354A4', active: false, A: 'github', REA: ['twitter'] },
+                { name: 'Vendredi tout est permis avec Arthur', color: '#6AB4D9', active: true, A: 'twitch', REA: ['discord'], uuid: '' },
+                { name: 'AREA applet name Marc', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord',], uuid: '' },
+                { name: 'AREA applet name Franck', color: '#1354A4', active: false, A: 'github', REA: ['google', 'twitter'], uuid: '' },
+                { name: 'AREA applet name Guillaume', color: '#6AB4D9', active: false, A: 'twitter', REA: ['twitch'], uuid: '' },
+                { name: 'AREA applet name David', color: '#279BD6', active: true, A: 'discord', REA: ['github'], uuid: '' },
+                { name: 'AREA applet name Luc', color: '#1354A4', active: false, A: 'github', REA: ['twitter'], uuid: '' },
             ],
         }
     }
@@ -28,10 +29,10 @@ export default class Homepage extends React.Component {
                 {this.state.card.map((cards, key) => {
                     return (
                         <Card navigation={this.props.navigation} username={this.state.name} key={key} name={cards.name} color={cards.color} active={cards.active} A={cards.A} REA={cards.REA} />
-                        )
-                    })}
+                    )
+                })}
             </View>
-        
+
         )
     }
 
@@ -57,7 +58,7 @@ export default class Homepage extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ flex: 3 }}>
-                            <TouchableOpacity style={header.profile} onPress={() => alert("Account settings")}>
+                            <TouchableOpacity style={header.profile} onPress={() => navigateTo(this.props.navigation, "Profile")}>
                                 <Text style={header.headerName}>{this.state.name}</Text>
                                 <Icon name="account-circle" size={50} />
                             </TouchableOpacity>

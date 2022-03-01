@@ -221,6 +221,64 @@ const applet = StyleSheet.create({
     },
 });
 
+const profile = StyleSheet.create({
+    header: {
+        backgroundColor: "#1354A4",
+        height: 200,
+    },
+    avatar: {
+        //
+        //borderRadius: 63,
+        //borderWidth: 4,
+        //borderColor: "white",
+        //marginBottom: 10,
+        paddingTop: 30,
+        alignSelf: 'center',
+        position: 'relative',
+        //marginTop: 130
+    },
+    name: {
+        fontSize: 22,
+        color: "#FFFFFF",
+        fontWeight: '600',
+    },
+    body: {
+        marginTop: 40,
+    },
+    bodyButton: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 30,
+    },
+    name: {
+        fontSize: 28,
+        color: "black",
+        fontWeight: "600"
+    },
+    info: {
+        fontSize: 16,
+        color: "black",
+        marginTop: 10
+    },
+    description: {
+        fontSize: 16,
+        color: "black",
+        marginTop: 10,
+        textAlign: 'center'
+    },
+    buttonContainer: {
+        marginTop: 10,
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        width: 250,
+        borderRadius: 30,
+        backgroundColor: "#1354A4",
+    },
+});
+
 export {
     common,
     login,
@@ -228,4 +286,5 @@ export {
     homepage,
     applet,
     header,
+    profile,
 };

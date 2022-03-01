@@ -7,6 +7,7 @@ import RegisterUser from './src/components/auth/RegisterUser';
 import Applet from './src/components/Applet';
 import Homepage from './src/components/Homepage.jsx';
 import Board from './src/scenes/Board';
+import Profile from './src/components/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name='Applet' component={Applet}/>
         <Stack.Screen name='Homepage' component={Homepage}/>
         <Stack.Screen name='Board' component={Board}/>
+        <Stack.Screen name='Profile' component={Profile}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
