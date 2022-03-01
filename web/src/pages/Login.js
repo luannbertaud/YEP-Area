@@ -14,7 +14,7 @@ import { GoogleLogin } from 'react-google-login';
 import "./style.css"
 
 const theme = createTheme();
-const GOOGLE_CLIENT_ID = "32273301299-mu3b4fgikth03ooaj9nfuj55r71e8pdu.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
 class Login extends React.Component {
 
@@ -43,11 +43,11 @@ class Login extends React.Component {
     }
     onClickLogin() {
         const { cookies } = this.props;
-        axios.post('http://localhost:8080/auth/area/login', {
+        axios.post('https://api.yep-area.cf/auth/area/login', {
             "user_name": this.state.username,
             "user_password": this.state.password
         }).then((response) => {
-            cookies.set('auth', response.data.auth, { path: '/' });
+            cookies.set('token', response.data.access_token, { path: '/' });
             this.setState({
                 redirect: true,
                 redirectUrl: "/",
@@ -63,7 +63,25 @@ class Login extends React.Component {
 
     }
     responseGoogle = (response) => {
-        console.log(response);
+        const { cookies } = this.props;
+        axios.post('https://api.yep-area.cf/auth/area/login/google', {
+            "user_name": "",
+            "user_password": "",
+            "idToken": response["tokenId"],
+        }).then((response) => {
+            cookies.set('token', response.data.access_token, { path: '/' });
+            this.setState({
+                redirect: true,
+                redirectUrl: "/",
+            });
+        }).catch((err) => {
+            console.log(err);
+            cookies.set('token', { path: '/' });
+            this.setState({
+                redirect: true,
+                redirectUrl: '/',
+            });
+        });
     }
 
     render() {
@@ -123,14 +141,14 @@ class Login extends React.Component {
                                     <GoogleLogin
                                         clientId={GOOGLE_CLIENT_ID}
                                         render={renderProps => (
-                                            <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton google">
+                                            <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton googleBackground">
                                                 <img src={Google} alt="" className="icon" />
                                                 Login with Google
                                             </button>
                                         )}
                                         buttonText="Login"
-                                        onSuccess={(res) => { console.log(res) }}
-                                        onFailure={(res) => { console.log(res) }}
+                                        onSuccess={(res) => { this.responseGoogle(res) }}
+                                        onFailure={(res) => { this.responseGoogle(res) }}
                                         cookiePolicy={'single_host_origin'}
                                     />
                                 </Box>

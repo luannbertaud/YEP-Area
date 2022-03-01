@@ -68,7 +68,7 @@ export default function NavBar({ onCreateApplet }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={() => { alert('Logout'); }}>Logout</MenuItem>
-      <MenuItem onClick={() => <Navigate to={'/profil'} />}>Connection to your services</MenuItem>
+      <MenuItem onClick={() => { alert('Connect'); }}>Connection to your services</MenuItem>
     </Menu>
   );
 
