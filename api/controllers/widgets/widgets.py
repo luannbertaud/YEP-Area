@@ -7,6 +7,7 @@ from controllers.widgets.save_widgets import save_action, save_reaction
 from models.db import Actions, Reactions, Users
 from tools.tokens import verify_jwt
 from tools.env import JWT_SECRET
+from tools.fomarting import action_to_json, reaction_to_json
 
 widgetsBP = Blueprint('widgetsBP', __name__)
 
@@ -67,7 +68,7 @@ def widgets_update():
 
 
 @widgetsBP.route("/get", methods=["GET"])
-# @verify_jwt
+@verify_jwt
 def widgets_get():
     res = []
     service = request.args.get('service')
@@ -93,7 +94,7 @@ def widgets_get():
             except DoesNotExist as e:
                 pass
             for r in query:
-                res.append(r.uuid) #TODO reaction to json
+                res.append(reaction_to_json(r))
         elif (area[-len('Action'):] == 'Action'):
             area = area[:-len('Action')]
             try:
@@ -103,5 +104,5 @@ def widgets_get():
             except DoesNotExist as e:
                 pass
             for a in query:
-                res.append(a.uuid) #TODO action to json
-    return {"uuid":res}
+                res.append(action_to_json(a))
+    return {"widgets": res}
