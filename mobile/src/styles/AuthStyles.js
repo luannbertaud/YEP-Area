@@ -227,15 +227,9 @@ const profile = StyleSheet.create({
         height: 200,
     },
     avatar: {
-        //
-        //borderRadius: 63,
-        //borderWidth: 4,
-        //borderColor: "white",
-        //marginBottom: 10,
-        paddingTop: 30,
+        paddingTop: 25,
         alignSelf: 'center',
         position: 'relative',
-        //marginTop: 130
     },
     name: {
         fontSize: 22,
@@ -251,20 +245,16 @@ const profile = StyleSheet.create({
         padding: 30,
     },
     name: {
+        fontSize: 24,
+        color: "black",
+        fontWeight: "600",
+        flex: 3,
+    },
+    title: {
         fontSize: 28,
         color: "black",
-        fontWeight: "600"
-    },
-    info: {
-        fontSize: 16,
-        color: "black",
-        marginTop: 10
-    },
-    description: {
-        fontSize: 16,
-        color: "black",
-        marginTop: 10,
-        textAlign: 'center'
+        fontWeight: "bold",
+        textAlign: 'center',
     },
     buttonContainer: {
         marginTop: 10,
@@ -277,6 +267,17 @@ const profile = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: "#1354A4",
     },
+    logo: {
+        width: 50,
+        height: 50,
+        marginRight: 15,
+    },
+    logoView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 20,
+        marginBottom: 20,
+    }
 });
 
 export {
