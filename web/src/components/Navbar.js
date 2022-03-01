@@ -10,44 +10,46 @@ import Area from "../resources/logoArea.png"
 import InfoIcon from '@mui/icons-material/Info';
 import InfoDialog from "./InfoDialog"
 import ConfigDialog from "./ConfigDialog"
+import ServiceDialog from "./ServiceDialog"
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Link, Navigate } from "react-router-dom";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 export default function NavBar({ onCreateApplet }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [setMobileMoreAnchorEl] = React.useState(null);
   const [openInfo, setOpenInfo] = React.useState(false);
   const [openConfig, setOpenConfig] = React.useState(false);
+  const [openService, setServiceConfig] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
   const handleOpenInfo = () => {
     setOpenInfo(true);
   }
-
   const handleCloseInfo = () => {
     setOpenInfo(false);
   };
-
   const handleOpenConfig = () => {
     setOpenConfig(true);
   }
-
   const handleCloseConfig = () => {
     setOpenConfig(false);
+  };
+  const handleOpenService = () => {
+    setServiceConfig(true);
+  }
+  const handleCloseService = () => {
+    setServiceConfig(false);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -68,7 +70,7 @@ export default function NavBar({ onCreateApplet }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={() => { alert('Logout'); }}>Logout</MenuItem>
-      <MenuItem onClick={() => { alert('Connect'); }}>Connection to your services</MenuItem>
+      <MenuItem onClick={handleOpenService}>Connection to your services</MenuItem>
     </Menu>
   );
 
@@ -121,6 +123,9 @@ export default function NavBar({ onCreateApplet }) {
       <ConfigDialog
         onClose={handleCloseConfig}
         open={openConfig} />
+      <ServiceDialog
+        onClose={handleCloseService}
+        open={openService} />
     </Box>
   );
 };
