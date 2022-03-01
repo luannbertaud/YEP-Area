@@ -4,7 +4,7 @@ import jwt
 from flask import Blueprint, request
 from peewee import DoesNotExist
 from controllers.widgets.save_widgets import save_action, save_reaction
-from models.db import Actions, Reactions, Users
+from models.db import Actions, Reactions
 from tools.tokens import verify_jwt
 from tools.env import JWT_SECRET
 from tools.fomarting import action_to_json, reaction_to_json
@@ -111,7 +111,6 @@ def widgets_get():
         services = ["github","google","spotify","twitter","discord"]
     else:
         services = services.replace(".", ",").replace(";", ",").split(",")
-    print(services)
     auth = request.headers['Authorization']
     user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
     for service in services:
