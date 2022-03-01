@@ -19,8 +19,8 @@ current_requests = []
 def github_authorize():
     auth = request.headers['Authorization']
     user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
-    list({v['user_uuid']:v for v in current_requests}.values())
     current_requests.append({"user_uuid":user_uuid})
+    list({v['user_uuid']:v for v in current_requests}.values())
     url = "https://github.com/login/oauth/authorize"
     params = "?&state=state&scope=" + url_parse.quote_plus("repo")
     params += "&client_id=" + url_parse.quote_plus(GITHUB_CLIENT_ID)
