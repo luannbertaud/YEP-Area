@@ -4,7 +4,7 @@ import jwt
 import hashlib
 from peewee import DoesNotExist
 from flask import Blueprint, request
-from tools.env import JWT_SECRET, JWT_VALIDITY_DELTA, GOOGLE_LOGIN_CLIENT_ID
+from tools.env import JWT_SECRET, JWT_VALIDITY_DELTA, GOOGLE_LOGIN_CLIENT_ID, GOOGLE_CLIENT_ID
 from models.db import Users
 from tools.tokens import verify_jwt
 from datetime import datetime, timedelta
@@ -119,7 +119,10 @@ def user_login_google():
         return {"code": 400, "message": "Malformed JSON payload. (user_name or user_email, + user_password)."}, 400
     sleep(0.5)
     try:
-        user = id_token.verify_oauth2_token(data['idToken'], requests.Request(), GOOGLE_LOGIN_CLIENT_ID)
+        if ('mobile' in data.keys()) and (data['mobile'] == True):
+            user = id_token.verify_oauth2_token(data['idToken'], requests.Request(), GOOGLE_LOGIN_CLIENT_ID)
+        else:
+            user = id_token.verify_oauth2_token(data['idToken'], requests.Request(), GOOGLE_CLIENT_ID)
     except:
         return {"code": 400, "message": "Can't validate google idToken."}, 400
     
