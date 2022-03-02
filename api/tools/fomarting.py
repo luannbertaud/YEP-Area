@@ -13,6 +13,7 @@ def ensure_json(response):
 def action_to_json(action: Actions):
     res = {
         "uuid": action.uuid,
+        "family": "action",
         "title": action.title,
         "description": action.description,
         "type": action.type,
@@ -26,6 +27,7 @@ def action_to_json(action: Actions):
 def reaction_to_json(reaction: Reactions):
     res = {
         "uuid": reaction.uuid,
+        "family": "reaction",
         "title": reaction.title,
         "description": reaction.description,
         "type":reaction.type,
