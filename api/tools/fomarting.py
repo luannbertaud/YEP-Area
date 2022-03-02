@@ -34,3 +34,14 @@ def reaction_to_json(reaction: Reactions):
         "content": reaction.content,
     }
     return res
+
+def close_window():
+    return """
+        <!DOCTYPE html>
+        <script type="text/javascript">
+            window.close();
+        </script>
+        you can 
+        <a href="#" onclick="window.close();return false;">close</a>
+        this window
+    """

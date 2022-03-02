@@ -7,6 +7,7 @@ import spotipy
 from tools.db import needs_db
 from tools.env import SERV_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, JWT_SECRET
 from tools.tokens import verify_jwt
+from tools.fomarting import close_window
 from models.db import Users
 
 
@@ -45,4 +46,4 @@ def spotify_callback():
         dbUser.oauth = {}
     dbUser.oauth["spotify"] = tokens
     dbUser.save()
-    return {"code": 200, "message": tokens}
+    return close_window()

@@ -7,7 +7,7 @@ import urllib.parse as url_parse
 from peewee import DoesNotExist
 from tools.db import needs_db
 from tools.env import TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, SERV_URL, JWT_SECRET
-from tools.fomarting import ensure_json
+from tools.fomarting import ensure_json, close_window
 from tools.tokens import verify_jwt
 from models.db import Users
 
@@ -66,4 +66,4 @@ def twitter_callback():
         dbUser.oauth = {}
     dbUser.oauth["twitter"] = tokens
     dbUser.save()
-    return {"code": rq.status_code, "message": r}
+    return close_window()

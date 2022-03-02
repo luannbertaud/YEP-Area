@@ -7,7 +7,7 @@ import urllib.parse as url_parse
 from peewee import DoesNotExist
 from tools.db import needs_db
 from tools.env import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SERV_URL, JWT_SECRET
-from tools.fomarting import ensure_json
+from tools.fomarting import ensure_json, close_window
 from tools.tokens import verify_jwt
 from models.db import Users
 
@@ -69,4 +69,4 @@ def github_callback():
         dbUser.oauth = {}
     dbUser.oauth["github"] = tokens
     dbUser.save()
-    return {"code": rq.status_code, "message": r}
+    return close_window()

@@ -9,6 +9,7 @@ from googleapiclient.discovery import build
 from tools.db import needs_db
 from tools.env import SERV_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET
 from tools.tokens import verify_jwt
+from tools.fomarting import close_window
 from models.db import Users
 
 
@@ -90,4 +91,4 @@ def google_callback():
         dbUser.oauth = {}
     dbUser.oauth["google"] = tokens
     dbUser.save()
-    return {"code": 200, "message": tokens}
+    return close_window()
