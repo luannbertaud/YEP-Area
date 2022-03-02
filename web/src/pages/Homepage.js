@@ -54,6 +54,7 @@ class Homepage extends React.Component {
       <div>
         <Box>
           <NavBar onCreateApplet={(applet) => {
+            //mettre load applet ici quand tout fonctionnera avec le back
             this.setState({
               ...this.state,
               appletList: [...this.state.appletList, applet],

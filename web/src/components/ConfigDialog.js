@@ -20,9 +20,29 @@ function ConfigDialog(props) {
 
   const actionReaction ={
     Google: {
-      actions: ["Google 1", "Google 2"],
-      reactions:[""]
+      actions: ["Google Action 1", "Google Action 2"],
+      reactions:["Google Reaction 1", "Google Reaction 2"]
     },
+    Epitech: {
+      actions: ["Epitech Action 1", "Epitech Action 2"],
+      reactions:["Epitech Reaction 1", "Epitech Reaction 2"]
+    },
+    Spotify: {
+      actions: ["Spotify Action 1", "Spotify Action 2"],
+      reactions:["Spotify Reaction 1", "Spotify Reaction 2"]
+    },
+    Twitter: {
+      actions: ["Twitter Action 1", "Twitter Action 2"],
+      reactions:["Twitter Reaction 1", "Twitter Reaction 2"]
+    },
+    Discord: {
+      actions: ["Discord Action 1", "Discord Action 2"],
+      reactions:["Discord Reaction 1", "Discord Reaction 2"]
+    },
+    Github: {
+      actions: ["Github Action 1", "Github Action 2"],
+      reactions:["Github Reaction 1", "Github Reaction 2"]
+    }
   }
 
   const handleTitleChange = (event) => {
@@ -73,6 +93,7 @@ function ConfigDialog(props) {
           <Select
             value={serviceAction}
             onChange={handleServiceActionChange}
+            label="Action Service"
           >
             <MenuItem value="Google">Google</MenuItem>
             <MenuItem value="Epitech">Epitech</MenuItem>
@@ -83,10 +104,11 @@ function ConfigDialog(props) {
           </Select>
         </FormControl>
         <FormControl sx={{ mt: 2, width: "100%" }}>
-          <InputLabel htmlFor="max-width">Action</InputLabel>
+          <InputLabel htmlFor="Action">Action</InputLabel>
           <Select
             value={action}
             onChange={handleActionChange}
+            label="Action"
           >
             {serviceAction && actionReaction[serviceAction].actions.map((action, index) => <MenuItem value={action} key={index}>{action}</MenuItem>)}
           </Select>
@@ -96,6 +118,7 @@ function ConfigDialog(props) {
           <Select
             value={serviceReaction}
             onChange={handleServiceReactionChange}
+            label="Service Reaction"
           >
             <MenuItem value="Google">Google</MenuItem>
             <MenuItem value="Epitech">Epitech</MenuItem>
@@ -110,12 +133,9 @@ function ConfigDialog(props) {
           <Select
             value={reaction}
             onChange={handleReactionChange}
+            label="Reaction"
           >
-            <MenuItem value="Send a message">Send a message</MenuItem>
-            <MenuItem value="Option 1">Option 1</MenuItem>
-            <MenuItem value="Option 2">Option 2</MenuItem>
-            <MenuItem value="Option 3">Option 3</MenuItem>
-            <MenuItem value="Option 4">Option 4</MenuItem>
+            {serviceReaction && actionReaction[serviceReaction].reactions.map((reaction, index) => <MenuItem value={reaction} key={index}>{reaction}</MenuItem>)}
           </Select>
         </FormControl>
         </DialogContent>
