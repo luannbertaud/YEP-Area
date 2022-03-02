@@ -25,7 +25,7 @@ def spotify_authorize():
     flow = spotipy.oauth2.SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, redirect_uri=redirect_uri, scope=scopes)
     authorization_url = flow.get_authorize_url()
     current_requests.append({"user_uuid":user_uuid})
-    return redirect(authorization_url, code=302)
+    return {'code': 200, 'url': authorization_url}
 
 @spotifyAuthBP.route("/", methods=["GET", "POST"])
 @needs_db

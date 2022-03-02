@@ -27,7 +27,7 @@ def twitter_authorize():
     params += "&client_id=" + url_parse.quote_plus(TWITTER_CLIENT_ID)
     params += "&redirect_uri=" + url_parse.quote_plus(SERV_URL + "auth/twitter/")
     params += "&code_challenge_method=S256&code_challenge=" + url_parse.quote_plus(code_challenge)
-    return redirect(url + params, code=302)
+    return {'code': 200, 'url': url + params}
 
 @twitterAuthBP.route("/", methods=["GET", "POST"])
 @needs_db

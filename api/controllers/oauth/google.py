@@ -40,7 +40,7 @@ def google_authorize():
     flow.redirect_uri = SERV_URL + "auth/google"
     authorization_url, _ = flow.authorization_url(access_type='offline', prompt='consent')
     current_requests.append({"user_uuid":user_uuid})
-    return redirect(authorization_url, code=302)
+    return {'code': 200, 'url': authorization_url}
 
 @googleAuthBP.route("/", methods=["GET", "POST"])
 @needs_db

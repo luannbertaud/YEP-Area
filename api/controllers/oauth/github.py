@@ -25,7 +25,7 @@ def github_authorize():
     params = "?&state=state&scope=" + url_parse.quote_plus("repo")
     params += "&client_id=" + url_parse.quote_plus(GITHUB_CLIENT_ID)
     params += "&redirect_uri=" + url_parse.quote_plus(SERV_URL + "auth/github/")
-    return redirect(url + params, code=302)
+    return {'code': 200, 'url': url + params}
 
 @githubAuthBP.route("/", methods=["GET", "POST"])
 @needs_db
