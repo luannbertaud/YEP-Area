@@ -10,34 +10,43 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 
 function ConfigDialog(props) {
-  const { onClose, open } = props;
+  const { onClose, open, onCreateApplet } = props;
+  const [title, setTitle] = React.useState('')
+  const [description, setDescription] = React.useState('')
   const [serviceAction, setServiceAction] = React.useState('');
   const [action, setAction] = React.useState('')
   const [serviceReaction, setServiceReaction] = React.useState('');
   const [reaction, setReaction] = React.useState('')
 
+  const actionReaction ={
+    Google: {
+      actions: ["Google 1", "Google 2"],
+      reactions:[""]
+    },
+  }
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value,)
+  }
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value,)
+  }
+
   const handleServiceActionChange = (event) => {
-    setServiceAction(
-      event.target.value,
-    );
+    setServiceAction(event.target.value,);
   };
 
   const handleActionChange = (event) => {
-    setAction(
-      event.target.value,
-    );
+    setAction(event.target.value,);
   };
 
   const handleServiceReactionChange = (event) => {
-    setServiceReaction(
-      event.target.value,
-    );
+    setServiceReaction(event.target.value,);
   };
 
   const handleReactionChange = (event) => {
-    setReaction(
-      event.target.value,
-    );
+    setReaction(event.target.value,);
   };
 
   return (
@@ -50,15 +59,16 @@ function ConfigDialog(props) {
             label="Name of your ARea"
             fullWidth
             variant="standard"
+            onChange={handleTitleChange}
           />
           <TextField
             margin="dense"
             label="Description of your ARea"
             fullWidth
             variant="standard"
+            onChange={handleDescriptionChange}
           />
-        </DialogContent>
-        <FormControl sx={{ mt: 2, minWidth: 120 }}>
+          <FormControl sx={{ mt: 2, width: "100%"}}>
           <InputLabel htmlFor="max-width">Action Service</InputLabel>
           <Select
             value={serviceAction}
@@ -72,20 +82,16 @@ function ConfigDialog(props) {
             <MenuItem value="Spotify">Spotify</MenuItem>
           </Select>
         </FormControl>
-        <FormControl sx={{ mt: 2, minWidth: 120 }}>
+        <FormControl sx={{ mt: 2, width: "100%" }}>
           <InputLabel htmlFor="max-width">Action</InputLabel>
           <Select
             value={action}
             onChange={handleActionChange}
           >
-            <MenuItem value="Send a message">Send a message</MenuItem>
-            <MenuItem value="Option 1">Option 1</MenuItem>
-            <MenuItem value="Option 2">Option 2</MenuItem>
-            <MenuItem value="Option 3">Option 3</MenuItem>
-            <MenuItem value="Option 4">Option 4</MenuItem>
+            {serviceAction && actionReaction[serviceAction].actions.map((action, index) => <MenuItem value={action} key={index}>{action}</MenuItem>)}
           </Select>
         </FormControl>
-        <FormControl sx={{ mt: 2, minWidth: 120 }}>
+        <FormControl sx={{ mt: 2,  width: "100%" }}>
           <InputLabel htmlFor="max-width">Reaction Service</InputLabel>
           <Select
             value={serviceReaction}
@@ -99,7 +105,7 @@ function ConfigDialog(props) {
             <MenuItem value="Spotify">Spotify</MenuItem>
           </Select>
         </FormControl>
-        <FormControl sx={{ mt: 2, minWidth: 120 }}>
+        <FormControl sx={{ mt: 2,  width: "100%" }}>
           <InputLabel htmlFor="max-width">Reaction</InputLabel>
           <Select
             value={reaction}
@@ -112,9 +118,14 @@ function ConfigDialog(props) {
             <MenuItem value="Option 4">Option 4</MenuItem>
           </Select>
         </FormControl>
+        </DialogContent>
+       
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose}>Create</Button>
+          <Button onClick={() => {
+              onCreateApplet({title:title, description:description}) 
+              onClose()
+            }}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>

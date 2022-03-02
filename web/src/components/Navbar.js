@@ -11,8 +11,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import InfoDialog from "./InfoDialog"
 import ConfigDialog from "./ConfigDialog"
 import ServiceDialog from "./ServiceDialog"
-import SettingsIcon from '@mui/icons-material/Settings';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 
 export default function NavBar({ onCreateApplet }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -89,15 +87,10 @@ export default function NavBar({ onCreateApplet }) {
           </Typography>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 2 }} />
           <Grid>
-            <IconButton color="inherit" onClick={handleOpenConfig}>
-              <SettingsIcon />
-            </IconButton>
             <IconButton color="inherit" onClick={handleOpenInfo}>
               <InfoIcon />
             </IconButton>
-            <IconButton color="inherit" onClick={() => {
-              onCreateApplet('test')
-            }}>
+            <IconButton color="inherit" onClick={handleOpenConfig}>
               <Add />
             </IconButton>
             <IconButton
@@ -122,7 +115,8 @@ export default function NavBar({ onCreateApplet }) {
         open={openInfo} />
       <ConfigDialog
         onClose={handleCloseConfig}
-        open={openConfig} />
+        open={openConfig}
+        onCreateApplet={onCreateApplet} />
       <ServiceDialog
         onClose={handleCloseService}
         open={openService} />

@@ -54,11 +54,7 @@ class Login extends React.Component {
             })
         }).catch((err) => {
             console.log(err);
-            cookies.set('token', { path: '/' });
-            this.setState({
-                redirect: true,
-                redirectUrl: '/',
-            })
+
         });
 
     }
@@ -76,11 +72,6 @@ class Login extends React.Component {
             });
         }).catch((err) => {
             console.log(err);
-            cookies.set('token', { path: '/' });
-            this.setState({
-                redirect: true,
-                redirectUrl: '/',
-            });
         });
     }
 

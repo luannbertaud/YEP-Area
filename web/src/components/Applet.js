@@ -8,8 +8,12 @@ import { alpha, styled } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 import {CloseOutlined} from "@mui/icons-material";
 import {Box, Grid, IconButton, Typography} from "@mui/material";
+import axios from "axios";
 
-export default function Applet() {
+export default function Applet({applet, cookies}) {
+
+ const { type, title, description, enabled } = applet
+
   const GreenSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
       color: green[300],
@@ -22,6 +26,17 @@ export default function Applet() {
     },
   }));
 
+  const handleChange = (event) => {
+    axios.post('https://api.yep-area.cf/widgets/update', {...applet, enabled: event.target.checked}, {
+      headers: {
+        'Authorization': cookies.get('token')
+      }
+    }).then((response) => {
+          console.log("post", response);
+          
+      })
+    }
+
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   return (
@@ -30,7 +45,7 @@ export default function Applet() {
         <Grid container alignItems="center">
           <Grid item xs>
             <Typography gutterBottom variant="h5" component="div" color="inherit">
-              Name of your ARea
+              {title}
             </Typography>
           </Grid>
           <IconButton
@@ -40,7 +55,7 @@ export default function Applet() {
             </IconButton>
         </Grid>
         <Typography color="text.secondary" variant="body2">
-          Description of the ARea
+          {description}
         </Typography>
       </Box>
       <Divider variant="middle" />
@@ -52,7 +67,7 @@ export default function Applet() {
             <TwitterIcon/>
           </Grid>
           <Grid item>
-            <GreenSwitch {...label} />
+            <GreenSwitch onChange={handleChange} checked={enabled} {...label} />
           </Grid>
         </Grid>
       </Box>
