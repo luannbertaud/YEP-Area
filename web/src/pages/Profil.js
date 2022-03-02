@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import './Profil.css';
-import {Link} from 'react-router-dom';
+import axios from "axios";
+import { useCookies } from 'react-cookie';
 import background from '../assets/back.png';
 import home from '../assets/return.png';
 import spotify from '../assets/spotify.png';
@@ -10,10 +11,27 @@ import github from '../assets/github.png';
 import twitter from '../assets/twitter.png';
 import google from '../assets/google.png';
 
+function Popup(page) {
+	window.open(page,"_blank","menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=500");
+}
+
 function Spotify () {
 	const [state, setState] = useState(false);
 
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
     const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/spotify/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
 	setState(!state);
     }
 
@@ -30,7 +48,20 @@ function Spotify () {
 function Discord () {
 	const [state, setState] = useState(false);
 
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
     const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/discord/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
 	setState(!state);
     }
 
@@ -47,7 +78,20 @@ function Discord () {
 function Intra () {
 	const [state, setState] = useState(false);
 
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
     const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/intra/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
 	setState(!state);
     }
 
@@ -64,17 +108,28 @@ function Intra () {
 function Github () {
 	const [state, setState] = useState(false);
 
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
     const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/github/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
 	setState(!state);
     }
 
     return (
 	<div>
-		<Link to="https://api.yep-area.cf/auth/github/authorize">
-	    	<button onClick={toggle} className={'github--button ' + (state ? 'github--close':'')}>
-			{state ? 'Github LOGIN' :'Github LOGOUT'}
-	    	</button>
-		</Link>
+	    <button onClick={toggle} className={'github--button ' + (state ? 'github--close':'')}>
+		{state ? 'Github LOGIN' :'Github LOGOUT'}
+	    </button>
 		<img src={github} alt="" className="github" />
 	</div>
     );
@@ -83,7 +138,20 @@ function Github () {
 function Twitter () {
 	const [state, setState] = useState(false);
 
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
     const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/twitter/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
 	setState(!state);
     }
 
@@ -100,7 +168,20 @@ function Twitter () {
 function Google () {
 	const [state, setState] = useState(false);
 
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
     const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/google/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
 	setState(!state);
     }
 
