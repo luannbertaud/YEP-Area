@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './Profil.css';
+import {Link} from 'react-router-dom';
 import background from '../assets/back.png';
-import off from '../assets/off.png';
 import home from '../assets/return.png';
 import spotify from '../assets/spotify.png';
 import discord from '../assets/discord.png';
@@ -18,12 +18,12 @@ function Spotify () {
     }
 
     return (
-		<div>
-	    	<button onClick={toggle} className={'spotify--button ' + (state ? 'spotify--close':'')}>
-			{state ? 'Spotify LOGIN' :'Spotify LOGOUT'}
-	    	</button>
-			<img src={spotify} alt="" className="spotify" />
-		</div>
+	<div>
+	    <button onClick={toggle} className={'spotify--button ' + (state ? 'spotify--close':'')}>
+		{state ? 'Spotify LOGIN' :'Spotify LOGOUT'}
+	    </button>
+		<img src={spotify} alt="" className="spotify" />
+	</div>
     );
 }
 
@@ -70,9 +70,11 @@ function Github () {
 
     return (
 	<div>
-	    <button onClick={toggle} className={'github--button ' + (state ? 'github--close':'')}>
-		{state ? 'Github LOGIN' :'Github LOGOUT'}
-	    </button>
+		<Link to="https://api.yep-area.cf/auth/github/authorize">
+	    	<button onClick={toggle} className={'github--button ' + (state ? 'github--close':'')}>
+			{state ? 'Github LOGIN' :'Github LOGOUT'}
+	    	</button>
+		</Link>
 		<img src={github} alt="" className="github" />
 	</div>
     );
@@ -114,18 +116,17 @@ function Google () {
 
 function Profil() {
     return (
-		<div style={{height:'100vh', width:'100vw', overflow:'hidden', backgroundImage:`url(${background})`, backgroundSize:'cover'}}>
-			<div className="Profil">
-				<Spotify />
-				<Discord />
-				<Intra />
-				<Github />
-				<Twitter />
-				<Google />
-				<img src={off} alt="" className="OFF" />
-      			<img src={home} alt="" className="return" />
-			</div>
+	<div style={{height:'100vh', width:'100vw', overflow:'hidden', backgroundImage:`url(${background})`, backgroundSize:'cover'}}>
+		<div className="Profil">
+			<Spotify />
+			<Discord />
+			<Intra />
+			<Github />
+			<Twitter />
+			<Google />
+      		<img src={home} alt="" className="return" />
 		</div>
+	</div>
     );
 }
 
