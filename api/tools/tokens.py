@@ -14,7 +14,7 @@ def get_tokens(rqUser, tokenType):
         dbUser = Users.get(Users.uuid == rqUser)
     except DoesNotExist as e:
         return {"NOJSON": "Unknown Area user"}
-    return getattr(dbUser, tokenType)
+    return dbUser.oauth[tokenType]
 
 
 def tokens_reload(f=None, reloader=None):

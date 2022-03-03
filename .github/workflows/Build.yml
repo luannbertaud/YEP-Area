@@ -58,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      SERV_ENABLE_SSL: false
     steps:
       - uses: actions/checkout@v2
       - name: Start compose stack

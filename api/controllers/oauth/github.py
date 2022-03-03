@@ -49,7 +49,7 @@ def github_callback():
     ru = ensure_json(rqu)
     r['data']['login'] = ru['data']["login"]
     if rqu.status_code != 200:
-        return {"code": rqu.status_code, "message": ru}
+        return {"code": rqu.status_code, "message": ru}, rqu.status_code
 
     tokens = {
         "access_token": r['data']['access_token'],
@@ -60,6 +60,8 @@ def github_callback():
         dbUser = Users.get(Users.name == rqUser)
     except DoesNotExist as e:
         return {"code": 401, "message": "Unknown Area user"}, 401
-    dbUser.github = tokens
+    if not dbUser.oauth:
+        dbUser.oauth = {}
+    dbUser.oauth["github"] = tokens
     dbUser.save()
     return {"code": rq.status_code, "message": r}

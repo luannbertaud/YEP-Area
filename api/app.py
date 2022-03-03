@@ -7,6 +7,8 @@ from controllers.actions.hooks import hooksBP
 from controllers.auth.area import areaAuthBP
 from controllers.oauth.twitter import twitterAuthBP
 from controllers.oauth.github import githubAuthBP
+from controllers.oauth.google import googleAuthBP
+from controllers.oauth.spotify import spotifyAuthBP
 from controllers.widgets.update import widgetsUpdateBP
 
 app = Flask("app")
@@ -16,6 +18,8 @@ app.register_blueprint(hooksBP, url_prefix="/hooks")
 app.register_blueprint(areaAuthBP, url_prefix="/auth/area")
 app.register_blueprint(twitterAuthBP, url_prefix="/auth/twitter")
 app.register_blueprint(githubAuthBP, url_prefix="/auth/github")
+app.register_blueprint(googleAuthBP, url_prefix="/auth/google")
+app.register_blueprint(spotifyAuthBP, url_prefix="/auth/spotify")
 app.register_blueprint(widgetsUpdateBP, url_prefix="/widgets")
 
 validateDatabase()

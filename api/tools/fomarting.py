@@ -5,6 +5,5 @@ def ensure_json(response):
     try:
         res = {'data': response.json(), 'code': response.status_code}
     except Exception as e:
-        print("Error: Response couldn't be parsed as json")
-        print(e)
+        print(f"Error: Response couldn't be parsed as json: {e}")
     return res
