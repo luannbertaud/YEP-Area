@@ -236,7 +236,7 @@ const profile = StyleSheet.create({
     bodyButton: {
         flex: 1,
         alignItems: 'center',
-        padding: 30,
+        padding: 15,
     },
     name: {
         fontSize: 24,
@@ -268,8 +268,8 @@ const profile = StyleSheet.create({
     },
     serviceView: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'center',
-        marginBottom: 30,
     },
     logoView: {
         flexDirection: 'row',
@@ -285,6 +285,22 @@ const profile = StyleSheet.create({
     },
 });
 
+const service = StyleSheet.create({
+    avatar: {
+        alignSelf: 'center',
+        position: 'relative',
+        marginVertical: 50,
+    },
+    text: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingHorizontal: 20,
+        marginTop: 20,
+    }
+});
+
 export {
     common,
     login,
@@ -293,4 +309,5 @@ export {
     applet,
     header,
     profile,
+    service,
 };
