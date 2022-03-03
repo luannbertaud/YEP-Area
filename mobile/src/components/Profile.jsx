@@ -30,11 +30,6 @@ export default class Profile extends Component {
             <Icon style={{ textAlign: 'left' }} name='navigate-before' size={60} color="black" onPress={() => this.props.navigation.goBack()} />
             <Text style={profile.title}>Services disponibles</Text>
           </View>
-          {this.state.service.map((services, key) => {
-            return (
-              <></>
-            )
-          })}
           <View style={profile.serviceView}>
             <Button
               title="Discord"
@@ -56,6 +51,7 @@ export default class Profile extends Component {
                 width: 150,
                 marginHorizontal: 15,
               }}
+              onPress={() => alert('discord')}
             />
             <Button
               title="Github"
@@ -77,6 +73,7 @@ export default class Profile extends Component {
                 width: 150,
                 marginHorizontal: 15,
               }}
+              onPress={() => alert('github')}
             />
           </View>
           <View style={profile.serviceView}>
@@ -100,6 +97,7 @@ export default class Profile extends Component {
                 width: 150,
                 marginHorizontal: 15,
               }}
+              onPress={() => alert('spotify')}
             />
 
             <Button
@@ -122,6 +120,7 @@ export default class Profile extends Component {
                 width: 150,
                 marginHorizontal: 15,
               }}
+              onPress={() => alert('twitter')}
             />
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
@@ -145,6 +144,7 @@ export default class Profile extends Component {
                 width: 150,
                 marginHorizontal: 15,
               }}
+              onPress={() => alert('epitech')}
             />
             <Button
               title="Google"
@@ -166,7 +166,7 @@ export default class Profile extends Component {
                 width: 150,
                 marginHorizontal: 15,
               }}
-              onPress={() => alert("thing")}
+              onPress={() => alert('google')}
             />
           </View>
           <View style={profile.bodyButton}>
