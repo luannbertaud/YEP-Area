@@ -37,6 +37,24 @@ def reaction_to_json(reaction: Reactions):
     }
     return res
 
+def json_return_diff(og, new):
+    res = {}
+    if ((type(og) != dict) or (type(new) != dict)):
+        return {}
+    for k in new.keys():
+        if (k not in og.keys()):
+            res[k] = new[k]
+            continue
+        if (og[k] == new[k]):
+            continue
+        elif (type(new[k]) == list):
+            res[k] = [x for x in new[k] if x not in og[k]]
+        elif (type(new[k]) == dict):
+            res[k] = json_return_diff(og[k], new[k])
+        else:
+            res[k] = new[k]
+    return res
+
 def close_window():
     return """
         <!DOCTYPE html>
