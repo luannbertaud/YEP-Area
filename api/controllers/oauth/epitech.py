@@ -2,11 +2,12 @@
 
 import jwt
 import requests
+from cryptography.fernet import Fernet
 from flask import Blueprint, request
 import urllib.parse as url_parse
 from peewee import DoesNotExist
 from tools.db import needs_db
-from tools.env import SERV_URL, JWT_SECRET
+from tools.env import SERV_URL, SERV_ENCRYPT_KEY, JWT_SECRET
 from tools.tokens import verify_jwt
 from tools.fomarting import close_window, autologin_window
 from models.db import Users
@@ -31,7 +32,6 @@ def epitech_callback():
     if (rqUser == None):
         return {"code": 401, "message": "Unknown area user."}, 401
     autologin = url_parse.unquote_plus(autologin)
-    print(autologin)
 
     session.get(autologin)
     user_token = session.cookies.get_dict()
@@ -43,7 +43,7 @@ def epitech_callback():
 
     tokens = {
         "access_token": user_token,
-        "refresh_token": None,
+        "refresh_token": Fernet(SERV_ENCRYPT_KEY.encode()).encrypt(autologin.encode()).decode("utf-8"),
         "login": login,
     }
     try:

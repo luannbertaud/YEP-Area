@@ -18,3 +18,4 @@ googleapis-common-protos==1.54.0
 google-pasta==0.2.0
 itsdangerous==1.1.0
 spotipy==2.19.0
+cryptography==35.0.0
