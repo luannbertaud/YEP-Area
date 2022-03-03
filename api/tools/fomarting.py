@@ -47,3 +47,36 @@ def close_window():
         <a href="#" onclick="window.close();return false;">close</a>
         this window
     """
+
+def autologin_window(redirect, areauser):
+    page = """
+        <html>
+
+        <head>
+            <script>
+                function sendAutologin() {
+                    var autolog_link = document.getElementById("autholog_input").value;
+
+                    if (window.confirm("Validate autologin link :" + autolog_link)) {
+                        window.location.href = '""" + redirect + """' + 
+                        '?autologin=' + encodeURIComponent(autolog_link) +
+                        '&areauser=' + """ + areauser + """;
+                    }
+                }
+            </script>
+        </head>
+
+        <body>
+            <div style="text-align:left; margin:8px 5px auto; overflow: resize;">
+                <label for="autholog_input">Please enter your auto-login link </label>
+                <input type="Text" id="autholog_input" size="25" />
+                <input type='button' onclick='sendAutologin()' value='SUBMIT'>
+                <br>
+                Find autologin link  <a href="https://intra.epitech.eu/admin/autolog" target="_blank">here</a>
+            </div>
+
+        </body>
+
+        </html>
+    """
+    return page

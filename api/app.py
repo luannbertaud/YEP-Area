@@ -5,6 +5,7 @@ from flask_cors import CORS
 from tools.db import validateDatabase
 from controllers.actions.hooks import hooksBP
 from controllers.auth.area import areaAuthBP
+from controllers.oauth.epitech import epitechAuthBP
 from controllers.oauth.twitter import twitterAuthBP
 from controllers.oauth.github import githubAuthBP
 from controllers.oauth.google import googleAuthBP
@@ -16,6 +17,7 @@ CORS(app, origins="*")
 
 app.register_blueprint(hooksBP, url_prefix="/hooks")
 app.register_blueprint(areaAuthBP, url_prefix="/auth/area")
+app.register_blueprint(epitechAuthBP, url_prefix="/auth/epitech")
 app.register_blueprint(twitterAuthBP, url_prefix="/auth/twitter")
 app.register_blueprint(githubAuthBP, url_prefix="/auth/github")
 app.register_blueprint(googleAuthBP, url_prefix="/auth/google")
