@@ -5,6 +5,20 @@ import { profile } from '../styles/AuthStyles'
 
 export default class Profile extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      service: [
+        {name: 'Discord', logo: 'discord', connected: 'false', color: '#4763ED'},
+        {name: 'Github', logo: 'github', connected: 'false', color: '#1A1D21'},
+        {name: 'Spotify', logo: 'spotify', connected: 'false', color: '#62CD5C'},
+        {name: 'Twitter', logo: 'twitter', connected: 'false', color: '#1d9bf0'},
+        {name: 'Epitech', logo: 'desktop', connected: 'false', color: '#015BA1'},
+        {name: 'Google', logo: 'google', connected: 'false', color: '#EA4335'},
+      ],
+    }
+  }
+
   render() {
     return (
       <View>
@@ -12,30 +26,151 @@ export default class Profile extends Component {
           <Icon style={profile.avatar} name="account-circle" size={150} color='white' />
         </View>
         <View style={profile.body}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 40 }}>
-            <Icon style={{ textAlign: 'left'}} name='navigate-before' size={60} color="black" onPress={() => this.props.navigation.goBack()} />
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 30, marginTop: -20 }}>
+            <Icon style={{ textAlign: 'left' }} name='navigate-before' size={60} color="black" onPress={() => this.props.navigation.goBack()} />
             <Text style={profile.title}>Services disponibles</Text>
           </View>
-          <View style={profile.logoView}>
-            <Image style={profile.logo} source={require('../assets/services/spotify.png')} />
-            <Text style={profile.name}>Spotify</Text>
-            <Image style={profile.logo} source={require('../assets/services/github.png')} />
-            <Text style={profile.name}>Github</Text>
+          {this.state.service.map((services, key) => {
+            return (
+              <></>
+            )
+          })}
+          <View style={profile.serviceView}>
+            <Button
+              title="Discord"
+              icon={{
+                type: 'fontisto',
+                name: 'discord',
+                size: 40,
+                color: 'white',
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              iconPosition='top'
+              titleStyle={{ fontWeight: '600' }}
+              buttonStyle={{
+                backgroundColor: '#4763ED',
+                borderRadius: 5,
+              }}
+              containerStyle={{
+                width: 150,
+                marginHorizontal: 15,
+              }}
+            />
+            <Button
+              title="Github"
+              icon={{
+                type: 'fontisto',
+                name: 'github',
+                size: 40,
+                color: 'white',
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              iconPosition='top'
+              titleStyle={{ fontWeight: '600' }}
+              buttonStyle={{
+                backgroundColor: '#1A1D21',
+                borderRadius: 5,
+              }}
+              containerStyle={{
+                width: 150,
+                marginHorizontal: 15,
+              }}
+            />
           </View>
-          <View style={profile.logoView}>
-            <Image style={profile.logo} source={require('../assets/services/discord.png')} />
-            <Text style={profile.name}>Discord</Text>
-            <Image style={profile.logo} source={require('../assets/services/twitter.png')} />
-            <Text style={profile.name}>Twitter</Text>
+          <View style={profile.serviceView}>
+            <Button
+              title="Spotify"
+              icon={{
+                type: 'fontisto',
+                name: 'spotify',
+                size: 40,
+                color: 'white',
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              iconPosition='top'
+              titleStyle={{ fontWeight: '600' }}
+              buttonStyle={{
+                backgroundColor: '#62CD5C',
+                borderRadius: 5,
+              }}
+              containerStyle={{
+                width: 150,
+                marginHorizontal: 15,
+              }}
+            />
+
+            <Button
+              title="Twitter"
+              icon={{
+                type: 'fontisto',
+                name: 'twitter',
+                size: 40,
+                color: 'white',
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              iconPosition='top'
+              titleStyle={{ fontWeight: '600' }}
+              buttonStyle={{
+                backgroundColor: '#1d9bf0',
+                borderRadius: 5,
+              }}
+              containerStyle={{
+                width: 150,
+                marginHorizontal: 15,
+              }}
+            />
           </View>
-          <View style={profile.logoView}>
-            <Image style={profile.logo} source={require('../assets/services/intra.png')} />
-            <Text style={profile.name}>Epitech</Text>
-            <Image style={profile.logo} source={require('../assets/services/google.png')} />
-            <Text style={profile.name}>Google</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <Button
+              title="Epitech"
+              icon={{
+                type: 'fontisto',
+                name: 'desktop',
+                size: 40,
+                color: 'white',
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              iconPosition='top'
+              titleStyle={{ fontWeight: '600' }}
+              buttonStyle={{
+                backgroundColor: '#015BA1',
+                borderRadius: 5,
+              }}
+              containerStyle={{
+                width: 150,
+                marginHorizontal: 15,
+              }}
+            />
+            <Button
+              title="Google"
+              icon={{
+                type: 'fontisto',
+                name: 'google',
+                size: 40,
+                color: 'white',
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              iconPosition='top'
+              titleStyle={{ fontWeight: '600' }}
+              buttonStyle={{
+                backgroundColor: '#EA4335',
+                borderRadius: 5,
+              }}
+              containerStyle={{
+                width: 150,
+                marginHorizontal: 15,
+              }}
+              onPress={() => alert("thing")}
+            />
           </View>
           <View style={profile.bodyButton}>
-            <TouchableOpacity style={profile.buttonContainer}>
+            <TouchableOpacity style={profile.buttonContainer} onPress={() => alert('logout')}>
               <Text style={{ color: 'white', fontWeight: '700' }}>Log Out</Text>
             </TouchableOpacity>
           </View>

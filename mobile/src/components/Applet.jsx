@@ -74,7 +74,7 @@ export default class Applet extends React.Component {
                         icon={{
                             name: 'delete',
                             size: 20,
-                            color: 'white',
+                            color: 'white', 
                         }}
                         iconContainerStyle={{ marginRight: 10 }}
                         titleStyle={{ fontWeight: '700' }}

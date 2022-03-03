@@ -224,17 +224,11 @@ const applet = StyleSheet.create({
 const profile = StyleSheet.create({
     header: {
         backgroundColor: "#1354A4",
-        height: 200,
+        height: 155,
     },
     avatar: {
-        paddingTop: 25,
         alignSelf: 'center',
         position: 'relative',
-    },
-    name: {
-        fontSize: 22,
-        color: "#FFFFFF",
-        fontWeight: '600',
     },
     body: {
         marginTop: 40,
@@ -272,12 +266,23 @@ const profile = StyleSheet.create({
         height: 50,
         marginRight: 15,
     },
+    serviceView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 30,
+    },
     logoView: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 20,
-        marginBottom: 20,
-    }
+        marginBottom: 30,
+    },
+    serviceName: {
+        fontSize: 24,
+        color: "black",
+        fontWeight: "600",
+        textAlign: 'center',
+    },
 });
 
 export {
