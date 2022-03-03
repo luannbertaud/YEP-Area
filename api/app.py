@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import os
+import json
 from flask import Flask
 from flask_cors import CORS
 from tools.db import validateDatabase
@@ -26,6 +28,18 @@ app.register_blueprint(widgetsBP, url_prefix="/widgets")
 
 validateDatabase()
 
-@app.route("/ping",)
+@app.route("/ping")
 def app_ping():
     return "pong"
+
+@app.route("/about.json")
+def app_aboutjson():
+    data = {}
+    path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+    try:
+        with open(os.path.join(path, 'about.json')) as f:
+            data = json.load(f)
+    except Exception as e:
+        return {"code": 500, "message": f"Failed to load about.json: {e}"}, 500
+    return data

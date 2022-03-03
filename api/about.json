@@ -1,0 +1,76 @@
+{
+"client": {
+    "host": "00.000.00.00"
+    },
+"server": {
+    "current_time": 10000,
+    "services": [
+            {
+                "name": "epitech",
+                "actions": [],
+                "reactions": []
+            },
+            {
+                "name": "github",
+                "actions": [
+                    {
+                        "name": "GithubWebhook",
+                        "description": "New push on repository",
+                        "parameters": "owner, repository"
+                    }
+                ],
+                "reactions": []
+            },
+            {
+                "name": "google",
+                "actions": [
+                    {
+                        "name": "GmailWebhook",
+                        "description": "New mail on address",
+                        "parameters": ""
+                    }
+                ],
+                "reactions": [
+                    {
+                        "name": "GmailSendEmail",
+                        "description": "Send mail to receiver",
+                        "parameters": "receiver, subject"
+                    }
+                ]
+            },
+            {
+                "name": "spotify",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "SpotifyNext",
+                        "description": "Skip to next song",
+                        "parameters": ""
+                    }
+                ]
+            },
+            {
+                "name": "twitter",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "TwitterTweet",
+                        "description": "Post tweet",
+                        "parameters": ""
+                    }
+                ]
+            },
+            {
+                "name": "discord",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "DiscordMessage",
+                        "description": "Post message to channel",
+                        "parameters": "chennel_id"
+                    }
+                ]
+            }
+        ]
+    }
+}
