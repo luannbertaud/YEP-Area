@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Button } from 'react-native-elements';
+import WidgetInput from '../components/widget/WidgetInput.jsx';
 
 export default class Board extends React.Component {
     constructor(props) {
@@ -10,7 +11,9 @@ export default class Board extends React.Component {
 
     render() {
         return (
-            <Text style={{marginTop: '45%'}}>Welcome to the board</Text>
-        )
+            <>
+                <WidgetInput/>
+            </>
+        );
     }
 }
