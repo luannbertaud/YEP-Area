@@ -3,7 +3,7 @@
 import requests
 from peewee import DoesNotExist
 import spotipy
-from api.tools.fomarting import ensure_json
+from tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SERV_URL
 from models.area import Reaction
