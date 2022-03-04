@@ -19,7 +19,7 @@ function InfoDialog(props) {
           We help devices, services, and apps work together in new and powerful ways.
         </Typography>
         <Typography gutterBottom>
-          <br /><b>ARea</b> was founded on the belief that every thing works better together.
+          <br/><b>ARea</b> was founded on the belief that every thing works better together.
           Tech incompatibility has become challenging for anyone trying to build a smart home or create automatic routines in their life.
           <b>ARea</b> makes it easy.
         </Typography>

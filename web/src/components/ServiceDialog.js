@@ -31,7 +31,7 @@ function Popup(page) {
 function Spotify () {
 	const [state, setState] = useState(false);
 
-	const [cookies, setCookie] = useCookies(['token']);
+	const [cookies] = useCookies(['token']);
 	console.log(cookies);
 
     const toggle=()=>{
@@ -61,7 +61,7 @@ function Spotify () {
 function Discord () {
 	const [state, setState] = useState(false);
 
-	const [cookies, setCookie] = useCookies(['token']);
+	const [cookies] = useCookies(['token']);
 	console.log(cookies);
 
     const toggle=()=>{
@@ -91,7 +91,7 @@ function Discord () {
 function Intra () {
 	const [state, setState] = useState(false);
 
-	const [cookies, setCookie] = useCookies(['token']);
+	const [cookies] = useCookies(['token']);
 	console.log(cookies);
 
     const toggle=()=>{
@@ -121,7 +121,7 @@ function Intra () {
 function Github () {
 	const [state, setState] = useState(false);
 
-	const [cookies, setCookie] = useCookies(['token']);
+	const [cookies] = useCookies(['token']);
 	console.log(cookies);
 
     const toggle=()=>{
@@ -151,7 +151,7 @@ function Github () {
 function Twitter () {
 	const [state, setState] = useState(false);
 
-	const [cookies, setCookie] = useCookies(['token']);
+	const [cookies] = useCookies(['token']);
 	console.log(cookies);
 
     const toggle=()=>{
@@ -181,7 +181,7 @@ function Twitter () {
 function Google () {
 	const [state, setState] = useState(false);
 
-	const [cookies, setCookie] = useCookies(['token']);
+	const [cookies] = useCookies(['token']);
 	console.log(cookies);
 
     const toggle=()=>{

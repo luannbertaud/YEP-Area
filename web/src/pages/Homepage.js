@@ -4,7 +4,7 @@ import NavBar from "../components/Navbar"
 import Applet from "../components/Applet"
 import { Box, Grid } from "@mui/material";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -53,16 +53,14 @@ class Homepage extends React.Component {
     return (
       <div>
         <Box>
-          <NavBar onCreateApplet={(applet) => {
-            //mettre load applet ici quand tout fonctionnera avec le back
-            this.setState({
-              ...this.state,
-              appletList: [...this.state.appletList, applet],
-            })
-          }} />
+          <NavBar cookies={cookies} onCreateApplet={(applet) => { this.loadApplets();}} />
         </Box>
         <Grid container columns={{ xs: 4, sm: 8, md: 12 }} style={{ gap: "16px", padding: "25px" }}>
-          {this.state.appletList.map((applet, id) => <Applet applet={applet} cookies={cookies} key={id}/>)}
+          {
+            this.state.appletList.map(
+              (applet, id) => <Applet applet={applet} cookies={cookies} onUpdateApplet={() => {this.loadApplets();}} key={id}/>
+            )
+          }
         </Grid>
       </div>)
   }

@@ -8,40 +8,48 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 function ConfigDialog(props) {
-  const { onClose, open, onCreateApplet } = props;
+  const { onClose, open, onCreateApplet, cookies } = props;
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [serviceAction, setServiceAction] = React.useState('');
   const [action, setAction] = React.useState('')
   const [serviceReaction, setServiceReaction] = React.useState('');
-  const [reaction, setReaction] = React.useState('')
+  const [reaction, setReaction] = React.useState('');
+  const [actionContent, setActionContent] = React.useState('');
+  const [reactionContent, setReactionContent] = React.useState('');
 
-  const actionReaction ={
+  const contentKey = { 
+    "GmailSendEmail": "receiver",
+    "DiscordMessage": "channel_id"
+  };
+  const actionReaction = {
     Google: {
-      actions: ["New mail on adress"],
-      reactions:["Send email to receiver"]
+      actions: [{ value: "GmailWebhook", display: "New mail on adress"}],
+      reactions: [{ value: "GmailSendEmail", display: "Send email to receiver"}]
     },
     Epitech: {
       actions: [],
-      reactions:[]
+      reactions: []
     },
     Spotify: {
       actions: [],
-      reactions:["Skip to next song"]
+      reactions: [{ value: "SpotifyNext", display: "Skip to next song" }]
     },
     Twitter: {
       actions: [],
-      reactions:["Post tweet"]
+      reactions: [{ value: "TwitterTweet", display: "Post tweet"}]
     },
     Discord: {
       actions: [],
-      reactions:["Post message to channel"]
+      reactions: [{ value: "DiscordMessage", display: "Post message to channel"}]
     },
     Github: {
-      actions: ["New push on repository"],
-      reactions:[]
+      actions: [{ value: "GithubWebhook", display: "New push on repository"}],
+      reactions: []
     }
   }
 
@@ -69,6 +77,84 @@ function ConfigDialog(props) {
     setReaction(event.target.value,);
   };
 
+  const displayActionContent = () => {
+    if (serviceAction === "Google") {
+      return (
+        <TextField
+          margin="dense"
+          label="Content"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setActionContent(event.target.value)}
+          
+        />
+      )
+    }
+  }
+  const displayReactionContent = () => {
+    if (serviceReaction === "Discord") {
+      return (
+        <TextField
+          margin="dense"
+          label="Content"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setReactionContent(event.target.value)}
+          
+        />
+      )
+    }
+  }
+
+  const createNewApplet = () => {
+    const reactionUuid= uuidv4();
+    const toSendToDaddy = {
+      widgets: [
+        {
+          content: {
+            [contentKey[reaction]]: actionContent
+          },
+          enabled: true,
+          family: "action",
+          title: title,
+          description: description,
+          user_uuid: "0",
+          uuid: uuidv4(),
+          type: action,
+          children: {
+            uuids: reactionUuid
+          }
+        },
+        {
+          content: {
+            [contentKey[reaction]]: reactionContent
+          },
+          enabled: true,
+          family: "reaction",
+          title: "",
+          description: "",
+          user_uuid: "0",
+          uuid: reactionUuid,
+          type: reaction,
+        }
+      ]
+    };
+    console.log(toSendToDaddy);
+    axios.post(
+      'https://api.yep-area.cf/widgets/update',
+      toSendToDaddy,
+      {
+        headers: {
+          'Authorization': cookies.get('token')
+        }
+      }
+    ).then((response) => {
+      console.log("post", response);
+      onCreateApplet({ title: title, description: description })
+      onClose()
+    })
+  }
+
   return (
     <div>
       <Dialog open={open} onClose={onClose}>
@@ -88,64 +174,71 @@ function ConfigDialog(props) {
             variant="standard"
             onChange={handleDescriptionChange}
           />
-          <FormControl sx={{ mt: 2, width: "100%"}}>
-          <InputLabel htmlFor="max-width">Action Service</InputLabel>
-          <Select
-            value={serviceAction}
-            onChange={handleServiceActionChange}
-            label="Action Service"
-          >
-            <MenuItem value="Google">Google</MenuItem>
-            <MenuItem value="Epitech">Epitech</MenuItem>
-            <MenuItem value="Github">Github</MenuItem>
-            <MenuItem value="Discord">Discord</MenuItem>
-            <MenuItem value="Twitter">Twitter</MenuItem>
-            <MenuItem value="Spotify">Spotify</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl sx={{ mt: 2, width: "100%" }}>
-          <InputLabel htmlFor="Action">Action</InputLabel>
-          <Select
-            value={action}
-            onChange={handleActionChange}
-            label="Action"
-          >
-            {serviceAction && actionReaction[serviceAction].actions.map((action, index) => <MenuItem value={action} key={index}>{action}</MenuItem>)}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ mt: 2,  width: "100%" }}>
-          <InputLabel htmlFor="max-width">Reaction Service</InputLabel>
-          <Select
-            value={serviceReaction}
-            onChange={handleServiceReactionChange}
-            label="Service Reaction"
-          >
-            <MenuItem value="Google">Google</MenuItem>
-            <MenuItem value="Epitech">Epitech</MenuItem>
-            <MenuItem value="Github">Github</MenuItem>
-            <MenuItem value="Discord">Discord</MenuItem>
-            <MenuItem value="Twitter">Twitter</MenuItem>
-            <MenuItem value="Spotify">Spotify</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl sx={{ mt: 2,  width: "100%" }}>
-          <InputLabel htmlFor="max-width">Reaction</InputLabel>
-          <Select
-            value={reaction}
-            onChange={handleReactionChange}
-            label="Reaction"
-          >
-            {serviceReaction && actionReaction[serviceReaction].reactions.map((reaction, index) => <MenuItem value={reaction} key={index}>{reaction}</MenuItem>)}
-          </Select>
-        </FormControl>
+          <FormControl sx={{ mt: 2, width: "100%" }}>
+            <InputLabel htmlFor="max-width">Action Service</InputLabel>
+            <Select
+              value={serviceAction}
+              onChange={handleServiceActionChange}
+              label="Action Service"
+            >
+              <MenuItem value="Google">Google</MenuItem>
+              <MenuItem value="Epitech">Epitech</MenuItem>
+              <MenuItem value="Github">Github</MenuItem>
+              <MenuItem value="Discord">Discord</MenuItem>
+              <MenuItem value="Twitter">Twitter</MenuItem>
+              <MenuItem value="Spotify">Spotify</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl sx={{ mt: 2, width: "100%" }}>
+            <InputLabel htmlFor="Action">Action</InputLabel>
+            <Select
+              value={action}
+              onChange={handleActionChange}
+              label="Action"
+            >
+              {
+                serviceAction && actionReaction[serviceAction].actions.map(
+                  (action, index) => <MenuItem value={action.value} key={index}>{action.display}</MenuItem>
+                )
+              }
+            </Select>
+            {displayActionContent()}
+          </FormControl>
+          <FormControl sx={{ mt: 2, width: "100%" }}>
+            <InputLabel htmlFor="max-width">Reaction Service</InputLabel>
+            <Select
+              value={serviceReaction}
+              onChange={handleServiceReactionChange}
+              label="Service Reaction"
+            >
+              <MenuItem value="Google">Google</MenuItem>
+              <MenuItem value="Epitech">Epitech</MenuItem>
+              <MenuItem value="Github">Github</MenuItem>
+              <MenuItem value="Discord">Discord</MenuItem>
+              <MenuItem value="Twitter">Twitter</MenuItem>
+              <MenuItem value="Spotify">Spotify</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl sx={{ mt: 2, width: "100%" }}>
+            <InputLabel htmlFor="max-width">Reaction</InputLabel>
+            <Select
+              value={reaction}
+              onChange={handleReactionChange}
+              label="Reaction"
+            >
+            {
+              serviceReaction && actionReaction[serviceReaction].reactions.map(
+                (reaction, index) => <MenuItem value={reaction.value} key={index}>{reaction.display}</MenuItem>
+              )
+            }
+            </Select>
+            {displayReactionContent()}
+          </FormControl>
         </DialogContent>
-       
+
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={() => {
-              onCreateApplet({title:title, description:description}) 
-              onClose()
-            }}>Create</Button>
+          <Button onClick={createNewApplet}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -1,18 +1,15 @@
 import * as React from 'react';
 import Divider from '@mui/material/Divider';
 import Switch from '@mui/material/Switch';
-import GoogleIcon from '@mui/icons-material/Google';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import { alpha, styled } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 import {CloseOutlined} from "@mui/icons-material";
 import {Box, Grid, IconButton, Typography} from "@mui/material";
 import axios from "axios";
 
-export default function Applet({applet, cookies}) {
+export default function Applet({applet, cookies, onUpdateApplet}) {
 
- const { type, title, description, enabled } = applet
+ const { title, description, enabled } = applet
 
   const GreenSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
@@ -27,13 +24,13 @@ export default function Applet({applet, cookies}) {
   }));
 
   const handleChange = (event) => {
-    axios.post('https://api.yep-area.cf/widgets/update', {...applet, enabled: event.target.checked}, {
+    axios.post('https://api.yep-area.cf/widgets/update', {widgets: [{...applet, enabled: event.target.checked}]}, {
       headers: {
         'Authorization': cookies.get('token')
       }
     }).then((response) => {
           console.log("post", response);
-          
+          onUpdateApplet();
       })
     }
 
@@ -62,9 +59,6 @@ export default function Applet({applet, cookies}) {
       <Box sx={{ m: 2 }}>
         <Grid container justifyContent="space-between" flexWrap="nowrap">
           <Grid item>
-            <GoogleIcon/>
-            <ArrowRightAltIcon/>
-            <TwitterIcon/>
           </Grid>
           <Grid item>
             <GreenSwitch onChange={handleChange} checked={enabled} {...label} />

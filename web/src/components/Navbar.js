@@ -12,7 +12,7 @@ import InfoDialog from "./InfoDialog"
 import ConfigDialog from "./ConfigDialog"
 import ServiceDialog from "./ServiceDialog"
 
-export default function NavBar({ onCreateApplet }) {
+export default function NavBar({cookies, onCreateApplet }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [setMobileMoreAnchorEl] = React.useState(null);
   const [openInfo, setOpenInfo] = React.useState(false);
@@ -116,7 +116,8 @@ export default function NavBar({ onCreateApplet }) {
       <ConfigDialog
         onClose={handleCloseConfig}
         open={openConfig}
-        onCreateApplet={onCreateApplet} />
+        onCreateApplet={onCreateApplet}
+        cookies={cookies}/>
       <ServiceDialog
         onClose={handleCloseService}
         open={openService} />
