@@ -10,23 +10,24 @@ export default class Profile extends React.Component {
     super(props)
     this.state = {
       service: [
-        { name: 'Discord', logo: 'discord', connected: 'false', color: '#4763ED' },
-        { name: 'Github', logo: 'github', connected: 'false', color: '#1A1D21' },
-        { name: 'Spotify', logo: 'spotify', connected: 'false', color: '#62CD5C' },
-        { name: 'Twitter', logo: 'twitter', connected: 'false', color: '#1d9bf0' },
-        { name: 'Epitech', logo: 'desktop', connected: 'false', color: '#015BA1' },
-        { name: 'Google', logo: 'google', connected: 'false', color: '#EA4335' },
+        { name: 'Discord', logo: 'discord', route: 'discord', connected: 'false', color: '#4763ED' },
+        { name: 'Github', logo: 'github', route: 'github', connected: 'false', color: '#1A1D21' },
+        { name: 'Spotify', logo: 'spotify', route: 'spotify', connected: 'false', color: '#62CD5C' },
+        { name: 'Twitter', logo: 'twitter', route: 'twitter', connected: 'false', color: '#1d9bf0' },
+        { name: 'Epitech', logo: 'desktop', route: 'epitech', connected: 'false', color: '#015BA1' },
+        { name: 'Google', logo: 'google', route: 'google', connected: 'false', color: '#EA4335' },
       ],
     }
     this.onPressDetails = this.onPressDetails.bind(this)
   }
 
-  onPressDetails(name, logo, color, connected) {
+  onPressDetails(name, logo, color, connected, route) {
     navigateWithParameters(this.props.navigation, 'Service', {
       name: name,
       logo: logo,
       color: color,
       connected: connected,
+      route: route,
     });
   }
 
@@ -67,7 +68,7 @@ export default class Profile extends React.Component {
                     marginVertical: 15,
                     alignSelf: 'center'
                   }}
-                  onPress={() => this.onPressDetails(services.name, services.logo, services.color, services.connected)}
+                  onPress={() => this.onPressDetails(services.name, services.logo, services.color, services.connected, services.route)}
                 />
               )
             })}
