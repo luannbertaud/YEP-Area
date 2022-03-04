@@ -31,8 +31,8 @@ app.register_blueprint(googleAuthBP, url_prefix="/auth/google")
 app.register_blueprint(spotifyAuthBP, url_prefix="/auth/spotify")
 app.register_blueprint(widgetsBP, url_prefix="/widgets")
 
-validateDatabase()
-start_watchers()
+if (validateDatabase()):
+    start_watchers()
 
 @app.route("/ping")
 def app_ping():
