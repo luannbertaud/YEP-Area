@@ -1,0 +1,29 @@
+.loginButton{
+    width: auto;
+    padding: 15px 25px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    margin: 30px auto auto;
+    box-shadow: none;
+  }
+
+.googleBackground{
+  background-color: #df4930;
+}
+
+.icon{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

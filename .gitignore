@@ -6,6 +6,8 @@ data/postgres-container-data/
 web/apk_vol/client.apk
 .gitignore
 .env
+
+node_modules
 *.bak
 *.crt
 *.csr
