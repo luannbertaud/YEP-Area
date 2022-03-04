@@ -8,3 +8,11 @@ web/apk_vol/client.apk
 .env
 
 node_modules
+*.bak
+*.crt
+*.csr
+*.pem
+*.key
+*.key.org
+*.sh
+.cache

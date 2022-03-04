@@ -4,10 +4,13 @@ import jwt
 import hashlib
 from peewee import DoesNotExist
 from flask import Blueprint, request
-from tools.env import JWT_SECRET, JWT_VALIDITY_DELTA
+from tools.env import JWT_SECRET, JWT_VALIDITY_DELTA, GOOGLE_LOGIN_CLIENT_ID, GOOGLE_CLIENT_ID
 from models.db import Users
 from tools.tokens import verify_jwt
 from datetime import datetime, timedelta
+from time import sleep
+from google.auth.transport import requests
+from google.oauth2 import id_token
 
 areaAuthBP = Blueprint("areaAuthBP", __name__)
 
@@ -108,21 +111,48 @@ def user_login():
         "user_email": u.email,
     }
 
-# @authBP.route("google/login", methods=["POST"])
-# def user_login_google():
-#     token_id = request.args.get("token")
-#     sleep(0.5)
-#     user = id_token.verify_oauth2_token(token_id, requests.Request(), GOOGLE_CLIENT_ID)
-#     if not check_if_google_user_exist(user["sub"]):
-#         if not create_google_user(user["given_name"], user["email"], user["sub"]):
-#             return {
-#                 "status": 401,
-#             }
-#     access_token = create_access_token(identity=user["email"])
-#     return {
-#         "msg": "Login succesfull",
-#         "status": 200,
-#         "access_token": access_token,
-#         "username": user["given_name"],
-#         "user_email": user["email"]
-#     }
+@areaAuthBP.route("login/google", methods=["POST"])
+def user_login_google():
+    data = request.json
+    u = None
+    if (not __validate_data_login(data)):
+        return {"code": 400, "message": "Malformed JSON payload. (user_name or user_email, + user_password)."}, 400
+    sleep(0.5)
+    try:
+        if ('mobile' in data.keys()) and (data['mobile'] == True):
+            user = id_token.verify_oauth2_token(data['idToken'], requests.Request(), GOOGLE_LOGIN_CLIENT_ID)
+        else:
+            user = id_token.verify_oauth2_token(data['idToken'], requests.Request(), GOOGLE_CLIENT_ID)
+    except:
+        return {"code": 400, "message": "Can't validate google idToken."}, 400
+    
+    try:
+        u = Users.get(Users.name == user["given_name"])
+    except DoesNotExist as e:
+        try:
+            u = Users.get(Users.email == user['email'])
+        except DoesNotExist as e:
+            pass
+
+    if not u:
+        u = Users.create(
+            name=user['given_name'],
+            googleToken=data['idToken'],
+            email=user['email']
+        )
+    else:
+        u.googleToken = data['idToken']
+        u.save()
+
+    payload = {
+        'user_uuid': u.uuid,
+        'exp': datetime.utcnow() + timedelta(seconds=int(JWT_VALIDITY_DELTA)),
+    }
+    return {
+        "message": "Login succesfull.",
+        "code": 200,
+        "access_token": jwt.encode(payload, JWT_SECRET, "HS256"),
+        "user_name": u.name,
+        "user_uuid": u.uuid,
+        "user_email": u.email,
+    }

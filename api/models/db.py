@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from peewee import Model as __Model
-from peewee import AutoField, TextField
+from peewee import AutoField, TextField, BooleanField
 from playhouse.postgres_ext import JSONField
 from models.db_globals import db
 
@@ -17,18 +17,24 @@ class Users(__BaseModel):
     name = TextField()
     password = TextField(null=True)
     email = TextField(null=True)
-    twitter = JSONField(null=True)
-    github = JSONField(null=True)
+    googleToken = TextField(null=True)
+    oauth = JSONField(null=True)
 
 class Reactions(__BaseModel):
     uuid = TextField(primary_key=True)
+    title = TextField(null=True)
+    description = TextField(null=True)
     type = TextField()
     user_uuid = TextField()
+    enabled = BooleanField()
     content = JSONField()
 
 class Actions(__BaseModel):
     uuid = TextField(primary_key=True)
+    title = TextField(null=True)
+    description = TextField(null=True)
     type = TextField()
     user_uuid = TextField()
+    enabled = BooleanField()
     content = JSONField()
     children = JSONField()
