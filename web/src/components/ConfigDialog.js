@@ -20,28 +20,28 @@ function ConfigDialog(props) {
 
   const actionReaction ={
     Google: {
-      actions: ["Google Action 1", "Google Action 2"],
-      reactions:["Google Reaction 1", "Google Reaction 2"]
+      actions: ["New mail on adress"],
+      reactions:["Send email to receiver"]
     },
     Epitech: {
-      actions: ["Epitech Action 1", "Epitech Action 2"],
-      reactions:["Epitech Reaction 1", "Epitech Reaction 2"]
+      actions: [],
+      reactions:[]
     },
     Spotify: {
-      actions: ["Spotify Action 1", "Spotify Action 2"],
-      reactions:["Spotify Reaction 1", "Spotify Reaction 2"]
+      actions: [],
+      reactions:["Skip to next song"]
     },
     Twitter: {
-      actions: ["Twitter Action 1", "Twitter Action 2"],
-      reactions:["Twitter Reaction 1", "Twitter Reaction 2"]
+      actions: [],
+      reactions:["Post tweet"]
     },
     Discord: {
-      actions: ["Discord Action 1", "Discord Action 2"],
-      reactions:["Discord Reaction 1", "Discord Reaction 2"]
+      actions: [],
+      reactions:["Post message to channel"]
     },
     Github: {
-      actions: ["Github Action 1", "Github Action 2"],
-      reactions:["Github Reaction 1", "Github Reaction 2"]
+      actions: ["New push on repository"],
+      reactions:[]
     }
   }
 

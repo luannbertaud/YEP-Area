@@ -78,6 +78,7 @@ class Homepage extends React.Component {
   render() {
     return (
       <div>
+        {/*this.showApp()*/}
         {this.state.redirect !== undefined ? <Navigate to={this.state.redirectUrl} /> : this.showApp()}
       </div>
     );
