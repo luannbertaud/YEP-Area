@@ -6,6 +6,7 @@ from flask import request
 from tools.env import SERV_URL
 from controllers.reactions.spotify import SpotifyAPIWrapper
 from models.area import Action
+from tools.actions import executeAction
 from tools.watcher import Watcher
 
 
@@ -31,11 +32,13 @@ class SpotifyTrackChangeWebhookAction(Action):
         return self.watcher
 
 def __spotifyTrackChangeHook(data, headers):
-    notif = data['data'][0]
+    track = data['data']
     area_action = headers['ActionUUID']
-    print(data)
-    # clean_title = re.sub(r'(<a.+?>)|(<\/a>)', '', notif['title'])
-    # executeAction(area_action, [f"EpitechNotifHook - From:[{notif['user']['title']}] Title:[{clean_title}]", ])
+    print(track)
+    if ('featuring' in track.keys()):
+        executeAction(area_action, [f"SpotifyTrackChangeWebhook:\n {track['title']} - {track['artist']} ft. {track['featuring']}\n{track['image']}", ])
+    else:
+        executeAction(area_action, [f"SpotifyTrackChangeWebhook:\n {track['title']} - {track['artist']}\n{track['image']}", ])
     return {"code": 200, "message": "OK"}
 
 

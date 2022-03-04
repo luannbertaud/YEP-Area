@@ -60,6 +60,8 @@ class SpotifyAPIWrapper():
             "Authorization" : f"Bearer {self.access_token}"
         }
         r = requests.get("https://api.spotify.com/v1/me/player/currently-playing", headers=headers)
+        if (not r.content):
+            return {'code': r.status_code, 'data': {}}
         r = ensure_json(r)
         if ('NOJSON' in r.keys()):
             return r
@@ -67,9 +69,10 @@ class SpotifyAPIWrapper():
         res = {
             'title': r['data']['item']['name'],
             'artist': r['data']['item']['artists'][0]['name'],
-            'featuring': ' & '.join(featuring),
             'image': r['data']['item']['album']['images'][0]['url'],
         }
+        if (featuring):
+            res['featuring'] = ' & '.join(featuring)
         return {'code': r['code'], 'data': res}
 
 
