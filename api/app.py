@@ -10,6 +10,7 @@ from tools.db import validateDatabase
 from tools.watcher import start_watchers, Watcher
 from controllers.actions.hooks import hooksBP
 from controllers.auth.area import areaAuthBP
+from controllers.oauth.discord import discordAuthBP
 from controllers.oauth.epitech import epitechAuthBP
 from controllers.oauth.twitter import twitterAuthBP
 from controllers.oauth.github import githubAuthBP
@@ -22,6 +23,7 @@ CORS(app, origins="*")
 
 app.register_blueprint(hooksBP, url_prefix="/hooks")
 app.register_blueprint(areaAuthBP, url_prefix="/auth/area")
+app.register_blueprint(discordAuthBP, url_prefix="/auth/discord")
 app.register_blueprint(epitechAuthBP, url_prefix="/auth/epitech")
 app.register_blueprint(twitterAuthBP, url_prefix="/auth/twitter")
 app.register_blueprint(githubAuthBP, url_prefix="/auth/github")

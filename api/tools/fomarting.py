@@ -65,7 +65,7 @@ def close_window():
                 window.close();
         </script>
         you can 
-        <button onclick="window.close();">close</button>
+        <button onclick="javascript:window.close();">close</button>
         this window
     """
 
