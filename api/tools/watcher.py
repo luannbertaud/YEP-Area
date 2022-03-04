@@ -40,7 +40,7 @@ def start_watchers():
 
     failed = []
     try:
-        query = Actions.select().where((Actions.type == "EpitechNotifWebhook") | (Actions.type == "SpotifyTrackChangeWebhook"))
+        query = Actions.select().where((Actions.type == "EpitechNotifWebhook") | (Actions.type == "SpotifyTrackChangeWebhook") | (Actions.type == "SpotifyMonthArtistChangeWebhook"))
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:

@@ -73,7 +73,26 @@ class SpotifyAPIWrapper():
         }
         if (featuring):
             res['featuring'] = ' & '.join(featuring)
-        return {'code': r['code'], 'data': res}
+        return {'code': r['code'], 'data': [res]}
+
+    @tokens_reload(reloader=get_new_tokens)
+    def month_artist(self):
+        headers = {
+            "Content-type" : "application/json",
+            "Accept" : "application/json",
+            "Authorization" : f"Bearer {self.access_token}"
+        }
+        r = requests.get("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=1&offset=0", headers=headers)
+        if (not r.content):
+            return {'code': r.status_code, 'data': {}}
+        r = ensure_json(r)
+        if ('NOJSON' in r.keys()):
+            return r
+        res = {
+            'artist': r['data']['items'][0]['name'],
+            'image': r['data']['items'][0]['images'][0]['url'],
+        }
+        return {'code': r['code'], 'data': [res]}
 
 
 class SpotifyNextReaction(Reaction):

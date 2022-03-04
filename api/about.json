@@ -51,6 +51,11 @@
                         "name": "SpotifyTrackChangeWebhook",
                         "description": "Triggered on music change",
                         "parameters": ""
+                    },
+                    {
+                        "name": "SpotifyMonthArtistChangeWebhook",
+                        "description": "Triggered when the most favorite artist of month change",
+                        "parameters": ""
                     }
                 ],
                 "reactions": [

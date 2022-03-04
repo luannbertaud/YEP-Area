@@ -22,7 +22,7 @@ def spotify_authorize():
     current_requests.append({"user_uuid":user_uuid})
     list({v['user_uuid']:v for v in current_requests}.values())
     redirect_uri = SERV_URL + "auth/spotify"
-    scopes = 'user-read-private user-library-modify user-modify-playback-state user-read-currently-playing'
+    scopes = 'user-read-private user-library-modify user-modify-playback-state user-read-currently-playing user-top-read'
     flow = spotipy.oauth2.SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, redirect_uri=redirect_uri, scope=scopes)
     authorization_url = flow.get_authorize_url()
     current_requests.append({"user_uuid":user_uuid})
