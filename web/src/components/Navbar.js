@@ -6,6 +6,7 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Add } from "@mui/icons-material";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
+import {useNavigate} from 'react-router-dom';
 import Area from "../resources/logoArea.png"
 import InfoIcon from '@mui/icons-material/Info';
 import InfoDialog from "./InfoDialog"
@@ -20,6 +21,7 @@ export default function NavBar({cookies, onCreateApplet }) {
   const [openService, setServiceConfig] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,7 +69,7 @@ export default function NavBar({cookies, onCreateApplet }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => { alert('Logout'); }}>Logout</MenuItem>
+      <MenuItem onClick={() => navigate('/login')}>Logout</MenuItem>
       <MenuItem onClick={handleOpenService}>Connection to your services</MenuItem>
     </Menu>
   );
