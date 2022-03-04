@@ -3,7 +3,7 @@
 import jwt
 from flask import Blueprint, request
 from peewee import DoesNotExist
-from api.tools.db import needs_db
+from tools.db import needs_db
 from controllers.widgets.save_widgets import save_action, save_reaction
 from models.db import Actions, Reactions, Users
 from tools.tokens import verify_jwt
