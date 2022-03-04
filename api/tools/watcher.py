@@ -15,12 +15,12 @@ class Watcher(Thread):
         self.additional_header = additional_header
         kwargs['target'] = self.runner
 
-        def signal_handler(sig, frame):
-            print(f'Exiting thread [{self.name}]...')
-            self.stop()
-            exit(0)
+        # def signal_handler(sig, frame):
+        #     print(f'Exiting thread [{self.name}]...')
+        #     self.stop()
+        #     exit(0)
 
-        signal.signal(signal.SIGINT, signal_handler)
+        # signal.signal(signal.SIGINT, signal_handler)
         super().__init__(*args, **kwargs)
 
     def stop(self):

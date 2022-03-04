@@ -55,12 +55,12 @@ def widgets_update():
             try:
                 res = save_action(w)
             except Exception as e:
-                failed.append(str(e))
+                failed.append(f"[{str(e)}]")
         elif w['family'] == "reaction":
             try:
                 res = save_reaction(w)
             except Exception as e:
-                failed.append(str(e))
+                failed.append(f"[{str(e)}]")
         if (res):
             updated.append(res)
     if (len(updated) != len(data['widgets'])):
