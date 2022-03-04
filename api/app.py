@@ -7,7 +7,7 @@ import signal
 from flask import Flask
 from flask_cors import CORS
 from tools.db import validateDatabase
-from tools.watcher import start_watchers, Watcher
+from tools.watcher import start_deamons, Watcher
 from controllers.actions.hooks import hooksBP
 from controllers.auth.area import areaAuthBP
 from controllers.oauth.discord import discordAuthBP
@@ -32,7 +32,7 @@ app.register_blueprint(spotifyAuthBP, url_prefix="/auth/spotify")
 app.register_blueprint(widgetsBP, url_prefix="/widgets")
 
 if (validateDatabase()):
-    start_watchers()
+    start_deamons()
 
 @app.route("/ping")
 def app_ping():
@@ -55,7 +55,6 @@ def signal_handler(sig, frame):
     for t in threading.enumerate():
         if (not isinstance(t, Watcher)):
             continue
-        print(f'Exiting thread [{t.name}]...')
         t.stop()
     exit(0)
 

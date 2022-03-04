@@ -46,7 +46,18 @@
             },
             {
                 "name": "spotify",
-                "actions": [],
+                "actions": [
+                    {
+                        "name": "SpotifyTrackChangeWebhook",
+                        "description": "Triggered on music change",
+                        "parameters": ""
+                    },
+                    {
+                        "name": "SpotifyMonthArtistChangeWebhook",
+                        "description": "Triggered when the most favorite artist of month change",
+                        "parameters": ""
+                    }
+                ],
                 "reactions": [
                     {
                         "name": "SpotifyNext",
@@ -68,7 +79,13 @@
             },
             {
                 "name": "discord",
-                "actions": [],
+                "actions": [
+                    {
+                        "name": "DiscordMessageReceived",
+                        "description": "Triggered when a message is post on a common server with the bot",
+                        "parameters": ""
+                    }
+                ],
                 "reactions": [
                     {
                         "name": "DiscordMessage",
