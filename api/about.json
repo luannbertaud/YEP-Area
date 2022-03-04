@@ -79,7 +79,13 @@
             },
             {
                 "name": "discord",
-                "actions": [],
+                "actions": [
+                    {
+                        "name": "DiscordMessageReceived",
+                        "description": "Triggered when a message is post on a common server with the bot",
+                        "parameters": ""
+                    }
+                ],
                 "reactions": [
                     {
                         "name": "DiscordMessage",

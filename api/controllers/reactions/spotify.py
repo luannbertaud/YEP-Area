@@ -83,7 +83,7 @@ class SpotifyAPIWrapper():
             "Authorization" : f"Bearer {self.access_token}"
         }
         r = requests.get("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=1&offset=0", headers=headers)
-        if (not r.content):
+        if (not r.content or (str(r.status_code)[0] != 2)):
             return {'code': r.status_code, 'data': {}}
         r = ensure_json(r)
         if ('NOJSON' in r.keys()):
