@@ -2,9 +2,12 @@
 
 import os
 import json
+import threading
+import signal
 from flask import Flask
 from flask_cors import CORS
 from tools.db import validateDatabase
+from tools.watcher import start_watchers, Watcher
 from controllers.actions.hooks import hooksBP
 from controllers.auth.area import areaAuthBP
 from controllers.oauth.epitech import epitechAuthBP
@@ -27,6 +30,7 @@ app.register_blueprint(spotifyAuthBP, url_prefix="/auth/spotify")
 app.register_blueprint(widgetsBP, url_prefix="/widgets")
 
 validateDatabase()
+start_watchers()
 
 @app.route("/ping")
 def app_ping():
@@ -43,3 +47,14 @@ def app_aboutjson():
     except Exception as e:
         return {"code": 500, "message": f"Failed to load about.json: {e}"}, 500
     return data
+
+
+def signal_handler(sig, frame):
+    for t in threading.enumerate():
+        if (not isinstance(t, Watcher)):
+            continue
+        print(f'Exiting thread [{t.name}]...')
+        t.stop()
+    exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)

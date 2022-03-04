@@ -3,6 +3,7 @@
 import jwt
 import re
 import requests
+import threading
 from cryptography.fernet import Fernet
 from peewee import DoesNotExist
 from flask import request
@@ -106,9 +107,14 @@ class EpitechNotifWebhookAction(Action):
         self.rqUser = rqUser
         self.api =  EpitechAPIWrapper(rqUser)
         super().__init__("epitech", rqUser, uuid=uuid)
-        self.watcher = Watcher(SERV_URL + "hooks/epitech", target=self.api.get_notifications, additional_header={"WebhookType": "get_notifications", "AreaUser": self.rqUser, "ActionUUID": self.uuid})
+        self.watcher = Watcher(SERV_URL + "hooks/epitech", "EpitechNotifWebhook", target=self.api.get_notifications, additional_header={"WebhookType": "get_notifications", "AreaUser": self.rqUser, "ActionUUID": self.uuid})
 
     def register(self, *args):
+        for t in threading.enumerate():
+            if (not isinstance(t, Watcher)):
+                continue
+            if (t.name == "WatcherEpitechNotifWebhook"):
+                return self.watcher
         self.watcher.start()
         return self.watcher
 
