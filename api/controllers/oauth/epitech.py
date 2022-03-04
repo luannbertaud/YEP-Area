@@ -14,12 +14,19 @@ from models.db import Users
 
 epitechAuthBP = Blueprint('epitechAuthBP', __name__)
 
+@epitechAuthBP.route("/landing", methods=["GET"])
+def epitech_landing():
+    user_uuid = request.args.get('areauser')
+    return autologin_window(SERV_URL + "auth/epitech/", user_uuid)
+
 @epitechAuthBP.route("/authorize", methods=["GET"])
 @verify_jwt
-def twitter_authorize():
+def epitech_authorize():
     auth = request.headers['Authorization']
     user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
-    return autologin_window(SERV_URL + "auth/epitech/", user_uuid)
+    url = SERV_URL + "auth/epitech/landing"
+    params = "?areauser=" + str(user_uuid)
+    return {'code': 200, 'url': url + params}
 
 @epitechAuthBP.route("/", methods=["GET", "POST"])
 @needs_db
