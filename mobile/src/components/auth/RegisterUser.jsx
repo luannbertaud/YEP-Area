@@ -22,8 +22,9 @@ export default class RegisterUser extends React.Component {
 
     register = async () => {
         await registerUser(this.state.name, this.state.email, this.state.password)
-        .then((accesToken) => {navigateWithParameters(this.props.navigation, "Board", {accesToken: accesToken})})
+        .then((accesToken) => {global.access_token = acces_token, navigateWithParameters(this.props.navigation, "Homepage", {accesToken: accesToken})})
         .catch((error) => {
+            console.log(error),
             this.setState({errorMessage: "An errror occured. Please try again."});
         });
         this.setState({name: '', email: '', password: ''});
@@ -31,7 +32,7 @@ export default class RegisterUser extends React.Component {
 
     registerWithGoogle = async() => {
         await signin()
-        .then((id) => {navigateWithParameters(this.props.navigation, "Board", {id: id})})
+        .then((id) => {navigateWithParameters(this.props.navigation, "Homepage", {id: id})})
         .catch(()=>{});
     }
 
@@ -69,6 +70,7 @@ export default class RegisterUser extends React.Component {
                     onBlur={()=>{this.setState({emailFocused: false})}}
                 />
                 <Input
+                    secureTextEntry={true}
                     label='Enter your password'
                     placeholder='********'
                     leftIcon={<Icon name='lock' size={20}/>}

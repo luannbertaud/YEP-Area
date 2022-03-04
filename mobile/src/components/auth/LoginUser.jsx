@@ -20,14 +20,14 @@ export default class LoginUser extends React.Component {
 
     login = async() => {
         await loginUser(this.state.email, this.state.password)
-        .then((acces_token) => {navigateWithParameters(this.props.navigation, "Board", {acces_token: acces_token})})
+        .then((acces_token) => {global.access_token = acces_token, navigateWithParameters(this.props.navigation, "Homepage", {acces_token: acces_token})})
         .catch(()=>{this.setState("An error occured. Please try again")});
         this.setState({email: '', password: ''})
     }
 
     loginWithGoogle = async() => {
         await signin()
-        .then((id) => {navigateWithParameters(this.props.navigation, "Board", {acces_token: id})})
+        .then((id) => {navigateWithParameters(this.props.navigation, "Homepage", {acces_token: id})})
         .catch(()=>{});
     }
 
@@ -53,6 +53,7 @@ export default class LoginUser extends React.Component {
 
                 />
                 <Input
+                    secureTextEntry={true}
                     label='Enter your password'
                     placeholder='********'
                     leftIcon={<Icon name='lock' size={20}/>}
@@ -73,7 +74,7 @@ export default class LoginUser extends React.Component {
                 <Button
                     title='Login'
                     titleStyle={common.buttonText}
-                    onPress={()=>{this.props.changeFade()}}
+                    onPress={()=>{this.login()}}
                 />
                 <Button
                     icon={common.googleIcon}

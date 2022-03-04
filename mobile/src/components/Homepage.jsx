@@ -4,6 +4,7 @@ import { Icon, Button } from 'react-native-elements';
 import { navigateTo } from '../services/navigation';
 import { homepage, header } from '../styles/AuthStyles.js';
 import Card from './Card.jsx';
+import axios from 'axios';
 
 export default class Homepage extends React.Component {
 
@@ -11,19 +12,84 @@ export default class Homepage extends React.Component {
         super(props);
         this.state = {
             name: 'Jeff',
-            hasApplet: true,
-            card: [
-                { name: 'Vendredi tout est permis avec Arthur', color: '#6AB4D9', active: true, A: 'twitch', REA: ['discord'], uuid: '' },
-                { name: 'AREA applet name Marc', color: '#279BD6', active: false, A: 'github', REA: ['twitter', 'discord',], uuid: '' },
-                { name: 'AREA applet name Franck', color: '#1354A4', active: false, A: 'github', REA: ['google', 'twitter'], uuid: '' },
-                { name: 'AREA applet name Guillaume', color: '#6AB4D9', active: false, A: 'twitter', REA: ['twitch'], uuid: '' },
-                { name: 'AREA applet name David', color: '#279BD6', active: true, A: 'discord', REA: ['github'], uuid: '' },
-                { name: 'AREA applet name Luc', color: '#1354A4', active: false, A: 'github', REA: ['twitter'], uuid: '' },
-            ],
+            hasApplets: false,
+            colors: ['#6AB4D9', '#279BD6', '#1354A4'],
+            card: []
         }
     }
 
+    getWidget(target, type) {
+        target += type
+        const service_mapper = {
+            "github": ["GithubWebhookAction"],
+            "google": ["GmailWebhookAction", "GmailSendEmailReaction"],
+            "spotify": ["SpotifyNextReaction"],
+            "twitter": ["TwitterTweetReaction"],
+            "discord": ["DiscordMessageReaction"],
+            "desktop": ["EpitechNotifWebhookAction"],
+        }
+        let obj
+        for (const [key, value] of Object.entries(service_mapper)) {
+            value.map((values, i) => {
+                if (values === target) {
+                    obj = key
+                    return (null)
+                }
+            })
+        }
+        return (obj)
+
+    }
+
+    getReaction(data, uuids) {
+        let reactions = []
+        if (!uuids)
+            return [];
+        uuids.map((uuid) => {
+            data.map((widget) => {
+                if (widget["uuid"] == uuid) {
+                    reactions.push(this.getWidget(widget['type'], "Reaction"))
+                }
+            });
+        });
+        return reactions;
+    }
+
+    async getApplets() {
+        var access_token = global.access_token;
+        let data = null;
+        let result = []
+
+        await axios.get(
+            'https://api.yep-area.cf/widgets/get', {
+                headers: {
+                  'Authorization': access_token
+                }
+        }).then((result) => { data = result.data.widgets })
+        .catch((error) => { throw "Error while fetching widgets: " + error });
+        data.map((widget, key) => {
+            let action = null;
+
+            if (widget.family === "action") {
+                action = this.getWidget(widget.type, 'Action')
+
+                result.push({
+                    name: widget.title,
+                    active: widget.enabled,
+                    color: this.state.colors[Math.floor(Math.random() * 3)],
+                    uuid: widget.uuid,
+                    A: action,
+                    REA: this.getReaction(data, widget['children']['uuids']),
+                });
+            }
+        });
+        this.setState({...this.state, card: result, hasApplets: true})
+        return result
+    }
+
     renderApplets() {
+        if (!this.state.card || this.state.card.length <= 0)
+            return this.renderNoneApplet();
         return (
             <View style={[homepage.container, { padding: 30 }]}>
                 {this.state.card.map((cards, key) => {
@@ -48,6 +114,9 @@ export default class Homepage extends React.Component {
 
 
     render() {
+        if (this.state.hasApplets === false) {
+            this.getApplets();
+        }
         return (
             <>
                 <ScrollView>
@@ -65,11 +134,11 @@ export default class Homepage extends React.Component {
                         </View>
                     </View>
                     <View style={homepage.container}>
-                        <TouchableOpacity onPress={() => this.setState({ hasApplet: !this.state.hasApplet })} style={homepage.button}>
+                        <TouchableOpacity onPress={() => {} } style={homepage.button}>
                             <Text style={homepage.buttonText}>Create an AREA</Text>
                         </TouchableOpacity>
                     </View>
-                    {this.state.hasApplet === false ? this.renderNoneApplet() : this.renderApplets()}
+                    {this.state.hasApplets !== true ? this.renderNoneApplet() : this.renderApplets()}
                 </ScrollView>
             </>
         )

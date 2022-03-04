@@ -11,7 +11,7 @@ export default class Service extends React.Component {
     }
 
     async authentifcate_service(route) {
-        var access_token = "";
+        var access_token = global.access_token;
         let auth_url = null;
 
         await axios.get(

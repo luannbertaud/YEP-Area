@@ -30,27 +30,27 @@ export default class Main extends React.Component {
 
     render() {
         return (
-            <>
+            /* <>
                 <View style={{backgroundColor: '#e5e5e5', height: '100%'}}>
                     <Homepage navigation={this.props.navigation}/>
                 </View>
-            </>
-            /* <View style={{backgroundColor: '#1454A4', height: '100%'}}>
-                <Animated.View style={{transform: [{translateX: this.state.loginPos}], flexDirection: 'row'}}>
-                    <View style={{width: '100%'}}>
+            </> */
+            <View style={{ backgroundColor: '#e5e5e5', height: '100%' }}>
+                <Animated.View style={{ transform: [{ translateX: this.state.loginPos }], flexDirection: 'row' }}>
+                    <View style={{ width: '100%' }}>
                         <LoginUser
                             navigation={this.props.navigation}
-                            changeFade={()=>{this.moveLeft(this.state.loginPos)}}
+                            changeFade={() => { this.moveLeft(this.state.loginPos) }}
                         />
                     </View>
-                    <View style={{width: '100%', marginLeft: '4%'}}>
+                    <View style={{ width: '100%', marginLeft: '4%' }}>
                         <RegisterUser
                             navigation={this.props.navigation}
-                            changeFade={()=> {this.resetMove(this.state.loginPos)}}
+                            changeFade={() => { this.resetMove(this.state.loginPos) }}
                         />
                     </View>
                 </Animated.View>
-            </View> */
+            </View>
         );
     }
 }
@@ -71,32 +71,32 @@ export default class Main extends React.Component {
                 </Animated.View>
             </View> */
 
-/*
-    <Animated.View style={[{opacity: this.state.registerFade, position: 'absolute', width: '100%'}]}>
+
+{/* <Animated.View style={[{ opacity: this.state.registerFade, position: 'absolute', width: '100%' }]}>
     <LoginUser
-    changeFade={()=>{
-    this.fadeOut(this.state.registerFade);
-    this.fadeIn(this.state.loginFade);
-    }}
+        changeFade={() => {
+            this.fadeOut(this.state.registerFade);
+            this.fadeIn(this.state.loginFade);
+        }}
     />
-</Animated.View>
-*/
+</Animated.View> */}
 
 
-/*
-    fadeIn = (fade) => {
-        Animated.timing(fade, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: true
-        }).start();
-    };
 
-    fadeOut = (fade) => {
-        Animated.timing(fade, {
-            toValue: 0,
-            duration: 1000,
-            useNativeDriver: true
-        }).start();
-    }
-*/
+
+fadeIn = (fade) => {
+    Animated.timing(fade, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+    }).start();
+};
+
+fadeOut = (fade) => {
+    Animated.timing(fade, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true
+    }).start();
+}
+

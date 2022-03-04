@@ -74,7 +74,7 @@ export default class Profile extends React.Component {
             })}
           </View>
           <View style={profile.bodyButton}>
-            <TouchableOpacity style={profile.buttonContainer} onPress={() => navigateTo(this.props.navigation, "LoginUser")}>
+            <TouchableOpacity style={profile.buttonContainer} onPress={() => [navigateTo(this.props.navigation, "LoginUser"), global.access_token = ""]}>
               <Text style={{ color: 'white', fontWeight: '700' }}>Log Out</Text>
             </TouchableOpacity>
           </View>
