@@ -3,8 +3,9 @@
 import jwt
 from flask import Blueprint, request
 from peewee import DoesNotExist
+from api.tools.db import needs_db
 from controllers.widgets.save_widgets import save_action, save_reaction
-from models.db import Actions, Reactions
+from models.db import Actions, Reactions, Users
 from tools.tokens import verify_jwt
 from tools.env import JWT_SECRET
 from tools.fomarting import action_to_json, reaction_to_json
@@ -116,3 +117,25 @@ def widgets_get():
     for service in services:
         res += __get_service_widgets(service, user_uuid)
     return {"widgets": res}
+
+
+@widgetsBP.route("/services", methods=["GET"])
+@verify_jwt
+@needs_db
+def widgets_services():
+    services = []
+    auth = request.headers['Authorization']
+    user_uuid = jwt.decode(auth, JWT_SECRET, "HS256")["user_uuid"]
+
+    try:
+        u = Users.get(Users.uuid == user_uuid)
+        if not u:
+            raise DoesNotExist("Empty query")
+    except DoesNotExist as e:
+        return {"code": 401, "message": "Unknown Area user"}, 401
+    if ((not u.oauth) or len(list(u.oauth.keys())) <= 0):
+        return {"code": 200, "data": services}
+    for k in u.oauth.keys():
+        if (("access_token" in u.oauth[k]) and u.oauth[k]["access_token"]):
+            services.append(k)
+    return {"code": 200, "data": services}
