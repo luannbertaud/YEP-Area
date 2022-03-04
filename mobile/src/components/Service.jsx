@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Linking } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { service } from '../styles/AuthStyles'
+import axios from 'axios';
 
 export default class Service extends React.Component {
 
@@ -9,7 +10,24 @@ export default class Service extends React.Component {
         super(props);
     }
 
-    renderConnect(connected) {
+    async authentifcate_service(route) {
+        var access_token = "";
+        let auth_url = null;
+
+        await axios.get(
+            'https://api.yep-area.cf/auth/' + route + '/authorize', {
+                headers: {
+                  'Authorization': access_token
+                }
+        }).then((result) => { auth_url = result.data.url })
+        .catch((error) => { throw "Error" });
+        console.log('https://api.yep-area.cf/auth/' + route + '/authorize');
+        console.log(auth_url);
+        Linking.openURL(auth_url);
+        return (auth_url);
+    }
+
+    renderConnect(connected, route) {
         connected = !connected
         return (
             <>
@@ -27,12 +45,13 @@ export default class Service extends React.Component {
                         marginVertical: 10,
                     }}
                     titleStyle={{ fontWeight: 'bold', color: 'black', fontSize: 20 }}
+                    onPress={() => this.authentifcate_service(route)}
                 />
             </>
-        );  
+        );
     }
 
-    renderDisconnect(connected) {
+    renderDisconnect(connected, route) {
         connected = !connected
         return (
             <>
@@ -50,6 +69,7 @@ export default class Service extends React.Component {
                         marginVertical: 10,
                     }}
                     titleStyle={{ fontWeight: 'bold', color: 'black', fontSize: 20 }}
+                    onPress={() => alert(Disconnection)}
                 />
             </>
         );
@@ -57,7 +77,7 @@ export default class Service extends React.Component {
 
     render() {
 
-        const { name, logo, color, connected } = this.props.route.params
+        const { name, logo, color, connected, route } = this.props.route.params
 
         return (
             <View style={{ backgroundColor: color, height: "100%" }}>
@@ -69,7 +89,7 @@ export default class Service extends React.Component {
                     <Text style={service.text}>Connect to {name} in order to use their services</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 50 }}>
-                    {connected === false ? this.renderDisconnect(connected) : this.renderConnect(connected)}
+                    {connected === false ? this.renderDisconnect(connected, route) : this.renderConnect(connected, route)}
                 </View>
             </View>
         );
