@@ -52,9 +52,9 @@ export default class Register extends React.Component {
             "user_password": this.state.password
         }).then((response) => {
             console.log(response.data)
+            this.setState({ redirectLogin: true });
             this.state.token.setState(response.data.access_token);
-            if (response.status === 200)
-                this.setState({ redirectLogin: true });
+            console.log(this.state.redirectLogin)
         }).catch((err) => {
             console.log(err.response);
         });
@@ -71,8 +71,6 @@ export default class Register extends React.Component {
     }
 
     render() {
-        if (this.state.redirectLogin)
-            this.verifyToken();
         return (
             < div style={{ backgroundColor: "#249BD3", height: '100vh', overflow: 'hidden' }}>
                 <ThemeProvider theme={theme}>
@@ -152,10 +150,10 @@ export default class Register extends React.Component {
                                     />
                                 </Box>
                             </Box>
-                            {this.state.redirectLogin !== undefined ? <Navigate to="/login" /> : null}
                         </div>
                     </Container>
                 </ThemeProvider>
+                {this.state.redirectLogin !== undefined ? <Navigate to="/login" /> : null}
             </div>
         );
     }

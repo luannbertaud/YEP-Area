@@ -47,13 +47,21 @@ class Homepage extends React.Component {
     this.loadApplets();
   }
 
+  logout() {
+    this.cookies.set('token', null, { path: '/' });
+    this.setState({
+      redirect: true,
+      redirectUrl: "/login"
+    })
+  }
+
   showApp() {
     const { cookies } = this.props;
 
     return (
       <div>
         <Box>
-          <NavBar cookies={cookies} onCreateApplet={(applet) => { this.loadApplets();}} />
+          <NavBar cookies={cookies} onUserLogout={() => {this.logout()}} onCreateApplet={(applet) => { this.loadApplets();}} />
         </Box>
         <Grid container columns={{ xs: 4, sm: 8, md: 12 }} style={{ gap: "16px", padding: "25px" }}>
           {
@@ -63,14 +71,6 @@ class Homepage extends React.Component {
           }
         </Grid>
       </div>)
-  }
-  
-  logout() {
-    this.cookies.set('token', null, { path: '/' });
-    this.setState({
-      redirect: true,
-      redirectUrl: "/login"
-    })
   }
 
   render() {
