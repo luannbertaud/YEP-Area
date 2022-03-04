@@ -1,3 +1,173 @@
 .logoServiceDialog {
     margin-right: 15px;
 }
+
+.spotify--button{
+    top: 200px;
+    left: 500px;
+    height: 80px;
+    width: 300px;
+    margin-top: 1%;
+    border: none;
+    font-size: 25px;
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    position: absolute;
+}
+
+.spotify--close{
+    background-color: #1DB954;
+}
+
+.discord--button{
+  top: 350px;
+  left: 500px;
+  height: 80px;
+  width: 300px;
+  margin-top: 1%;
+  border: none;
+  font-size: 25px;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  position: absolute;
+}
+
+.discord--close{
+  background-color: #7289DA;
+}
+.intra--button{
+  top: 500px;
+  left: 500px;
+  height: 80px;
+  width: 300px;
+  margin-top: 1%;
+  border: none;
+  font-size: 25px;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  position: absolute;
+}
+
+.intra--close{
+  background-color: rgb(0, 132, 255);
+}
+.github--button{
+  top: 153px;
+  left: 1100px;
+  height: 80px;
+  width: 300px;
+  margin-top: 1%;
+  border: none;
+  font-size: 25px;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  position: absolute;
+}
+
+.github--close{
+  background-color: rgb(42, 40, 40);
+}
+.twitter--button{
+  top: 303px;
+  left: 1100px;
+  height: 80px;
+  width: 300px;
+  margin-top: 1%;
+  border: none;
+  font-size: 25px;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  position: absolute;
+}
+
+.twitter--close{
+  background-color: #08a0e9;
+}
+.google--button{
+  top: 453px;
+  left: 1100px;
+  height: 80px;
+  width: 300px;
+  margin-top: 1%;
+  border: none;
+  font-size: 25px;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  position: absolute;
+  }
+
+.google--close{
+  background-color: #EA4335;
+}
+
+.spotify
+{
+  top: 227px;
+  left: 420px;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
+
+.discord
+{
+  top: 377px;
+  left: 420px;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
+
+.intra
+{
+  top: 527px;
+  left: 420px;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
+
+.github
+{
+  top: 180px;
+  left: 1020px;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
+
+.twitter
+{
+  top: 330px;
+  left: 1020px;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
+
+.google
+{
+  top: 480px;
+  left: 1020px;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}

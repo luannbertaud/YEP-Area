@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -12,18 +10,203 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
+import axios from "axios";
+import { useCookies } from 'react-cookie';
 import spotify from '../assets/spotify.png';
 import discord from '../assets/discord.png';
 import intra from '../assets/epi.png';
 import github from '../assets/github.png';
 import twitter from '../assets/twitter.png';
 import google from '../assets/google.png';
-
-import './ServiceDialog.css'
+import './ServiceDialog.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+function Popup(page) {
+	window.open(page,"_blank","menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=500");
+}
+
+function Spotify () {
+	const [state, setState] = useState(false);
+
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
+    const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/spotify/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
+	setState(!state);
+    }
+
+    return (
+	<div>
+	    <button onClick={toggle} className={'spotify--button ' + (state ? 'spotify--close':'')}>
+		{state ? 'Spotify LOGIN' :'Spotify LOGOUT'}
+	    </button>
+		<img src={spotify} alt="" className="spotify" />
+	</div>
+    );
+}
+
+function Discord () {
+	const [state, setState] = useState(false);
+
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
+    const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/discord/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
+	setState(!state);
+    }
+
+    return (
+	<div>
+	    <button onClick={toggle} className={'discord--button ' + (state ? 'discord--close':'')}>
+		{state ? 'Discord LOGIN' :'Discord LOGOUT'}
+	    </button>
+		<img src={discord} alt="" className="discord" />
+	</div>
+    );
+}
+
+function Intra () {
+	const [state, setState] = useState(false);
+
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
+    const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/intra/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
+	setState(!state);
+    }
+
+    return (
+	<div>
+	    <button onClick={toggle} className={'intra--button ' + (state ? 'intra--close':'')}>
+		{state ? 'Intra LOGIN' :'Intra LOGOUT'}
+	    </button>
+		<img src={intra} alt="" className="intra" />
+	</div>
+    );
+}
+
+function Github () {
+	const [state, setState] = useState(false);
+
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
+    const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/github/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
+	setState(!state);
+    }
+
+    return (
+	<div>
+	    <button onClick={toggle} className={'github--button ' + (state ? 'github--close':'')}>
+		{state ? 'Github LOGIN' :'Github LOGOUT'}
+	    </button>
+		<img src={github} alt="" className="github" />
+	</div>
+    );
+}
+
+function Twitter () {
+	const [state, setState] = useState(false);
+
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
+    const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/twitter/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
+	setState(!state);
+    }
+
+    return (
+	<div>
+	    <button onClick={toggle} className={'twitter--button ' + (state ? 'twitter--close':'')}>
+		{state ? 'Twitter LOGIN' :'Twitter LOGOUT'}
+	    </button>
+		<img src={twitter} alt="" className="twitter" />
+	</div>
+    );
+}
+
+function Google () {
+	const [state, setState] = useState(false);
+
+	const [cookies, setCookie] = useCookies(['token']);
+	console.log(cookies);
+
+    const toggle=()=>{
+	if (!state) {
+		axios.get('https://api.yep-area.cf/auth/google/authorize', {
+		headers: {
+		  'Authorization': cookies.token
+		},
+		maxRedirects: 0,
+	  }).then(function(response) {
+		Popup(response.data.url)
+	   })
+	}
+	setState(!state);
+    }
+
+    return (
+	<div>
+	    <button onClick={toggle} className={'google--button ' + (state ? 'google--close':'')}>
+		{state ? 'Google LOGIN' :'Google LOGOUT'}
+	    </button>
+		<img src={google} alt="" className="google" />
+	</div>
+    );
+}
 
 function ServiceDialog(props) {
     const { onClose, open } = props;
@@ -55,34 +238,23 @@ function ServiceDialog(props) {
           </Toolbar>
         </AppBar>
         <List>
-          <ListItem button onClick={() => { alert('Logout'); }}>
-          <img src={spotify} alt="" width="3%" class="logoServiceDialog"/>
-            <ListItemText primary="Spotify" secondary="Login to your Spotify account" />
+          <ListItem>
+            <Spotify />
           </ListItem>
-          <Divider />
-          <ListItem button onClick={() => { alert('Logout'); }}>
-          <img src={discord} alt="" width="3%" class="logoServiceDialog"/>
-            <ListItemText primary="Discord" secondary="Login to your Discord account" />
+          <ListItem>
+            <Discord />
           </ListItem>
-          <Divider />
-          <ListItem button onClick={() => { alert('Logout'); }}>
-          <img src={intra} alt="" width="3%" class="logoServiceDialog"/>
-            <ListItemText primary="Epitech Intranet" secondary="Login to your Epitech Intranet account" />
+          <ListItem>
+            <Intra />
           </ListItem>
-          <Divider />
-          <ListItem button onClick={() => { alert('Logout'); }}>
-          <img src={github} alt="" width="3%" class="logoServiceDialog"/>
-            <ListItemText primary="Github" secondary="Login to your Github account" />
+          <ListItem>
+            <Github />
           </ListItem>
-          <Divider />
-          <ListItem button onClick={() => { alert('Logout'); }}>
-          <img src={twitter} alt="" width="3%" class="logoServiceDialog"/>
-            <ListItemText primary="Twitter" secondary="Login to your Twitter account" />
+          <ListItem>
+            <Twitter />
           </ListItem>
-          <Divider />
-          <ListItem button onClick={() => { alert('Logout'); }}>
-          <img src={google} alt="" width="3%" class="logoServiceDialog"/>
-            <ListItemText primary="Google" secondary="Login to your Google account" />
+          <ListItem>
+            <Google />
           </ListItem>
         </List>
       </Dialog>
