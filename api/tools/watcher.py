@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import signal
 import requests
 from peewee import DoesNotExist
 from threading import Thread, Event
@@ -41,7 +40,7 @@ def start_watchers():
 
     failed = []
     try:
-        query = Actions.select().where(Actions.type == "EpitechNotifWebhook")
+        query = Actions.select().where((Actions.type == "EpitechNotifWebhook") | (Actions.type == "SpotifyTrackChangeWebhook"))
         if not query:
             raise DoesNotExist("Empty query")
     except DoesNotExist as e:

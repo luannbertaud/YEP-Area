@@ -3,6 +3,7 @@
 import requests
 from peewee import DoesNotExist
 import spotipy
+from api.tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SERV_URL
 from models.area import Reaction
@@ -50,7 +51,26 @@ class SpotifyAPIWrapper():
         }
         r = requests.post("https://api.spotify.com/v1/me/player/next", headers=headers)
         return {'code': r.status_code}
-
+    
+    @tokens_reload(reloader=get_new_tokens)
+    def currently_playing(self):
+        headers = {
+            "Content-type" : "application/json",
+            "Accept" : "application/json",
+            "Authorization" : f"Bearer {self.access_token}"
+        }
+        r = requests.get("https://api.spotify.com/v1/me/player/currently-playing", headers=headers)
+        r = ensure_json(r)
+        if ('NOJSON' in r.keys()):
+            return r
+        featuring = [ar['name'] for ar in r['data']['item']['artists'][1:]]
+        res = {
+            'title': r['data']['item']['name'],
+            'artist': r['data']['item']['artists'][0]['name'],
+            'featuring': ' & '.join(featuring),
+            'image': r['data']['item']['album']['images'][0]['url'],
+        }
+        return {'code': r['code'], 'data': res}
 
 
 class SpotifyNextReaction(Reaction):

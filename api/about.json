@@ -46,7 +46,13 @@
             },
             {
                 "name": "spotify",
-                "actions": [],
+                "actions": [
+                    {
+                        "name": "SpotifyTrackChangeWebhook",
+                        "description": "Triggered on music change",
+                        "parameters": ""
+                    }
+                ],
                 "reactions": [
                     {
                         "name": "SpotifyNext",
