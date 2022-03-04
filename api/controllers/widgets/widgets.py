@@ -77,6 +77,7 @@ def __get_service_widgets(service, user_uuid):
         "spotify": ["SpotifyNextReaction"],
         "twitter": ["TwitterTweetReaction"],
         "discord": ["DiscordMessageReaction"],
+        "epitech": ["EpitechNotifWebhookAction"]
     }
     if ((not service) or (service not in service_mapper.keys())):
         return {"code": 400, "message": "Missing or unknown Area service."}, 400
@@ -109,7 +110,7 @@ def widgets_get():
     res = []
     services = request.args.get('services')
     if not services:
-        services = ["github","google","spotify","twitter","discord"]
+        services = ["github","google","spotify","twitter","discord","epitech"]
     else:
         services = services.replace(".", ",").replace(";", ",").split(",")
     auth = request.headers['Authorization']

@@ -7,7 +7,13 @@
     "services": [
             {
                 "name": "epitech",
-                "actions": [],
+                "actions": [
+                    {
+                        "name": "EpitechNotifWebhook",
+                        "description": "New notification on intranet",
+                        "parameters": ""
+                    }
+                ],
                 "reactions": []
             },
             {
