@@ -29,7 +29,8 @@ function ConfigDialog(props) {
     "GithubWebhook": ["owner", "repository"],
     "GithubWorkflowFailed": ["owner", "repository"],
     "GithubNewPullRequest": ["owner", "repository"],
-    "GithubCreateIssue": ["owner", "repository"]
+    "GithubCreateIssue": ["owner", "repository"],
+    "CustomPost" : ["endpoint"]
   };
   const actionReaction = {
     Google: {
@@ -58,6 +59,9 @@ function ConfigDialog(props) {
       { value: "GithubWorkflowFailed", display: "Workflow failed on repository" },
       { value: "GithubNewPullRequest", display: "New pull request as been created on repository" }],
       reactions: [{ value: "GithubCreateIssue", display: "Create new issue on repository" }]
+    },
+    Custom: {
+      reactions: [{ value: "CustomPost", display: "Send json payload to endpoint when triggered"}]
     }
   }
 
@@ -163,6 +167,20 @@ function ConfigDialog(props) {
         <TextField
           margin="dense"
           label="Chanel ID"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setReactionContents(oldArray => {
+            oldArray[0] = event.target.value;
+            return oldArray;
+          })}
+        />
+      )
+    }
+    if (reaction === "CustomPost" && serviceReaction === "Custom") {
+      return (
+        <TextField
+          margin="dense"
+          label="Endpoint"
           fullWidth
           variant="standard"
           onChange={(event) => setReactionContents(oldArray => {
