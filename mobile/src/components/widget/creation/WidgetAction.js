@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     title: {
         color: 'black',
-        fontFamily: 'Palanquin',
+        fontFamily: 'Palanquin-SemiBold',
         fontWeight: 'normal',
-        fontSize: 25
+        fontSize: 25,
+        alignSelf: 'center'
     },
     confirmMessage: {
         color: 'green',
@@ -13,17 +14,20 @@ const styles = StyleSheet.create({
         fontFamily: 'Palanquin'
     },
     text: {
-        color: 'black'
+        color: 'black',
+        fontWeight: 'normal',
+        fontFamily: 'Palanquin-Bold',
+        fontSize: 15
     },
     inputStyle: {
         color: 'black',
-        fontFamily: 'Palanquin-Light',
+        fontFamily: 'Palanquin-Regular',
         fontWeight: 'normal',
-        fontSize: 13
+        fontSize: 13,
+        textAlign: 'center'
     },
     inputContainerStyle: {
-        borderBottomWidth: 0.5,
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 50,
         width: '70%'
     },
@@ -31,7 +35,11 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     button: {
-        marginTop: '2%'
+        marginTop: '2%',
+    },
+    buttontitle: {
+        fontWeight: 'normal',
+        fontFamily: 'Palanquin-SemiBold'
     }
 });
 

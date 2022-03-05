@@ -58,9 +58,9 @@ export default class WidgetCreator extends React.Component {
         return (
             <>
                 <Tab value={this.state.index} onChange={(e)=>{this.setState({index: e})}} variant='default'>
-                    <Tab.Item title='Name' titleStyle={{fontWeight: 'normal', fontFamily: 'Palanquin'}}/>
-                    <Tab.Item title='Action' titleStyle={{fontWeight: 'normal', fontFamily: 'Palanquin'}}/>
-                    <Tab.Item title='Reaction' titleStyle={{fontWeight: 'normal', fontFamily: 'Palanquin'}}/>
+                    <Tab.Item title='Name' titleStyle={{fontWeight: 'normal', fontFamily: 'Palanquin-SemiBold', fontSize: 15}}/>
+                    <Tab.Item title='Action' titleStyle={{fontWeight: 'normal', fontFamily: 'Palanquin-SemiBold', fontSize: 15}}/>
+                    <Tab.Item title='Reaction' titleStyle={{fontWeight: 'normal', fontFamily: 'Palanquin-SemiBold', fontSize: 15}}/>
                 </Tab>
                 <TabView value={this.state.index} animationType='spring'>
                     <TabView.Item>

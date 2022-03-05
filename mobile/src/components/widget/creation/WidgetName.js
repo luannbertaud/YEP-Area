@@ -2,16 +2,13 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     view: {
-        justifyContent: 'center',
-        flex: 1,
-        alignItems: 'center',
-        marginLeft: '15%',
-        marginTop: '-30%'
+        marginTop: '40%',
+        marginLeft: '13%'
     },
     text: {
         color: 'black',
         fontWeight: 'normal',
-        fontFamily: 'Palanquin',
+        fontFamily: 'Palanquin-SemiBold',
         fontSize: 25,
         marginBottom: '5%'
     },
@@ -19,10 +16,11 @@ const styles = StyleSheet.create({
         color: 'black',
         marginLeft: '5%',
         fontSize: 15,
-        fontFamily: 'Palanquin-Light'
+        fontFamily: 'Palanquin-Regular',
+        textAlign: 'center'
     },
     container: {
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 50
     },
     errorMessage: {
@@ -40,7 +38,8 @@ const styles = StyleSheet.create({
     },
     butonStyle: {
         marginTop: '15%',
-        marginBottom: '5%'
+        marginBottom: '5%',
+        shadowColor: 'black',
     }
 });
 
