@@ -23,9 +23,20 @@
                         "name": "GithubWebhook",
                         "description": "New push on repository",
                         "parameters": "owner, repository"
+                    },
+                    {
+                        "name": "GithubWorkflowFailed",
+                        "description": "Workflow failed on repository",
+                        "parameters": "owner, repository"
                     }
                 ],
-                "reactions": []
+                "reactions": [
+                    {
+                        "name": "GithubCreateIssue",
+                        "description": "Create new issue on repository",
+                        "parameters": "owner, repository"
+                    }
+                ]
             },
             {
                 "name": "google",
@@ -62,6 +73,11 @@
                     {
                         "name": "SpotifyNext",
                         "description": "Skip to next song",
+                        "parameters": ""
+                    },
+                    {
+                        "name": "SpotifyPlay",
+                        "description": "Play song",
                         "parameters": ""
                     }
                 ]

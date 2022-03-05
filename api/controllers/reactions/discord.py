@@ -54,7 +54,7 @@ class DiscordAPIWrapper():
         if (not self.ready) or (message.author == self.client.user) or (not self.registered) or (self.action_uuid == "-1"):
             return
 
-        self.executeAction(self.action_uuid, [f"DiscordMessageReceived: {message.content}",])
+        self.executeAction(self.action_uuid, [f"DiscordMessageReceived: {message.content}", f"{message.content}"])
 
     def close_connection(self):
         async def __close_connection(self):
