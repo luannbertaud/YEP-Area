@@ -96,7 +96,7 @@ function Intra () {
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/intra/authorize', {
+		axios.get('https://api.yep-area.cf/auth/epitech/authorize', {
 		headers: {
 		  'Authorization': cookies.token
 		},
