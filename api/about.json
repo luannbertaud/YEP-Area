@@ -25,7 +25,13 @@
                         "parameters": "owner, repository"
                     }
                 ],
-                "reactions": []
+                "reactions": [
+                    {
+                        "name": "GithubCreateIssue",
+                        "description": "Create new issue on repository",
+                        "parameters": "owner, repository"
+                    }
+                ]
             },
             {
                 "name": "google",

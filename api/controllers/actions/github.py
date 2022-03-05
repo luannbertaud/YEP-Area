@@ -70,6 +70,23 @@ class GithubAPIWrapper():
         r = requests.post(f"https://api.github.com/repos/{owner}/{repo}/hooks", headers=headers, json=data)
         return ensure_json(r)
 
+    @tokens_reload(reloader=load_tokens)
+    def create_issue(self, owner, repo, title, body):
+        data = {
+            "title": title,
+            "body": body,
+            "content_type": "json",
+        }
+        headers = {
+            "Accept": "application/json",
+            "Authorization": f"token {self.access_token}"
+        }
+        r = requests.post(f"https://api.github.com/repos/{owner}/{repo}/issues", headers=headers, json=data)
+        r = ensure_json(r)
+        if ((r['code'] == 404) and ("message" in r['data']) and (r['data']['message'] == "Not Found")):
+            return {'code': 200, "message": "ERROR repository not found"}
+        return r
+
 class GithubWebhookAction(Action):
 
     def __init__(self, rqUser, uuid=None) -> None:
