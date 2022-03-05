@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from controllers.actions.github import GithubWebhookAction, GithubWorkflowFailedAction
+from controllers.actions.github import GithubWebhookAction, GithubWorkflowFailedAction, GithubNewPullRequestAction
 from controllers.actions.gmail import GmailWebhookAction
 from controllers.actions.epitech import EpitechNotifWebhookAction
 from controllers.actions.spotify import SpotifyTrackChangeWebhookAction, SpotifyMonthArtistChangeWebhookAction

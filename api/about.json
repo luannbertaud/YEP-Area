@@ -28,6 +28,11 @@
                         "name": "GithubWorkflowFailed",
                         "description": "Workflow failed on repository",
                         "parameters": "owner, repository"
+                    },
+                    {
+                        "name": "GithubNewPullRequest",
+                        "description": "New pull request as been created on repository",
+                        "parameters": "owner, repository"
                     }
                 ],
                 "reactions": [
