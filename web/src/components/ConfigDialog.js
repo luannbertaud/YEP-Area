@@ -55,9 +55,9 @@ function ConfigDialog(props) {
     },
     Github: {
       actions: [{ value: "GithubWebhook", display: "New push on repository" },
-                { value: "GithubWorkflowFailed", display: "Workflow failed on repository"},
-                { value: "GithubNewPullRequest", display: "New pull request as been created on repository"}],
-      reactions: [{ value: "GithubCreateIssue", display: "Create new issue on repository"}]
+      { value: "GithubWorkflowFailed", display: "Workflow failed on repository" },
+      { value: "GithubNewPullRequest", display: "New pull request as been created on repository" }],
+      reactions: [{ value: "GithubCreateIssue", display: "Create new issue on repository" }]
     }
   }
 
@@ -93,19 +93,19 @@ function ConfigDialog(props) {
           label="Owner"
           fullWidth
           variant="standard"
-          onChange={(event) => setActionContents(oldArray => {  
+          onChange={(event) => setActionContents(oldArray => {
             oldArray[0] = event.target.value;
             return oldArray;
           })} />
-        <TextField
-          margin="dense"
-          label="Repository"
-          fullWidth
-          variant="standard"
-          onChange={(event) => setActionContents(oldArray => {  
-            oldArray[1] = event.target.value;
-            return oldArray;
-          })} />
+          <TextField
+            margin="dense"
+            label="Repository"
+            fullWidth
+            variant="standard"
+            onChange={(event) => setActionContents(oldArray => {
+              oldArray[1] = event.target.value;
+              return oldArray;
+            })} />
         </>
       )
     }
@@ -124,14 +124,14 @@ function ConfigDialog(props) {
             return oldArray;
           })} />
           <TextField
-          margin="dense"
-          label="Subject"
-          fullWidth
-          variant="standard"
-          onChange={(event) => setReactionContents(oldArray => {
-            oldArray[1] = event.target.value;
-            return oldArray;
-          })} />
+            margin="dense"
+            label="Subject"
+            fullWidth
+            variant="standard"
+            onChange={(event) => setReactionContents(oldArray => {
+              oldArray[1] = event.target.value;
+              return oldArray;
+            })} />
         </>
       )
     }
@@ -147,14 +147,14 @@ function ConfigDialog(props) {
             return oldArray;
           })} />
           <TextField
-          margin="dense"
-          label="Repository"
-          fullWidth
-          variant="standard"
-          onChange={(event) => setReactionContents(oldArray => {
-            oldArray[1] = event.target.value;
-            return oldArray;
-          })} />
+            margin="dense"
+            label="Repository"
+            fullWidth
+            variant="standard"
+            onChange={(event) => setReactionContents(oldArray => {
+              oldArray[1] = event.target.value;
+              return oldArray;
+            })} />
         </>
       )
     }
@@ -176,12 +176,16 @@ function ConfigDialog(props) {
 
   const createNewApplet = () => {
     let actionContentObj = {};
-    for (let i = 0; i < contentKey[action].length; ++i) {
-      actionContentObj[contentKey[action][i]] = actionContents[i];
+    if (contentKey[action]) {
+      for (let i = 0; i < contentKey[action].length; ++i) {
+        actionContentObj[contentKey[action][i]] = actionContents[i];
+      }
     }
     let reactionContentObj = {};
-    for (let j = 0; j < contentKey[reaction].length; ++j) {
-      reactionContentObj[contentKey[reaction][j]] = reactionContents[j];
+    if (contentKey[reaction]) {
+      for (let j = 0; j < contentKey[reaction].length; ++j) {
+        reactionContentObj[contentKey[reaction][j]] = reactionContents[j];
+      }
     }
     const reactionUuid = uuidv4();
     const userUuid = jwt(cookies.get('token'))
@@ -291,6 +295,7 @@ function ConfigDialog(props) {
               <MenuItem value="Discord">Discord</MenuItem>
               <MenuItem value="Twitter">Twitter</MenuItem>
               <MenuItem value="Spotify">Spotify</MenuItem>
+              <MenuItem value="Custom">Custom</MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={{ mt: 2, width: "100%" }}>
