@@ -22,18 +22,18 @@ class Homepage extends React.Component {
 
   loadApplets() {
     const { cookies } = this.props;
-    
+
     axios.get('https://api.yep-area.cf/widgets/get', {
       headers: {
         'Authorization': cookies.get('token')
       }
     }).then((response) => {
-          console.log(response.data.widgets);
-          this.setState({
-            ...this.state,
-            appletList: response.data.widgets,
-          })
+      console.log(response.data.widgets);
+      this.setState({
+        ...this.state,
+        appletList: response.data.widgets,
       })
+    })
   }
 
   componentDidMount() {
@@ -61,12 +61,16 @@ class Homepage extends React.Component {
     return (
       <div>
         <Box>
-          <NavBar cookies={cookies} onUserLogout={() => {this.logout()}} onCreateApplet={(applet) => { this.loadApplets();}} />
+          <NavBar cookies={cookies} onUserLogout={() => { this.logout() }} onCreateApplet={(applet) => { this.loadApplets(); }} />
         </Box>
         <Grid container columns={{ xs: 4, sm: 8, md: 12 }} style={{ gap: "16px", padding: "25px" }}>
           {
-            this.state.appletList.map(
-              (applet, id) => <Applet applet={applet} cookies={cookies} onUpdateApplet={() => {this.loadApplets();}} key={id}/>
+            this.state.appletList.map((applet, id) => {
+              if (applet.family === 'action') {
+                return (<Applet applet={applet} cookies={cookies} onUpdateApplet={() => { this.loadApplets(); }} key={id} />);
+              }
+
+            }
             )
           }
         </Grid>

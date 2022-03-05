@@ -151,7 +151,6 @@ function ConfigDialog(props) {
     for (let i = 0; i < contentKey[reaction].length; ++i) {
       reactionContentObj[contentKey[reaction][i]] = reactionContents[i];
     }
-    console.log(reactionContentObj);
     const reactionUuid = uuidv4();
     const userUuid = jwt(cookies.get('token'))
     const toSendToDaddy = {
@@ -193,7 +192,6 @@ function ConfigDialog(props) {
         }
       }
     ).then((response) => {
-      console.log("post", response);
       onCreateApplet({ title: title, description: description })
       onClose()
     }).catch((err) => {
@@ -204,7 +202,7 @@ function ConfigDialog(props) {
   return (
     <div>
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Create your ARea</DialogTitle>
+        <DialogTitle>Create your ARea (make sure to be register to the service)</DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
