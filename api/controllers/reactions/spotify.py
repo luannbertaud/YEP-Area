@@ -109,7 +109,9 @@ class SpotifyAPIWrapper():
         if ('NOJSON' in r.keys()):
             return r
         if (len(r['data']['tracks']['items']) <= 0 or ('album' not in r['data']['tracks']['items'][0].keys())):
-            return {'code': 400, 'message': "Track not found"}
+            if (query != "Error 404 L'impératrice"):
+                self.play_track("Error 404 L'impératrice")
+            return {'code': 200, 'message': "Track not found"}
         offset = int(r['data']['tracks']['items'][0]['track_number']) - 1
         offset = 0 if offset < 0 else offset
         payload = {
@@ -136,3 +138,17 @@ class SpotifyNextReaction(Reaction):
 
     def do(self, *args):
         return self.api.next_track()
+
+class SpotifyPlayReaction(Reaction):
+
+    def __init__(self, rqUser, uuid=None) -> None:
+        self.rqUser = rqUser
+        self.api =  SpotifyAPIWrapper(rqUser)
+        super().__init__("spotify", rqUser, uuid=uuid)
+
+    def do(self, params):
+        if len(params) < 1:
+            return self.api.play_track("Error 404 L'impératrice")
+        if len(params) < 2:
+            return self.api.play_track(params[0])
+        return self.api.play_track(params[1])

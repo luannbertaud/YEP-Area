@@ -56,5 +56,5 @@ def gmailHook():
 
     api = GmailAPIWrapper(area_user)
     email_content = api.get_last_email_content(str(gmail_historyId))
-    executeAction(area_email, [f"GmailHook - Email:[{gmail_login}] Content:[{email_content}]", ])
+    executeAction(area_email, [f"GmailHook - Email:[{gmail_login}] Content:[{email_content}]", f"{gmail_login} {email_content}"])
     return {"code": 200, "message": "OK"}

@@ -63,6 +63,11 @@
                         "name": "SpotifyNext",
                         "description": "Skip to next song",
                         "parameters": ""
+                    },
+                    {
+                        "name": "SpotifyPlay",
+                        "description": "Play song",
+                        "parameters": ""
                     }
                 ]
             },

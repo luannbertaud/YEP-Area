@@ -74,7 +74,7 @@ def __get_service_widgets(service, user_uuid):
     service_mapper = {
         "github": ["GithubWebhookAction"],
         "google": ["GmailWebhookAction", "GmailSendEmailReaction"],
-        "spotify": ["SpotifyNextReaction", "SpotifyTrackChangeWebhookAction", "SpotifyMonthArtistChangeWebhookAction"],
+        "spotify": ["SpotifyNextReaction", "SpotifyPlayReaction", "SpotifyTrackChangeWebhookAction", "SpotifyMonthArtistChangeWebhookAction"],
         "twitter": ["TwitterTweetReaction"],
         "discord": ["DiscordMessageReaction", "DiscordMessageReceivedAction"],
         "epitech": ["EpitechNotifWebhookAction"]

@@ -55,9 +55,9 @@ def __spotifyTrackChangeHook(data, headers):
     track = data['data'][0]
     area_action = headers['ActionUUID']
     if ('featuring' in track.keys()):
-        executeAction(area_action, [f"SpotifyTrackChangeWebhook:\n {track['title']} - {track['artist']} ft. {track['featuring']}\n{track['image']}", ])
+        executeAction(area_action, [f"SpotifyTrackChangeWebhook:\n {track['title']} - {track['artist']} ft. {track['featuring']}\n{track['image']}", f"{track['title']} - {track['artist']} ft. {track['featuring']}"])
     else:
-        executeAction(area_action, [f"SpotifyTrackChangeWebhook:\n {track['title']} - {track['artist']}\n{track['image']}", ])
+        executeAction(area_action, [f"SpotifyTrackChangeWebhook:\n {track['title']} - {track['artist']}\n{track['image']}", f"{track['title']} - {track['artist']}"])
     return {"code": 200, "message": "OK"}
 
 def __spotifyMonthArtistChangeHook(data, headers):
@@ -65,7 +65,7 @@ def __spotifyMonthArtistChangeHook(data, headers):
     artist = data['data'][0]
     area_action = headers['ActionUUID']
     print(artist)
-    executeAction(area_action, [f"SpotifyMonthArtistChangeWebhook:\n Your new favorite artist for this month is {artist['artist']} !\n{artist['image']}", ])
+    executeAction(area_action, [f"SpotifyMonthArtistChangeWebhook:\n Your new favorite artist for this month is {artist['artist']} !\n{artist['image']}", f"{artist['artist']}"])
     return {"code": 200, "message": "OK"}
 
 

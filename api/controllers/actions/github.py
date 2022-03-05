@@ -121,5 +121,5 @@ def githubHook():
     if not area_repo:
         return {"code": 200, "message": "ERROR could not find corresponding area action"}
 
-    executeAction(area_repo, [f"GithubHook - Owner:[{repo_owner}] Repo:[{repo_name}]"])
+    executeAction(area_repo, [f"GithubHook - Owner:[{repo_owner}] Repo:[{repo_name}]", f"{repo_owner} {repo_name}"])
     return {"code": 200, "message": "OK"}

@@ -127,7 +127,7 @@ def __epitechNotifHook(data, headers):
     area_action = headers['ActionUUID']
 
     clean_title = re.sub(r'(<a.+?>)|(<\/a>)', '', notif['title'])
-    executeAction(area_action, [f"EpitechNotifHook - From:[{notif['user']['title']}] Title:[{clean_title}]", ])
+    executeAction(area_action, [f"EpitechNotifHook - From:[{notif['user']['title']}] Title:[{clean_title}]", f"{notif['user']['title']} {clean_title}"])
     return {"code": 200, "message": "OK"}
 
 
