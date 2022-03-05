@@ -3,6 +3,7 @@
 import requests
 from peewee import DoesNotExist
 import spotipy
+import urllib.parse as url_parse
 from tools.fomarting import ensure_json
 from tools.tokens import get_tokens, tokens_reload
 from tools.env import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SERV_URL
@@ -83,7 +84,7 @@ class SpotifyAPIWrapper():
             "Authorization" : f"Bearer {self.access_token}"
         }
         r = requests.get("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=1&offset=0", headers=headers)
-        if (not r.content or (str(r.status_code)[0] != 2)):
+        if (not r.content or (str(r.status_code)[0] != "2")):
             return {'code': r.status_code, 'data': {}}
         r = ensure_json(r)
         if ('NOJSON' in r.keys()):
@@ -93,6 +94,33 @@ class SpotifyAPIWrapper():
             'image': r['data']['items'][0]['images'][0]['url'],
         }
         return {'code': r['code'], 'data': [res]}
+
+    @tokens_reload(reloader=get_new_tokens)
+    def play_track(self, query):
+        headers = {
+            "Content-type" : "application/json",
+            "Accept" : "application/json",
+            "Authorization" : f"Bearer {self.access_token}"
+        }
+        r = requests.get(f"https://api.spotify.com/v1/search?q={url_parse.quote_plus(query)}&type=track&limit=1&offset=0", headers=headers)
+        if ((str(r.status_code)[0] != "2")):
+            return {'code': r.status_code, 'data': {}}
+        r = ensure_json(r)
+        if ('NOJSON' in r.keys()):
+            return r
+        if (len(r['data']['tracks']['items']) <= 0 or ('album' not in r['data']['tracks']['items'][0].keys())):
+            return {'code': 400, 'message': "Track not found"}
+        offset = int(r['data']['tracks']['items'][0]['track_number']) - 1
+        offset = 0 if offset < 0 else offset
+        payload = {
+            "context_uri": r['data']['tracks']['items'][0]['album']['uri'],
+            "offset": {
+                "position": offset
+            },
+            "position_ms": 0
+        }
+        r = requests.put("https://api.spotify.com/v1/me/player/play", headers=headers, json=payload)
+        return {'code': r.status_code, 'message': "OK"}
 
 
 class SpotifyNextReaction(Reaction):
