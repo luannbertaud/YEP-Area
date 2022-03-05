@@ -50,8 +50,24 @@ export default class WidgetCreator extends React.Component {
     }
 
     createNewARea = () => {
-        console.log('I confirm the creation of');
-        console.log(this.state.area);
+        const reaction = {
+            "uuid": Math.floor(Math.random()*9999) + 1,
+            "type": this.state.area.reaction.name,
+            "user_uuid": 0,
+            "enabled": true,
+            "family": "reaction",
+            "content": this.state.area.reaction.parameters,
+        }
+        const action = {
+            "uuid": Math.floor(Math.random()*9999) + 1,
+            "type": this.state.area.action.name,
+            "user_uuid": 0,
+            "enabled": true,
+            "family": "action",
+            "content": this.state.area.action.parameters,
+            "children": {"uuids":[reaction.uuid]}
+        }
+        //Must implement the redirection and the api call for that bad boy
     }
 
     render() {
