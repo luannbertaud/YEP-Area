@@ -23,6 +23,11 @@
                         "name": "GithubWebhook",
                         "description": "New push on repository",
                         "parameters": "owner, repository"
+                    },
+                    {
+                        "name": "GithubWorkflowFailed",
+                        "description": "Workflow failed on repository",
+                        "parameters": "owner, repository"
                     }
                 ],
                 "reactions": [

@@ -72,7 +72,7 @@ def widgets_update():
 def __get_service_widgets(service, user_uuid):
     res = []
     service_mapper = {
-        "github": ["GithubWebhookAction", "GithubCreateIssueReaction"],
+        "github": ["GithubWebhookAction", "GithubCreateIssueReaction", "GithubWorkflowFailedAction"],
         "google": ["GmailWebhookAction", "GmailSendEmailReaction"],
         "spotify": ["SpotifyNextReaction", "SpotifyPlayReaction", "SpotifyTrackChangeWebhookAction", "SpotifyMonthArtistChangeWebhookAction"],
         "twitter": ["TwitterTweetReaction"],

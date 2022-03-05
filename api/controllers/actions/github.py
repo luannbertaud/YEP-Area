@@ -35,7 +35,7 @@ class GithubAPIWrapper():
         return ensure_json(r)
 
     @tokens_reload(reloader=load_tokens)
-    def revoke_webhook(self, owner, repo):
+    def revoke_webhook(self, owner, repo, events=["push"]):
         headers = {
             "Accept": "application/json",
             "Authorization": f"token {self.access_token}"
@@ -44,7 +44,7 @@ class GithubAPIWrapper():
         r = ensure_json(r)
         hook_id = -1
         for h in  r['data']:
-            if (h['config']['url'] == SERV_URL+"hooks/github"):
+            if ((h['config']['url'] == SERV_URL+"hooks/github") and (h['events'] == events)):
                 hook_id = h['id']
                 break
         if (hook_id == -1):
@@ -53,7 +53,7 @@ class GithubAPIWrapper():
         return {"code": 200, "message": "OK"}
 
     @tokens_reload(reloader=load_tokens)
-    def create_webhook(self, owner, repo):
+    def create_webhook(self, owner, repo, events=["push"]):
         data = { "config" : {
                 "url": SERV_URL+"hooks/github",
                 "content_type": "json",
@@ -61,7 +61,7 @@ class GithubAPIWrapper():
                 "token": self.access_token,
                 "digest": None,
             },
-            "events": ["push"],
+            "events": events,
         }
         headers = {
             "Accept": "application/json",
@@ -100,16 +100,65 @@ class GithubWebhookAction(Action):
     def unregister(self, owner, repository, *args):
         return self.api.revoke_webhook(owner, repository)
 
-def githubHook():
-    data = request.json
-    headers = request.headers
+class GithubWorkflowFailedAction(Action):
+
+    def __init__(self, rqUser, uuid=None) -> None:
+        self.rqUser = rqUser
+        self.api =  GithubAPIWrapper(rqUser)
+        super().__init__("github", rqUser, uuid=uuid)
+
+    def register(self, owner, repository, *args):
+        return self.api.create_webhook(owner, repository, events=["workflow_run"])
+
+    def unregister(self, owner, repository, *args):
+        return self.api.revoke_webhook(owner, repository, events=["workflow_run"])
+
+def __githubWorkflowFailHook(data, headers):
     repo_name = data["repository"]["name"]
     repo_owner = data["repository"]["owner"]["login"]
     area_user = None
     area_repo = None
 
-    if (headers["X-Github-Event"] == "ping"):
-        return {"code": 200, "message": "OK pong"}
+    if (data["workflow_run"]["status"] != "completed"):
+        return {"code": 200, "message": "OK not interested"}
+    if ((data["workflow_run"]["status"] == "completed") and (data["workflow_run"]["conclusion"] != "failure")):
+        return {"code": 200, "message": "OK not interested"}
+
+    try:
+        query = Users.select().where(Users.oauth.is_null(False))
+        if not query:
+            raise DoesNotExist("Empty query")
+    except DoesNotExist as e:
+        return {"code": 200, "message": "ERROR no users connected to github"}
+    
+    for u in query:
+        if ("github" in list(u.oauth.keys())) and ("login" in list(u.oauth["github"].keys())) and (u.oauth["github"]["login"] == repo_owner):
+            area_user = u.uuid
+    if area_user == None:
+        return {"code": 200, "message": "ERROR could not find corresponding area user"}
+
+    try:
+        query = Actions.select().where(Actions.type == "GithubWorkflowFailed", Actions.user_uuid == area_user)
+        if not query:
+            raise DoesNotExist("Empty query")
+    except DoesNotExist as e:
+        return {"code": 200, "message": "ERROR this user does not have any github action"}
+
+    for a in query:
+        if ("repository" in list(a.content.keys())) and a.content["repository"] == repo_name:
+            if ("owner" in list(a.content.keys())) and a.content["owner"] == repo_owner:
+                area_repo = a.uuid
+    if not area_repo:
+        return {"code": 200, "message": "ERROR could not find corresponding area action"}
+
+    executeAction(area_repo, [f"GithubWorkflowFailedHook - Owner:[{repo_owner}] Repo:[{repo_name}]", f"{repo_owner} {repo_name}"])
+    return {"code": 200, "message": "OK"}
+
+def __githubPushHook(data, headers):
+    repo_name = data["repository"]["name"]
+    repo_owner = data["repository"]["owner"]["login"]
+    area_user = None
+    area_repo = None
 
     try:
         query = Users.select().where(Users.oauth.is_null(False))
@@ -138,5 +187,19 @@ def githubHook():
     if not area_repo:
         return {"code": 200, "message": "ERROR could not find corresponding area action"}
 
-    executeAction(area_repo, [f"GithubHook - Owner:[{repo_owner}] Repo:[{repo_name}]", f"{repo_owner} {repo_name}"])
+    executeAction(area_repo, [f"GithubPushHook - Owner:[{repo_owner}] Repo:[{repo_name}]", f"{repo_owner} {repo_name}"])
     return {"code": 200, "message": "OK"}
+
+def githubHook():
+    data = request.json
+    headers = request.headers
+
+    print(headers["X-Github-Event"])
+    print(data)
+    if (headers["X-Github-Event"] == "ping"):
+        return {"code": 200, "message": "OK pong"}
+    if (headers["X-Github-Event"] == "push"):
+        return __githubPushHook(data, headers)
+    if (headers["X-Github-Event"] == "workflow_run"):
+        return __githubWorkflowFailHook(data, headers)
+    return {"code": 400, "message": "Webhook type not supported yet"}, 400
