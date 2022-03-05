@@ -26,7 +26,10 @@ function ConfigDialog(props) {
   const contentKey = {
     "GmailSendEmail": ["receiver", "subject"],
     "DiscordMessage": ["channel_id"],
-    "GithubWebhook": ["owner", "repository"]
+    "GithubWebhook": ["owner", "repository"],
+    "GithubWorkflowFailed": ["owner", "repository"],
+    "GithubNewPullRequest": ["owner", "repository"],
+    "GithubCreateIssue": ["owner", "repository"]
   };
   const actionReaction = {
     Google: {
@@ -51,8 +54,10 @@ function ConfigDialog(props) {
       reactions: [{ value: "DiscordMessage", display: "Post message to channel" }]
     },
     Github: {
-      actions: [{ value: "GithubWebhook", display: "New push on repository" }],
-      reactions: []
+      actions: [{ value: "GithubWebhook", display: "New push on repository" },
+                { value: "GithubWorkflowFailed", display: "Workflow failed on repository"},
+                { value: "GithubNewPullRequest", display: "New pull request as been created on repository"}],
+      reactions: [{ value: "GithubCreateIssue", display: "Create new issue on repository"}]
     }
   }
 
@@ -81,7 +86,7 @@ function ConfigDialog(props) {
   };
 
   const displayActionContent = () => {
-    if (action === "GithubWebhook" && serviceAction === "Github") {
+    if ((action === "GithubWebhook" || action === "GithubWorkflowFailed" || action === "GithubNewPullRequest") && serviceAction === "Github") {
       return (
         <><TextField
           margin="dense"
@@ -130,6 +135,29 @@ function ConfigDialog(props) {
         </>
       )
     }
+    if (reaction === "GithubCreateIssue" && serviceReaction === "Github") {
+      return (
+        <><TextField
+          margin="dense"
+          label="Owner"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setReactionContents(oldArray => {
+            oldArray[0] = event.target.value;
+            return oldArray;
+          })} />
+          <TextField
+          margin="dense"
+          label="Repository"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setReactionContents(oldArray => {
+            oldArray[1] = event.target.value;
+            return oldArray;
+          })} />
+        </>
+      )
+    }
     if (reaction === "DiscordMessage" && serviceReaction === "Discord") {
       return (
         <TextField
@@ -147,18 +175,20 @@ function ConfigDialog(props) {
   }
 
   const createNewApplet = () => {
+    let actionContentObj = {};
+    for (let i = 0; i < contentKey[action].length; ++i) {
+      actionContentObj[contentKey[action][i]] = actionContents[i];
+    }
     let reactionContentObj = {};
-    for (let i = 0; i < contentKey[reaction].length; ++i) {
-      reactionContentObj[contentKey[reaction][i]] = reactionContents[i];
+    for (let j = 0; j < contentKey[reaction].length; ++j) {
+      reactionContentObj[contentKey[reaction][j]] = reactionContents[j];
     }
     const reactionUuid = uuidv4();
     const userUuid = jwt(cookies.get('token'))
     const toSendToDaddy = {
       widgets: [
         {
-          content: {
-            [contentKey[action]]: actionContents[0],
-          },
+          content: actionContentObj,
           enabled: true,
           family: "action",
           title: title,
