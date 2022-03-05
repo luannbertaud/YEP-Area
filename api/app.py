@@ -4,7 +4,8 @@ import os
 import json
 import threading
 import signal
-from flask import Flask
+import time
+from flask import Flask, request
 from flask_cors import CORS
 from tools.db import validateDatabase
 from tools.watcher import start_deamons, Watcher
@@ -48,8 +49,9 @@ def app_aboutjson():
             data = json.load(f)
     except Exception as e:
         return {"code": 500, "message": f"Failed to load about.json: {e}"}, 500
+    data['client']['host'] = request.remote_addr
+    data['server']['current_time'] = int(str(time.time()).split(".")[0])
     return data
-
 
 def signal_handler(sig, frame):
     for t in threading.enumerate():

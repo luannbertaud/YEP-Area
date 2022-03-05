@@ -28,6 +28,11 @@
                         "name": "GithubWorkflowFailed",
                         "description": "Workflow failed on repository",
                         "parameters": "owner, repository"
+                    },
+                    {
+                        "name": "GithubNewPullRequest",
+                        "description": "New pull request as been created on repository",
+                        "parameters": "owner, repository"
                     }
                 ],
                 "reactions": [
@@ -107,6 +112,17 @@
                         "name": "DiscordMessage",
                         "description": "Post message to channel",
                         "parameters": "chennel_id"
+                    }
+                ]
+            },
+            {
+                "name": "custom",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "CustomPost",
+                        "description": "Send json payload to endpoint when triggered",
+                        "parameters": "endpoint"
                     }
                 ]
             }
