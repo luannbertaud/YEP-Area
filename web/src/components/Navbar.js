@@ -21,7 +21,6 @@ export default function NavBar({cookies, onUserLogout, onCreateApplet }) {
   const [openService, setServiceConfig] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
-  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

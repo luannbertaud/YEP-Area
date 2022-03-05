@@ -10,45 +10,48 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jwt-decode'
 
 function ConfigDialog(props) {
   const { onClose, open, onCreateApplet, cookies } = props;
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [serviceAction, setServiceAction] = React.useState('');
-  const [action, setAction] = React.useState('')
+  const [action, setAction] = React.useState('');
   const [serviceReaction, setServiceReaction] = React.useState('');
   const [reaction, setReaction] = React.useState('');
-  const [actionContent, setActionContent] = React.useState('');
-  const [reactionContent, setReactionContent] = React.useState('');
+  const [actionContents, setActionContents] = React.useState([]);
+  const [reactionContents, setReactionContents] = React.useState([]);
 
-  const contentKey = { 
-    "GmailSendEmail": "receiver",
-    "DiscordMessage": "channel_id"
+  const contentKey = {
+    "GmailSendEmail": ["receiver", "subject"],
+    "DiscordMessage": ["channel_id"],
+    "GithubWebhook": ["owner", "repository"]
   };
   const actionReaction = {
     Google: {
-      actions: [{ value: "GmailWebhook", display: "New mail on adress"}],
-      reactions: [{ value: "GmailSendEmail", display: "Send email to receiver"}]
+      actions: [{ value: "GmailWebhook", display: "New mail on adress" }],
+      reactions: [{ value: "GmailSendEmail", display: "Send email to receiver" }]
     },
     Epitech: {
-      actions: [],
+      actions: [{ value: "EpitechNotifWebhook", display: "New notification on intranet" },],
       reactions: []
     },
     Spotify: {
-      actions: [],
+      actions: [{ value: "SpotifyTrackChangeWebhook", display: "Triggered on music change" },
+      { value: "SpotifyMonthArtistChangeWebhook", display: "Triggered when the most favorite artist of month change" }],
       reactions: [{ value: "SpotifyNext", display: "Skip to next song" }]
     },
     Twitter: {
       actions: [],
-      reactions: [{ value: "TwitterTweet", display: "Post tweet"}]
+      reactions: [{ value: "TwitterTweet", display: "Post tweet" }]
     },
     Discord: {
-      actions: [],
-      reactions: [{ value: "DiscordMessage", display: "Post message to channel"}]
+      actions: [{ value: "DiscordMessageReceived", display: "Triggered when a message is post on a common server with the bot" }],
+      reactions: [{ value: "DiscordMessage", display: "Post message to channel" }]
     },
     Github: {
-      actions: [{ value: "GithubWebhook", display: "New push on repository"}],
+      actions: [{ value: "GithubWebhook", display: "New push on repository" }],
       reactions: []
     }
   }
@@ -78,62 +81,103 @@ function ConfigDialog(props) {
   };
 
   const displayActionContent = () => {
-    if (serviceAction === "Google") {
+    if (action === "GithubWebhook" && serviceAction === "Github") {
       return (
-        <TextField
+        <><TextField
           margin="dense"
-          label="Content"
+          label="Owner"
           fullWidth
           variant="standard"
-          onChange={(event) => setActionContent(event.target.value)}
-          
-        />
+          onChange={(event) => setActionContents(oldArray => {  
+            oldArray[0] = event.target.value;
+            return oldArray;
+          })} />
+        <TextField
+          margin="dense"
+          label="Repository"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setActionContents(oldArray => {  
+            oldArray[1] = event.target.value;
+            return oldArray;
+          })} />
+        </>
       )
     }
   }
+
   const displayReactionContent = () => {
-    if (serviceReaction === "Discord") {
+    if (reaction === "GmailSendEmail" && serviceReaction === "Google") {
+      return (
+        <><TextField
+          margin="dense"
+          label="Receiver"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setReactionContents(oldArray => {
+            oldArray[0] = event.target.value;
+            return oldArray;
+          })} />
+          <TextField
+          margin="dense"
+          label="Subject"
+          fullWidth
+          variant="standard"
+          onChange={(event) => setReactionContents(oldArray => {
+            oldArray[1] = event.target.value;
+            return oldArray;
+          })} />
+        </>
+      )
+    }
+    if (reaction === "DiscordMessage" && serviceReaction === "Discord") {
       return (
         <TextField
           margin="dense"
-          label="Content"
+          label="Chanel ID"
           fullWidth
           variant="standard"
-          onChange={(event) => setReactionContent(event.target.value)}
-          
+          onChange={(event) => setReactionContents(oldArray => {
+            oldArray[0] = event.target.value;
+            return oldArray;
+          })}
         />
       )
     }
   }
 
   const createNewApplet = () => {
-    const reactionUuid= uuidv4();
+    let reactionContentObj = {};
+    for (let i = 0; i < contentKey[reaction].length; ++i) {
+      reactionContentObj[contentKey[reaction][i]] = reactionContents[i];
+    }
+    console.log(reactionContentObj);
+    const reactionUuid = uuidv4();
+    const userUuid = jwt(cookies.get('token'))
     const toSendToDaddy = {
       widgets: [
         {
           content: {
-            [contentKey[reaction]]: actionContent
+            [contentKey[action]]: actionContents[0],
           },
           enabled: true,
           family: "action",
           title: title,
           description: description,
-          user_uuid: "0",
+          user_uuid: userUuid.user_uuid.toString(),
           uuid: uuidv4(),
           type: action,
           children: {
-            uuids: reactionUuid
+            uuids: [reactionUuid]
           }
         },
         {
-          content: {
-            [contentKey[reaction]]: reactionContent
-          },
+          content: reactionContentObj,
           enabled: true,
           family: "reaction",
           title: "",
           description: "",
-          user_uuid: "0",
+          user_uuid: userUuid.user_uuid.toString(),
           uuid: reactionUuid,
           type: reaction,
         }
@@ -152,6 +196,8 @@ function ConfigDialog(props) {
       console.log("post", response);
       onCreateApplet({ title: title, description: description })
       onClose()
+    }).catch((err) => {
+      console.log(err.response);
     })
   }
 
@@ -174,7 +220,7 @@ function ConfigDialog(props) {
             variant="standard"
             onChange={handleDescriptionChange}
           />
-          <FormControl sx={{ mt: 2, width: "100%" }}>
+          <FormControl sx={{ mt: 5, width: "100%" }}>
             <InputLabel htmlFor="max-width">Action Service</InputLabel>
             <Select
               value={serviceAction}
@@ -226,11 +272,11 @@ function ConfigDialog(props) {
               onChange={handleReactionChange}
               label="Reaction"
             >
-            {
-              serviceReaction && actionReaction[serviceReaction].reactions.map(
-                (reaction, index) => <MenuItem value={reaction.value} key={index}>{reaction.display}</MenuItem>
-              )
-            }
+              {
+                serviceReaction && actionReaction[serviceReaction].reactions.map(
+                  (reaction, index) => <MenuItem value={reaction.value} key={index}>{reaction.display}</MenuItem>
+                )
+              }
             </Select>
             {displayReactionContent()}
           </FormControl>
