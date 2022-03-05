@@ -119,8 +119,12 @@ class SpotifyAPIWrapper():
             },
             "position_ms": 0
         }
-        r = requests.put("https://api.spotify.com/v1/me/player/play", headers=headers, json=payload)
-        return {'code': r.status_code, 'message': "OK"}
+        rg = requests.put("https://api.spotify.com/v1/me/player/play", headers=headers, json=payload)
+        if (rg.status_code != 204):
+            r = ensure_json(rg)
+        if ((rg.status_code != 204) and ('error' in r['data'].keys()) and ('reason' in r['data']['error'].keys()) and (r['data']['error']['reason'] == "NO_ACTIVE_DEVICE")):
+            return {'code': 200, 'message': 'No active players'}
+        return {'code': r['code'], 'message': "OK"}
 
 
 class SpotifyNextReaction(Reaction):
