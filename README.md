@@ -21,8 +21,7 @@ Native auth:
 <br>
 
 Third parts login:
-- google ?
-- github ?
+- google
 
   
 
@@ -106,7 +105,6 @@ Client Mobile:
 
 - Google
 - Github
-- Twitter
 - Discord
 - Spotify
 - Intra Epitech

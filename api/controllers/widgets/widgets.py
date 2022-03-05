@@ -77,7 +77,8 @@ def __get_service_widgets(service, user_uuid):
         "spotify": ["SpotifyNextReaction", "SpotifyPlayReaction", "SpotifyTrackChangeWebhookAction", "SpotifyMonthArtistChangeWebhookAction"],
         "twitter": ["TwitterTweetReaction"],
         "discord": ["DiscordMessageReaction", "DiscordMessageReceivedAction"],
-        "epitech": ["EpitechNotifWebhookAction"]
+        "epitech": ["EpitechNotifWebhookAction"],
+        "custom": ["CustomPostReaction"]
     }
     if ((not service) or (service not in service_mapper.keys())):
         return {"code": 400, "message": "Missing or unknown Area service."}, 400

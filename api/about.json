@@ -114,6 +114,17 @@
                         "parameters": "chennel_id"
                     }
                 ]
+            },
+            {
+                "name": "custom",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "CustomPost",
+                        "description": "Send json payload to endpoint when triggered",
+                        "parameters": "endpoint"
+                    }
+                ]
             }
         ]
     }
