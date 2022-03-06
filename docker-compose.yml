@@ -44,8 +44,9 @@ services:
       context: ./web
       dockerfile: Dockerfile
       args:
-        REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
         REACT_APP_SERV_URL: ${SERV_URL}
+        SERV_ENABLE_SSL: ${SERV_ENABLE_SSL}
+        REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     depends_on:
       - mobile
       - server

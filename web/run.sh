@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 EXEC_PATH=$(cd $(dirname "$0") && pwd)
 

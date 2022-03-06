@@ -2,8 +2,7 @@
 <br>
 [![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/cqz8.svg)](https://yep-area.betteruptime.com/) `UI:` https://yep-area.cf
 <br>
-![Containers](https://github.com/luannbertaud/YEP-Area/actions/workflows/Build.yml/badge.svg)
-<br>
+![Containers](https://github.com/luannbertaud/YEP-Area/actions/workflows/Build.yml/badge.svg)<br>
 ![Mirror](https://github.com/luannbertaud/YEP-Area/actions/workflows/mirror.yml/badge.svg)
 
 # Action REAction
@@ -17,7 +16,7 @@ The goal of this project is to implement a system of actions and reactions trigg
 
 All this project can be manage with [docker-compose](https://docs.docker.com/compose/).  
 In order to pass your API keys to the container you can use a `.env` file, at the root of the repository. Here in [an example](.env.example).
-Also if you enable the `SERV_ENABLE_SSL` please provide the `fullchain.pem` (cert) and `privkey.pem` (key) files in `api/certificates`. In this case the server will only respond to https requests.
+Also if you enable the `SERV_ENABLE_SSL` please provide the `fullchain.pem` (cert) and `privkey.pem` (key) files in `api/certificates` and `web/certificates`. In this case the server/web will only respond to https requests.
 <br>
 Then to start the containers simply run `docker-compose up`.
 /!\ If you decide to not start either the `server` or  `web` container, be sure to update the [nginx conf](nginx/nginx.conf) file for the reverse proxy. Also you can update this file to fit your dns.
