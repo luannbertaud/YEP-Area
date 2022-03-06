@@ -123,7 +123,7 @@ function Intra () {
 function Github () {
 	const [state, setState] = useState(false);
 	const [cookies] = useCookies(['token']);
-	const urlGithub = REACT_APP_SERV_URL + "auth/spotify/authorize"
+	const urlGithub = REACT_APP_SERV_URL + "auth/github/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
