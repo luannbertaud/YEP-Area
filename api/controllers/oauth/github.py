@@ -33,6 +33,7 @@ def github_callback():
     if (len(current_requests) <= 0):
         {"code": 401, "message": "This url must be called by authentification entity."}, 401
     rqUser = current_requests[0]["user_uuid"]
+    del current_requests[0]
     data = {
         "code": request.args.get('code'),
         "client_id" : GITHUB_CLIENT_ID,
@@ -46,7 +47,6 @@ def github_callback():
     rq = requests.post("https://github.com/login/oauth/access_token", headers=headers, data=data)
     r = ensure_json(rq)
     r['data']['user'] = rqUser
-    del current_requests[0]
     if rq.status_code != 200:
         return {"code": rq.status_code, "message": r}
 

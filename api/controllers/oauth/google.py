@@ -49,6 +49,7 @@ def google_callback():
     if (len(current_requests) <= 0):
         {"code": 401, "message": "This url must be called by authentification entity."}, 401
     rqUser = current_requests[0]["user_uuid"]
+    del current_requests[0]
     config = {
         "web": {
             "client_id": GOOGLE_CLIENT_ID,

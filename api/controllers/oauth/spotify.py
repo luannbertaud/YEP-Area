@@ -34,6 +34,7 @@ def spotify_callback():
     if (len(current_requests) <= 0):
         {"code": 401, "message": "This url must be called by authentification entity."}, 401
     rqUser = current_requests[0]["user_uuid"]
+    del current_requests[0]
     redirect_uri = SERV_URL + "auth/spotify"
     scopes = 'user-read-private user-library-modify user-modify-playback-state'
     flow = spotipy.oauth2.SpotifyOAuth(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, redirect_uri=redirect_uri, scope=scopes)

@@ -111,7 +111,7 @@
                     {
                         "name": "DiscordMessage",
                         "description": "Post message to channel",
-                        "parameters": "chennel_id"
+                        "parameters": "channel_id"
                     }
                 ]
             },

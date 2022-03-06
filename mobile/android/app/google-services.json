@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "839251961355",
+    "project_id": "yep-area-341709",
+    "storage_bucket": "yep-area-341709.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839251961355:android:61319cd0bab9db8c6a090e",
+        "android_client_info": {
+          "package_name": "com.yeparea.gildas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839251961355-h2h85ulbdsnvngoic1ipl6oqrpfi69so.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzTY2GlkwxycXXhC_D74KhrK5mqEKix3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839251961355-h2h85ulbdsnvngoic1ipl6oqrpfi69so.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
