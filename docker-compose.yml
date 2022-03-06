@@ -45,6 +45,7 @@ services:
       dockerfile: Dockerfile
       args:
         REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        REACT_APP_SERV_URL: ${SERV_URL}
     depends_on:
       - mobile
       - server
