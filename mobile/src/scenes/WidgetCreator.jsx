@@ -1,16 +1,17 @@
 import React from 'react';
 import { TabView, Tab } from 'react-native-elements';
-import { Text } from 'react-native';
 import WidgetName from '../components/widget/creation/WidgetName.jsx';
 import WidgetAction from '../components/widget/creation/WidgetAction.jsx';
 import WidgetReaction from '../components/widget/creation/WidgetReaction.jsx';
 import { createARea } from '../services/area';
+import jwt from 'jwt-decode';
 
 export default class WidgetCreator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             area: {
+                token: this.props.token,
                 name: '',
                 action: {
                     name: '',
@@ -54,7 +55,7 @@ export default class WidgetCreator extends React.Component {
         const reaction = {
             "uuid": Math.floor(Math.random()*9999) + 1,
             "type": this.state.area.reaction.name,
-            "user_uuid": 0,
+            "user_uuid": jwt(this.state.area.token),
             "enabled": true,
             "family": "reaction",
             "content": this.state.area.reaction.parameters,
@@ -62,7 +63,7 @@ export default class WidgetCreator extends React.Component {
         const action = {
             "uuid": Math.floor(Math.random()*9999) + 1,
             "type": this.state.area.action.name,
-            "user_uuid": 0,
+            "user_uuid": jwt(this.state.area.token),
             "enabled": true,
             "family": "action",
             "content": this.state.area.action.parameters,
