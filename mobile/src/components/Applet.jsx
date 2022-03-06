@@ -45,7 +45,7 @@ export default class Applet extends React.Component {
                             <Text style={applet.appletTitle}>{name}</Text>
                         </View>
                         <View style={{ flex: 2, paddingLeft: 10 }}>
-                            <Text style={applet.appletEdit} onPress={() => alert("Edit name")}>Edit AREA</Text>
+                            <Text style={applet.appletEdit} onPress={() => {}}>Edit AREA</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: "row", paddingLeft: 10, marginVertical: 20 }}>

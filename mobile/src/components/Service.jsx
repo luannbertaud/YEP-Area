@@ -15,14 +15,12 @@ export default class Service extends React.Component {
         let auth_url = null;
 
         await axios.get(
-            'https://api.yep-area.cf/auth/' + route + '/authorize', {
+            process.env.REACT_APP_SERV_URL + '/auth/' + route + '/authorize', {
                 headers: {
                   'Authorization': access_token
                 }
         }).then((result) => { auth_url = result.data.url })
         .catch((error) => { throw "Error" });
-        console.log('https://api.yep-area.cf/auth/' + route + '/authorize');
-        console.log(auth_url);
         Linking.openURL(auth_url);
         return (auth_url);
     }

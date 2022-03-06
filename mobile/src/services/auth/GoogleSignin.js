@@ -7,7 +7,7 @@ async function signin() {
     try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
-        await axios.post('https://api.yep-area.cf/auth/area/login/google',
+        await axios.post(process.env.REACT_APP_SERV_URL + '/auth/area/login/google',
         {user_name: userInfo.user.name, user_password: "undefined", idToken: userInfo.idToken, mobile: true});
         console.log(userInfo.idToken);
     } catch (error) {

@@ -123,7 +123,7 @@ const header = StyleSheet.create({
     profile: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 40,
+        marginTop: 20,
         flexDirection: "row",
     },
     headerName: {
