@@ -20,6 +20,8 @@ import twitter from '../assets/twitter.png';
 import google from '../assets/google.png';
 import './ServiceDialog.css';
 
+const URL = process.env.SERV_URL
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -30,13 +32,13 @@ function Popup(page) {
 
 function Spotify () {
 	const [state, setState] = useState(false);
-
 	const [cookies] = useCookies(['token']);
+	const urlSpotify = URL + "auth/spotify/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/spotify/authorize', {
+		axios.get(urlSpotify, {
 		headers: {
 		  'Authorization': cookies.token
 		},
@@ -60,13 +62,13 @@ function Spotify () {
 
 function Discord () {
 	const [state, setState] = useState(false);
-
 	const [cookies] = useCookies(['token']);
+	const urlDiscord = URL + "auth/discord/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/discord/authorize', {
+		axios.get(urlDiscord, {
 		headers: {
 		  'Authorization': cookies.token
 		},
@@ -90,13 +92,13 @@ function Discord () {
 
 function Intra () {
 	const [state, setState] = useState(false);
-
 	const [cookies] = useCookies(['token']);
+	const urlIntra = URL + "auth/epitech/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/epitech/authorize', {
+		axios.get(urlIntra, {
 		headers: {
 		  'Authorization': cookies.token
 		},
@@ -120,13 +122,13 @@ function Intra () {
 
 function Github () {
 	const [state, setState] = useState(false);
-
 	const [cookies] = useCookies(['token']);
+	const urlGithub = URL + "auth/spotify/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/github/authorize', {
+		axios.get(urlGithub, {
 		headers: {
 		  'Authorization': cookies.token
 		},
@@ -150,13 +152,13 @@ function Github () {
 
 function Twitter () {
 	const [state, setState] = useState(false);
-
 	const [cookies] = useCookies(['token']);
+	const urlTwitter = URL + "auth/twitter/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/twitter/authorize', {
+		axios.get(urlTwitter, {
 		headers: {
 		  'Authorization': cookies.token
 		},
@@ -180,13 +182,13 @@ function Twitter () {
 
 function Google () {
 	const [state, setState] = useState(false);
-
 	const [cookies] = useCookies(['token']);
+	const urlGoogle = URL + "auth/google/authorize"
 	console.log(cookies);
 
     const toggle=()=>{
 	if (!state) {
-		axios.get('https://api.yep-area.cf/auth/google/authorize', {
+		axios.get(urlGoogle, {
 		headers: {
 		  'Authorization': cookies.token
 		},

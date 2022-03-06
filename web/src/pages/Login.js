@@ -15,6 +15,7 @@ import "./style.css"
 
 const theme = createTheme();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const URL = process.env.SERV_URL
 
 class Login extends React.Component {
 
@@ -43,7 +44,8 @@ class Login extends React.Component {
     }
     onClickLogin() {
         const { cookies } = this.props;
-        axios.post('https://api.yep-area.cf/auth/area/login', {
+        const postUrl = URL + "auth/area/login"
+        axios.post(postUrl, {
             "user_name": this.state.username,
             "user_password": this.state.password
         }).then((response) => {

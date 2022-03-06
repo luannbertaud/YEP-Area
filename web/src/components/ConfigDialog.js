@@ -14,6 +14,8 @@ import jwt from 'jwt-decode'
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 
+const URL = process.env.SERV_URL
+
 function ConfigDialog(props) {
   const { onClose, open, onCreateApplet, cookies } = props;
   const [title, setTitle] = React.useState('')
@@ -241,8 +243,9 @@ function ConfigDialog(props) {
       ]
     };
     console.log(toSendToDaddy);
+    const urlPostWidget = URL + "widgets/update"
     axios.post(
-      'https://api.yep-area.cf/widgets/update',
+      urlPostWidget,
       toSendToDaddy,
       {
         headers: {

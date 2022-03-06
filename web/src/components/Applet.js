@@ -6,6 +6,8 @@ import { green } from '@mui/material/colors';
 import {Box, Grid, Typography} from "@mui/material";
 import axios from "axios";
 
+const URL = process.env.SERV_URL
+
 export default function Applet({applet, cookies, onUpdateApplet}) {
 
  const { title, description, enabled } = applet
@@ -23,7 +25,8 @@ export default function Applet({applet, cookies, onUpdateApplet}) {
   }));
 
   const handleChange = (event) => {
-    axios.post('https://api.yep-area.cf/widgets/update', {widgets: [{...applet, enabled: event.target.checked}]}, {
+    const urlChange = URL + "widgets/update"
+    axios.post(urlChange, {widgets: [{...applet, enabled: event.target.checked}]}, {
       headers: {
         'Authorization': cookies.get('token')
       }

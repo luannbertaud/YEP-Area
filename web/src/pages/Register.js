@@ -14,6 +14,7 @@ import "./style.css"
 
 const theme = createTheme();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const URL = process.env.SERV_URL
 
 export default class Register extends React.Component {
     constructor(props) {
@@ -46,7 +47,8 @@ export default class Register extends React.Component {
         })
     }
     onClickRegister() {
-        axios.post('https://api.yep-area.cf/auth/area/register', {
+        const postUrl = URL + "auth/area/register"
+        axios.post(postUrl, {
             "user_name": this.state.username,
             "user_email": this.state.mail,
             "user_password": this.state.password
