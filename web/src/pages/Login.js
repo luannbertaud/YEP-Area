@@ -62,7 +62,8 @@ class Login extends React.Component {
     }
     responseGoogle = (response) => {
         const { cookies } = this.props;
-        axios.post('https://api.yep-area.cf/auth/area/login/google', {
+        const urlGoogle = URL + "auth/area/login/google"
+        axios.post(urlGoogle, {
             "user_name": "",
             "user_password": "",
             "idToken": response["tokenId"],

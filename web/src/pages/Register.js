@@ -62,16 +62,6 @@ export default class Register extends React.Component {
         });
     }
 
-    verifyToken() {
-        axios.get('http://localhost:8080/auth/area/verify', {
-            headers: { Authorization: this.state.token }
-        }).then((response) => {
-            console.log(response.data)
-        }).catch((err) => {
-            console.log(err.response);
-        });
-    }
-
     render() {
         return (
             < div style={{ backgroundColor: "#249BD3", height: '100vh', overflow: 'hidden' }}>
@@ -137,19 +127,6 @@ export default class Register extends React.Component {
                                             </Link>
                                         </Grid>
                                     </Grid>
-                                    <GoogleLogin
-                                        clientId={GOOGLE_CLIENT_ID}
-                                        render={renderProps => (
-                                            <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton googleBackground">
-                                                <img src={Google} alt="" className="icon" />
-                                                Register with Google
-                                            </button>
-                                        )}
-                                        buttonText="Login"
-                                        onSuccess={(res) => { console.log(res) }}
-                                        onFailure={(res) => { console.log(res) }}
-                                        cookiePolicy={'single_host_origin'}
-                                    />
                                 </Box>
                             </Box>
                         </div>
