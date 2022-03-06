@@ -24,6 +24,7 @@ export default class RegisterUser extends React.Component {
         await registerUser(this.state.name, this.state.email, this.state.password)
         .then((accesToken) => {global.access_token = acces_token, navigateWithParameters(this.props.navigation, "Homepage", {accesToken: accesToken})})
         .catch((error) => {
+            console.log(error);
             this.setState({errorMessage: "An errror occured. Please try again."});
         });
         this.setState({name: '', email: '', password: ''});

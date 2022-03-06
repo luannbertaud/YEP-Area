@@ -4,6 +4,7 @@ import { Text } from 'react-native';
 import WidgetName from '../components/widget/creation/WidgetName.jsx';
 import WidgetAction from '../components/widget/creation/WidgetAction.jsx';
 import WidgetReaction from '../components/widget/creation/WidgetReaction.jsx';
+import { createARea } from '../services/area';
 
 export default class WidgetCreator extends React.Component {
     constructor(props) {
@@ -67,6 +68,8 @@ export default class WidgetCreator extends React.Component {
             "content": this.state.area.action.parameters,
             "children": {"uuids":[reaction.uuid]}
         }
+        createARea(action, reaction)
+        .catch((e) => {});
         //Must implement the redirection and the api call for that bad boy
     }
 

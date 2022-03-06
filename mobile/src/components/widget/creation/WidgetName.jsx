@@ -41,8 +41,8 @@ export default class WidgetName extends React.Component {
                     errorStyle={styles.errorMessage}
                 />
                 <Text style={styles.confirmMessage}>{this.state.confirmMessage}</Text>
-                <Button titleStyle={styles.buttonText} title='Apply changes' buttonStyle={styles.butonStyle} onPress={()=>{this.checkChangesAndApply()}}/>
-                <Button titleStyle={styles.buttonText} title='Cancel' onPress={()=>this.props.navigation.goBack()}/>
+                <Button titleStyle={styles.buttonText} title='Apply changes' buttonStyle={styles.butonStyle} onPressIn={()=>{this.checkChangesAndApply()}}/>
+                <Button titleStyle={styles.buttonText} title='Cancel' onPressIn={()=>this.props.navigation.goBack()}/>
             </View>
         )
     }

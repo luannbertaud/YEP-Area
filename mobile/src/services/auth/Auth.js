@@ -7,7 +7,8 @@ async function registerUser(name, email, password) {
         process.env.REACT_APP_SERV_URL + '/auth/area/register', 
         {user_name: name, user_email: email, user_password: password}
     ).then((result) => {access_token = result.data.access_token})
-    .catch((error) => {throw "Error"});
+    .catch((error) => {console.log(error)});
+    console.log(access_token);
     return (access_token);
 }
 
