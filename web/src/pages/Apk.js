@@ -1,8 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { FaMobileAlt } from "react-icons/fa"
-
-
 import LoadingButton from '@mui/lab/LoadingButton';
 
 export default class ApkDownloader extends React.Component {
