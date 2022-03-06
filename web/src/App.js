@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dlapk" element={<Apk />} />
+        <Route path="/client.apk" element={<Apk />} />
       </Routes>
     </div>
   );

@@ -14,7 +14,7 @@ import { GoogleLogin } from 'react-google-login';
 import "./style.css"
 
 const theme = createTheme();
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const REACT_APP_GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 class Login extends React.Component {
 
@@ -130,7 +130,7 @@ class Login extends React.Component {
                                         </Grid>
                                     </Grid>
                                     <GoogleLogin
-                                        clientId={GOOGLE_CLIENT_ID}
+                                        clientId={REACT_APP_GOOGLE_CLIENT_ID}
                                         render={renderProps => (
                                             <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton googleBackground">
                                                 <img src={Google} alt="" className="icon" />

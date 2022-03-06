@@ -20,7 +20,7 @@ export default class ApkDownloader extends React.Component {
     render() {
         return (
             <Box sx={{ pb: 2, mx: 2 }} style={{ justifyContent: 'center', display: 'flex' }}>
-                <Link to="../../apk_vol/client.apk" target="_blank" download>
+                <Link to="/apk_vol/client.apk" target="_blank" download>
                     <LoadingButton
                         color="secondary"
                         onClick={this.handleClick}

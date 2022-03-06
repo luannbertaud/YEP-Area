@@ -41,11 +41,13 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+      args:
+        REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     depends_on:
       - mobile
       - server
     volumes:
-       - ./web/apk_vol:/apk_vol
+       - ./web/public/apk_vol:/app/public/apk_vol
     ports:
       - 8081:3000
     image: web-image
@@ -58,7 +60,7 @@ services:
       context: ./mobile
       dockerfile: Dockerfile
     volumes:
-       - ./web/apk_vol:/apk_vol
+       - ./web/public/apk_vol:/apk_vol
     image: mobile-image
 
   database:
