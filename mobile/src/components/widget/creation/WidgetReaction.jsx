@@ -21,7 +21,7 @@ export default class WidgetReaction extends React.Component {
     checkReactionAndUpdate(name, parameters) {
         switch (this.state.name) {
             case 'GmailSendEmail':
-                if (this.state.firstArg == '' || this.state.secondArg == '') {
+                if (this.state.firstArg == null || this.state.secondArg == null) {
                     this.setState({errorMessage: 'Error: Arguments invalid', confirmMessage: '', firstArg: '', secondArg: ''});
                 } else {
                     this.props.onConfirm(this.state.name, {receiver: this.state.firstArg, subject: this.state.secondArg});
@@ -30,7 +30,7 @@ export default class WidgetReaction extends React.Component {
                 break;
             
             case 'GithubCreateIssue':
-                if (this.state.firstArg == '' || this.state.secondArg == '') {
+                if (this.state.firstArg == null || this.state.secondArg == null) {
                     this.setState({errorMessage: 'Error: Arguments invalid', confirmMessage: '', firstArg: '', secondArg: ''});
                 } else {
                     this.props.onConfirm(this.state.name, {owner: this.state.firstArg, repository: this.state.secondArg});

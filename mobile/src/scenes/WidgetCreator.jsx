@@ -5,13 +5,14 @@ import WidgetAction from '../components/widget/creation/WidgetAction.jsx';
 import WidgetReaction from '../components/widget/creation/WidgetReaction.jsx';
 import { createARea } from '../services/area';
 import jwt from 'jwt-decode';
+import { navigateTo } from '../services/navigation.js';
 
 export default class WidgetCreator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             area: {
-                token: this.props.token,
+                token: global.access_token,
                 name: '',
                 action: {
                     name: '',
@@ -53,17 +54,17 @@ export default class WidgetCreator extends React.Component {
 
     createNewARea = () => {
         const reaction = {
-            "uuid": Math.floor(Math.random()*9999) + 1,
-            "type": this.state.area.reaction.name,
-            "user_uuid": jwt(this.state.area.token),
+            "uuid": (Math.floor(Math.random()*9999) + 1).toString(),
+            "type": this.state.area.reaction.name.toString(),
+            "user_uuid": (jwt(this.state.area.token).user_uuid).toString(),
             "enabled": true,
             "family": "reaction",
             "content": this.state.area.reaction.parameters,
         }
         const action = {
-            "uuid": Math.floor(Math.random()*9999) + 1,
-            "type": this.state.area.action.name,
-            "user_uuid": jwt(this.state.area.token),
+            "uuid": (Math.floor(Math.random()*9999) + 1).toString(),
+            "type": this.state.area.action.name.toString(),
+            "user_uuid": (jwt(this.state.area.token).user_uuid).toString(),
             "enabled": true,
             "family": "action",
             "content": this.state.area.action.parameters,
@@ -71,7 +72,7 @@ export default class WidgetCreator extends React.Component {
         }
         createARea(action, reaction)
         .catch((e) => {});
-        //Must implement the redirection and the api call for that bad boy
+        navigateTo(this.props.navigation, "Homepage")
     }
 
     render() {

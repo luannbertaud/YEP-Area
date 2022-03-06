@@ -8,7 +8,6 @@ async function registerUser(name, email, password) {
         {user_name: name, user_email: email, user_password: password}
     ).then((result) => {access_token = result.data.access_token})
     .catch((error) => {console.log(error)});
-    console.log(access_token);
     return (access_token);
 }
 

@@ -20,13 +20,14 @@ export default class Homepage extends React.Component {
 
     getWidget(target, type) {
         target += type
-        const service_mapper = {
-            "github": ["GithubWebhookAction"],
+        service_mapper = {
+            "github": ["GithubWebhookAction", "GithubCreateIssueReaction", "GithubWorkflowFailedAction", "GithubNewPullRequestAction"],
             "google": ["GmailWebhookAction", "GmailSendEmailReaction"],
-            "spotify": ["SpotifyNextReaction"],
+            "spotify": ["SpotifyNextReaction", "SpotifyPlayReaction", "SpotifyTrackChangeWebhookAction", "SpotifyMonthArtistChangeWebhookAction"],
             "twitter": ["TwitterTweetReaction"],
-            "discord": ["DiscordMessageReaction"],
+            "discord": ["DiscordMessageReaction", "DiscordMessageReceivedAction"],
             "desktop": ["EpitechNotifWebhookAction"],
+            "at": ["CustomPostReaction"]
         }
         let obj
         for (const [key, value] of Object.entries(service_mapper)) {
@@ -114,6 +115,7 @@ export default class Homepage extends React.Component {
 
 
     render() {
+
         if (this.state.hasApplets === false) {
             this.getApplets();
         }

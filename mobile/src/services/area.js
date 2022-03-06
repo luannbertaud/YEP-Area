@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { navigateTo } from './navigation';
 
 async function createARea(action, reaction) {
     console.log(action);
@@ -25,10 +26,12 @@ async function createARea(action, reaction) {
                     user_uuid: reaction.user_uuid
                 }
             ]
+        }, {
+        headers: {
+            'Authorization': global.access_token
         }
-    )
-    .then((result) => {console.log("Victory ! The result is: " + result)})
-    .catch((error) => {console.log("Oh noooo ! I'm sorry but: " + error); throw 'e'});
+    }).then((result) => { console.log("Victory ! The result is: " + result)})
+        .catch((error) => { console.log("Oh noooo ! I'm sorry but: " + error.response.data.message); throw 'e' });
 }
 
 export {

@@ -22,7 +22,7 @@ export default class RegisterUser extends React.Component {
 
     register = async () => {
         await registerUser(this.state.name, this.state.email, this.state.password)
-        .then((accesToken) => {global.access_token = acces_token, navigateWithParameters(this.props.navigation, "Homepage", {accesToken: accesToken})})
+        .then((access_token) => {global.access_token = access_token, navigateWithParameters(this.props.navigation, "Homepage", {access_token: access_token})})
         .catch((error) => {
             console.log(error);
             this.setState({errorMessage: "An errror occured. Please try again."});

@@ -30,16 +30,7 @@ export default class WidgetName extends React.Component {
         return(
             <View style={styles.view}>
                 <Text style={styles.text}>Choose your ARea name: </Text>
-                <Input
-                    inputStyle={styles.input}
-                    disabled={false}
-                    inputContainerStyle={styles.container}
-                    value={this.state.text}
-                    onChangeText={(text) => {this.setState({text: text, confirmMessage: '', errorMessage: ''})}}
-                    placeholder='Enter your ARea name here...'
-                    errorMessage={this.state.errorMessage}
-                    errorStyle={styles.errorMessage}
-                />
+                <Input placeholder='Enter name' value={this.state.text}/>
                 <Text style={styles.confirmMessage}>{this.state.confirmMessage}</Text>
                 <Button titleStyle={styles.buttonText} title='Apply changes' buttonStyle={styles.butonStyle} onPressIn={()=>{this.checkChangesAndApply()}}/>
                 <Button titleStyle={styles.buttonText} title='Cancel' onPressIn={()=>this.props.navigation.goBack()}/>
@@ -47,3 +38,16 @@ export default class WidgetName extends React.Component {
         )
     }
 }
+
+/*
+<Input
+    inputStyle={styles.input}
+    disabled={false}
+    inputContainerStyle={styles.container}
+    value={this.state.text}
+    onChangeText={(text) => {this.setState({text: text, confirmMessage: '', errorMessage: ''})}}
+    placeholder='Enter your ARea name here...'
+    errorMessage={this.state.errorMessage}
+    errorStyle={styles.errorMessage}
+/>
+*/

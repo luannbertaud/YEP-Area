@@ -20,14 +20,14 @@ export default class LoginUser extends React.Component {
 
     login = async() => {
         await loginUser(this.state.name, this.state.password)
-        .then((acces_token) => {global.access_token = acces_token, navigateWithParameters(this.props.navigation, "Homepage", {acces_token: acces_token})})
+        .then((access_token) => {global.access_token = access_token, navigateWithParameters(this.props.navigation, "Homepage", {access_token: access_token})})
         .catch(()=>{this.setState("An error occured. Please try again")});
         this.setState({name: '', password: ''})
     }
 
     loginWithGoogle = async() => {
         await signin()
-        .then((id) => {navigateWithParameters(this.props.navigation, "Homepage", {acces_token: id})})
+        .then((id) => {navigateWithParameters(this.props.navigation, "Homepage", {access_token: id})})
         .catch(()=>{});
     }
 
