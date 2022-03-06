@@ -9,13 +9,14 @@ import Homepage from './src/components/Homepage.jsx';
 import Board from './src/scenes/Board';
 import Profile from './src/components/Profile';
 import Service from './src/components/Service';
+import WidgetCreator from './src/scenes/WidgetCreator.jsx';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'Board'} screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName={'Widget'} screenOptions={{headerShown: false}}>
         <Stack.Screen name='Main' component={Main}/>
         <Stack.Screen name='LoginUser' component={LoginUser}/>
         <Stack.Screen name='RegisterUser' component={RegisterUser}/>
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name='Board' component={Board}/>
         <Stack.Screen name='Profile' component={Profile}/>
         <Stack.Screen name='Service' component={Service}/>
+        <Stack.Screen name='Widget' component={WidgetCreator}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
