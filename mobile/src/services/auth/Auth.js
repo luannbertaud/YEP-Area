@@ -18,7 +18,7 @@ async function loginUser(email, password) {
         'https://api.yep-area.cf/auth/area/login',
         {user_email: email, user_password: password}
     ).then((result) => {access_token = result.data.access_token})
-    .catch((error) => {throw "Error"});
+    .catch(() => {throw "Error"});
     return (access_token);
 }
 
