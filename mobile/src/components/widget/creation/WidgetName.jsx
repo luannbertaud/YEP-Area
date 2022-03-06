@@ -38,16 +38,3 @@ export default class WidgetName extends React.Component {
         )
     }
 }
-
-/*
-<Input
-    inputStyle={styles.input}
-    disabled={false}
-    inputContainerStyle={styles.container}
-    value={this.state.text}
-    onChangeText={(text) => {this.setState({text: text, confirmMessage: '', errorMessage: ''})}}
-    placeholder='Enter your ARea name here...'
-    errorMessage={this.state.errorMessage}
-    errorStyle={styles.errorMessage}
-/>
-*/
