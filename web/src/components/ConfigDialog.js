@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,6 +11,8 @@ import Select from '@mui/material/Select';
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jwt-decode'
+import InfoIcon from '@mui/icons-material/Info';
+import Tooltip from '@mui/material/Tooltip';
 
 function ConfigDialog(props) {
   const { onClose, open, onCreateApplet, cookies } = props;
@@ -30,7 +32,7 @@ function ConfigDialog(props) {
     "GithubWorkflowFailed": ["owner", "repository"],
     "GithubNewPullRequest": ["owner", "repository"],
     "GithubCreateIssue": ["owner", "repository"],
-    "CustomPost" : ["endpoint"]
+    "CustomPost": ["endpoint"]
   };
   const actionReaction = {
     Google: {
@@ -61,7 +63,7 @@ function ConfigDialog(props) {
       reactions: [{ value: "GithubCreateIssue", display: "Create new issue on repository" }]
     },
     Custom: {
-      reactions: [{ value: "CustomPost", display: "Send json payload to endpoint when triggered"}]
+      reactions: [{ value: "CustomPost", display: "Send json payload to endpoint when triggered" }]
     }
   }
 
@@ -164,6 +166,7 @@ function ConfigDialog(props) {
     }
     if (reaction === "DiscordMessage" && serviceReaction === "Discord") {
       return (
+        <>
         <TextField
           margin="dense"
           label="Chanel ID"
@@ -172,8 +175,11 @@ function ConfigDialog(props) {
           onChange={(event) => setReactionContents(oldArray => {
             oldArray[0] = event.target.value;
             return oldArray;
-          })}
-        />
+          })} />
+          <Tooltip title="Make sure to have developer mode on Discord to access to channel ID" placement="bottom">
+              <InfoIcon/>
+            </Tooltip>
+        </>
       )
     }
     if (reaction === "CustomPost" && serviceReaction === "Custom") {

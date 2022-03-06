@@ -6,7 +6,6 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Add } from "@mui/icons-material";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
-import {useNavigate} from 'react-router-dom';
 import Area from "../resources/logoArea.png"
 import InfoIcon from '@mui/icons-material/Info';
 import InfoDialog from "./InfoDialog"
