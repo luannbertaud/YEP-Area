@@ -1,0 +1,131 @@
+{
+"client": {
+    "host": "00.000.00.00"
+    },
+"server": {
+    "current_time": 10000,
+    "services": [
+            {
+                "name": "epitech",
+                "actions": [
+                    {
+                        "name": "EpitechNotifWebhook",
+                        "description": "New notification on intranet",
+                        "parameters": ""
+                    }
+                ],
+                "reactions": []
+            },
+            {
+                "name": "github",
+                "actions": [
+                    {
+                        "name": "GithubWebhook",
+                        "description": "New push on repository",
+                        "parameters": "owner, repository"
+                    },
+                    {
+                        "name": "GithubWorkflowFailed",
+                        "description": "Workflow failed on repository",
+                        "parameters": "owner, repository"
+                    },
+                    {
+                        "name": "GithubNewPullRequest",
+                        "description": "New pull request as been created on repository",
+                        "parameters": "owner, repository"
+                    }
+                ],
+                "reactions": [
+                    {
+                        "name": "GithubCreateIssue",
+                        "description": "Create new issue on repository",
+                        "parameters": "owner, repository"
+                    }
+                ]
+            },
+            {
+                "name": "google",
+                "actions": [
+                    {
+                        "name": "GmailWebhook",
+                        "description": "New mail on address",
+                        "parameters": ""
+                    }
+                ],
+                "reactions": [
+                    {
+                        "name": "GmailSendEmail",
+                        "description": "Send mail to receiver",
+                        "parameters": "receiver, subject"
+                    }
+                ]
+            },
+            {
+                "name": "spotify",
+                "actions": [
+                    {
+                        "name": "SpotifyTrackChangeWebhook",
+                        "description": "Triggered on music change",
+                        "parameters": ""
+                    },
+                    {
+                        "name": "SpotifyMonthArtistChangeWebhook",
+                        "description": "Triggered when the most favorite artist of month change",
+                        "parameters": ""
+                    }
+                ],
+                "reactions": [
+                    {
+                        "name": "SpotifyNext",
+                        "description": "Skip to next song",
+                        "parameters": ""
+                    },
+                    {
+                        "name": "SpotifyPlay",
+                        "description": "Play song",
+                        "parameters": ""
+                    }
+                ]
+            },
+            {
+                "name": "twitter",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "TwitterTweet",
+                        "description": "Post tweet",
+                        "parameters": ""
+                    }
+                ]
+            },
+            {
+                "name": "discord",
+                "actions": [
+                    {
+                        "name": "DiscordMessageReceived",
+                        "description": "Triggered when a message is post on a common server with the bot",
+                        "parameters": ""
+                    }
+                ],
+                "reactions": [
+                    {
+                        "name": "DiscordMessage",
+                        "description": "Post message to channel",
+                        "parameters": "chennel_id"
+                    }
+                ]
+            },
+            {
+                "name": "custom",
+                "actions": [],
+                "reactions": [
+                    {
+                        "name": "CustomPost",
+                        "description": "Send json payload to endpoint when triggered",
+                        "parameters": "endpoint"
+                    }
+                ]
+            }
+        ]
+    }
+}

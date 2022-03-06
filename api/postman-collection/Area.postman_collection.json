@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "104fdf4f-40ec-4a8c-a896-612749cef003",
+		"name": "Area",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Area Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\":\"USERNAME\",\n    \"user_password\": \"USERPASSWORD\",\n    \"user_email\": \"USEREMAIL\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.yep-area.cf/auth/area/register",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"auth",
+						"area",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Area Verify",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "LOGIN_JWT_TOKEN"
+					}
+				],
+				"url": {
+					"raw": "https://api.yep-area.cf/auth/area/verify",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"auth",
+						"area",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Area Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\":\"USERNAME\",\n    \"user_password\": \"USERPASSWORD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.yep-area.cf/auth/area/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"auth",
+						"area",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Area Login Google",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\":\"\",\n    \"user_password\": \"\",\n    \"idToken\": \"TOKEN_DE_GOOGLE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.yep-area.cf/auth/area/login/google",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"auth",
+						"area",
+						"login",
+						"google"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Area Widget Update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "LOGIN_JWT_TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"widgets\": [\n        {\n            \"uuid\": \"8888\",\n            \"type\": \"CustomPost\",\n            \"user_uuid\": \"0\",\n            \"enabled\": false,\n            \"family\": \"reaction\",\n            \"content\": {\n                \"endpoint\": \"http://localhost:8088/\"\n            }\n        },\n        {\n            \"uuid\": \"0c4086ba-2fc1-4f78-8b0b-f688871b1c23\",\n            \"type\": \"DiscordMessageReceived\",\n            \"user_uuid\": \"0\",\n            \"enabled\": false,\n            \"family\": \"action\",\n            \"children\": {\"uuids\":[8888]},\n            \"content\": {}\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.yep-area.cf/widgets/update",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"widgets",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Area Widget Get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "LOGIN_JWT_TOKEN",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.yep-area.cf/widgets/get?services=twitter,google",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"widgets",
+						"get"
+					],
+					"query": [
+						{
+							"key": "services",
+							"value": "twitter,google"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Area Get Oauth Services",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "LOGIN_JWT_TOKEN",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.yep-area.cf/widgets/services",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yep-area",
+						"cf"
+					],
+					"path": [
+						"widgets",
+						"services"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

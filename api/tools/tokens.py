@@ -34,6 +34,7 @@ def tokens_reload(f=None, reloader=None):
 
 
 def verify_jwt(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         try:
             if 'Authorization' not in list(request.headers.keys()):

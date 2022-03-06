@@ -11,11 +11,18 @@ services:
         SERV_ENABLE_SSL: ${SERV_ENABLE_SSL}
         JWT_SECRET: ${JWT_SECRET}
         JWT_VALIDITY_DELTA: ${JWT_VALIDITY_DELTA}
+        SERV_ENCRYPT_KEY: ${SERV_ENCRYPT_KEY}
         TWITTER_CLIENT_ID: ${TWITTER_CLIENT_ID}
         TWITTER_CLIENT_SECRET: ${TWITTER_CLIENT_SECRET}
         GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
         GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+        GOOGLE_LOGIN_CLIENT_ID: ${GOOGLE_LOGIN_CLIENT_ID}
+        SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
+        SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
         DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+        DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         POSTGRES_USER: ${POSTGRES_USER}
         POSTGRES_PORT: ${POSTGRES_PORT}
@@ -23,6 +30,8 @@ services:
         POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
     depends_on:
       - database
+    volumes:
+       - ./web/public/apk_vol:/app/apk_vol
     ports:
       - 8080:5000
     image: server-image
@@ -34,11 +43,15 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+      args:
+        REACT_APP_SERV_URL: ${SERV_URL}
+        SERV_ENABLE_SSL: ${SERV_ENABLE_SSL}
+        REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     depends_on:
       - mobile
       - server
     volumes:
-       - ./web/apk_vol:/apk_vol
+       - ./web/public/apk_vol:/app/public/apk_vol
     ports:
       - 8081:3000
     image: web-image
@@ -51,7 +64,7 @@ services:
       context: ./mobile
       dockerfile: Dockerfile
     volumes:
-       - ./web/apk_vol:/apk_vol
+       - ./web/public/apk_vol:/apk_vol
     image: mobile-image
 
   database:
@@ -65,3 +78,18 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./data/postgres-container-data:/var/lib/postgresql/data
+
+  reverse_proxy:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./api/certificates/fullchain.pem:/etc/nginx/fullchain.pem
+      - ./api/certificates/privkey.pem:/etc/nginx/privkey.pem
+    ports:
+      - 80:80
+      - 443:443
+    extra_hosts:
+      - "localhost:host-gateway"
+    depends_on:
+      - mobile
+      - server

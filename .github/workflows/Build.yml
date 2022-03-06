@@ -74,4 +74,4 @@ jobs:
       - name: Ping database
         run: docker exec database-container psql -U postgres -c \\l
       - name: Check apk location
-        run: ls ./web/apk_vol/client.apk
+        run: ls ./web/public/apk_vol/client.apk

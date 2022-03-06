@@ -4,8 +4,11 @@ data/postgres-container-data/
 .vscode/
 
 web/apk_vol/client.apk
+web/public/apk_vol/client.apk
 .gitignore
 .env
+
+node_modules
 *.bak
 *.crt
 *.csr
