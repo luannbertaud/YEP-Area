@@ -80,7 +80,7 @@ def close_window():
             }
         </style>
         <script type="text/javascript">
-            setTimeout (window.close, 3000);
+            setTimeout (window.close, 2000);
         </script>
         </head>
         <body>
