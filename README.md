@@ -28,7 +28,7 @@ And you can find the REST API documentation [here](https://app.swaggerhub.com/ap
 
 ## Usage
 
-### Authentification:
+### Authentication:
 
 You can register or login into the Area in two different ways.
 

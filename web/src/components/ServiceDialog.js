@@ -53,7 +53,7 @@ function Spotify () {
     return (
 	<div>
 	    <button onClick={toggle} className={'spotify--button ' + (state ? 'spotify--close':'')}>
-		{state ? 'Spotify LOGIN' :'Spotify LOGOUT'}
+		{state ? 'Spotify' :'Spotify'}
 	    </button>
 		<img src={spotify} alt="" className="spotify" />
 	</div>
@@ -83,7 +83,7 @@ function Discord () {
     return (
 	<div>
 	    <button onClick={toggle} className={'discord--button ' + (state ? 'discord--close':'')}>
-		{state ? 'Discord LOGIN' :'Discord LOGOUT'}
+		{state ? 'Discord' :'Discord'}
 	    </button>
 		<img src={discord} alt="" className="discord" />
 	</div>
@@ -113,7 +113,7 @@ function Intra () {
     return (
 	<div>
 	    <button onClick={toggle} className={'intra--button ' + (state ? 'intra--close':'')}>
-		{state ? 'Intra LOGIN' :'Intra LOGOUT'}
+		{state ? 'Intra' :'Intra'}
 	    </button>
 		<img src={intra} alt="" className="intra" />
 	</div>
@@ -143,7 +143,7 @@ function Github () {
     return (
 	<div>
 	    <button onClick={toggle} className={'github--button ' + (state ? 'github--close':'')}>
-		{state ? 'Github LOGIN' :'Github LOGOUT'}
+		{state ? 'Github' :'Github'}
 	    </button>
 		<img src={github} alt="" className="github" />
 	</div>
@@ -173,7 +173,7 @@ function Twitter () {
     return (
 	<div>
 	    <button onClick={toggle} className={'twitter--button ' + (state ? 'twitter--close':'')}>
-		{state ? 'Twitter LOGIN' :'Twitter LOGOUT'}
+		{state ? 'Twitter' :'Twitter'}
 	    </button>
 		<img src={twitter} alt="" className="twitter" />
 	</div>
@@ -203,7 +203,7 @@ function Google () {
     return (
 	<div>
 	    <button onClick={toggle} className={'google--button ' + (state ? 'google--close':'')}>
-		{state ? 'Google LOGIN' :'Google LOGOUT'}
+		{state ? 'Google' :'Google'}
 	    </button>
 		<img src={google} alt="" className="google" />
 	</div>
