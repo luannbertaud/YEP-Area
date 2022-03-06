@@ -1,4 +1,4 @@
-package com.mobile;
+package com.yeparea.gildas;
 
 import com.facebook.react.ReactActivity;
 
