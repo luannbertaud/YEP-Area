@@ -5,7 +5,7 @@ import json
 import threading
 import signal
 import time
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from tools.db import validateDatabase
 from tools.watcher import start_deamons, Watcher
@@ -52,6 +52,14 @@ def app_aboutjson():
     data['client']['host'] = request.remote_addr
     data['server']['current_time'] = int(str(time.time()).split(".")[0])
     return data
+
+@app.route("/client.apk")
+def app_clientapk():
+    path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    path = os.path.join(path, "apk_vol")
+    if (not os.path.isfile(os.path.join(path, "client.apk"))):
+        return "Client APK not available on server yet."
+    return send_from_directory(directory=path, filename="client.apk")
 
 def signal_handler(sig, frame):
     for t in threading.enumerate():

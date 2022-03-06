@@ -30,6 +30,8 @@ services:
         POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
     depends_on:
       - database
+    volumes:
+       - ./web/public/apk_vol:/app/apk_vol
     ports:
       - 8080:5000
     image: server-image
