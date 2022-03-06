@@ -3,9 +3,10 @@ import Divider from '@mui/material/Divider';
 import Switch from '@mui/material/Switch';
 import { alpha, styled } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
-import {CloseOutlined} from "@mui/icons-material";
-import {Box, Grid, IconButton, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import axios from "axios";
+
+const REACT_APP_SERV_URL = process.env.REACT_APP_SERV_URL
 
 export default function Applet({applet, cookies, onUpdateApplet}) {
 
@@ -24,7 +25,8 @@ export default function Applet({applet, cookies, onUpdateApplet}) {
   }));
 
   const handleChange = (event) => {
-    axios.post('https://api.yep-area.cf/widgets/update', {widgets: [{...applet, enabled: event.target.checked}]}, {
+    const urlChange = REACT_APP_SERV_URL + "widgets/update"
+    axios.post(urlChange, {widgets: [{...applet, enabled: event.target.checked}]}, {
       headers: {
         'Authorization': cookies.get('token')
       }
@@ -41,17 +43,12 @@ export default function Applet({applet, cookies, onUpdateApplet}) {
       <Box sx={{ my: 3, mx: 2 }}>
         <Grid container alignItems="center">
           <Grid item xs>
-            <Typography gutterBottom variant="h5" component="div" color="inherit">
+            <Typography gutterBottom variant="h5" component="div" color="white">
               {title}
             </Typography>
           </Grid>
-          <IconButton
-            xs={{color: 'white'}}
-            >
-              <CloseOutlined/>
-            </IconButton>
         </Grid>
-        <Typography color="text.secondary" variant="body2">
+        <Typography color="white" variant="body2">
           {description}
         </Typography>
       </Box>

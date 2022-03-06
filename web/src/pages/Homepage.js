@@ -6,6 +6,8 @@ import { Box, Grid } from "@mui/material";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
+const REACT_APP_SERV_URL = process.env.REACT_APP_SERV_URL
+
 class Homepage extends React.Component {
   constructor(props) {
     super(props)
@@ -22,8 +24,9 @@ class Homepage extends React.Component {
 
   loadApplets() {
     const { cookies } = this.props;
+    const urlGet = REACT_APP_SERV_URL + "widgets/get"
 
-    axios.get('https://api.yep-area.cf/widgets/get', {
+    axios.get(urlGet, {
       headers: {
         'Authorization': cookies.get('token')
       }

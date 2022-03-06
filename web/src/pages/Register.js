@@ -14,6 +14,7 @@ import "./style.css"
 
 const theme = createTheme();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const REACT_APP_SERV_URL = process.env.REACT_APP_SERV_URL
 
 export default class Register extends React.Component {
     constructor(props) {
@@ -46,7 +47,8 @@ export default class Register extends React.Component {
         })
     }
     onClickRegister() {
-        axios.post('https://api.yep-area.cf/auth/area/register', {
+        const postUrl = REACT_APP_SERV_URL + "auth/area/register"
+        axios.post(postUrl, {
             "user_name": this.state.username,
             "user_email": this.state.mail,
             "user_password": this.state.password
@@ -55,16 +57,6 @@ export default class Register extends React.Component {
             this.setState({ redirectLogin: true });
             this.state.token.setState(response.data.access_token);
             console.log(this.state.redirectLogin)
-        }).catch((err) => {
-            console.log(err.response);
-        });
-    }
-
-    verifyToken() {
-        axios.get('http://localhost:8080/auth/area/verify', {
-            headers: { Authorization: this.state.token }
-        }).then((response) => {
-            console.log(response.data)
         }).catch((err) => {
             console.log(err.response);
         });
@@ -135,19 +127,6 @@ export default class Register extends React.Component {
                                             </Link>
                                         </Grid>
                                     </Grid>
-                                    <GoogleLogin
-                                        clientId={GOOGLE_CLIENT_ID}
-                                        render={renderProps => (
-                                            <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="loginButton googleBackground">
-                                                <img src={Google} alt="" className="icon" />
-                                                Register with Google
-                                            </button>
-                                        )}
-                                        buttonText="Login"
-                                        onSuccess={(res) => { console.log(res) }}
-                                        onFailure={(res) => { console.log(res) }}
-                                        cookiePolicy={'single_host_origin'}
-                                    />
                                 </Box>
                             </Box>
                         </div>
