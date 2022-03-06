@@ -61,7 +61,7 @@ export default class Homepage extends React.Component {
         let result = []
 
         await axios.get(
-            'https://api.yep-area.cf/widgets/get', {
+            process.env.REACT_APP_SERV_URL + '/widgets/get', {
                 headers: {
                   'Authorization': access_token
                 }
@@ -128,13 +128,13 @@ export default class Homepage extends React.Component {
                         </View>
                         <View style={{ flex: 3 }}>
                             <TouchableOpacity style={header.profile} onPress={() => navigateTo(this.props.navigation, "Profile")}>
-                                <Text style={header.headerName}>{this.state.name}</Text>
-                                <Icon name="account-circle" size={50} />
+                                {/* <Text style={header.headerName}>{this.state.name}</Text> */}
+                                <Icon name="account-circle" size={100} />
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={homepage.container}>
-                        <TouchableOpacity onPress={() => {} } style={homepage.button}>
+                        <TouchableOpacity onPress={() => {navigateTo(this.props.navigation, "WidgetCreator")} } style={homepage.button}>
                             <Text style={homepage.buttonText}>Create an AREA</Text>
                         </TouchableOpacity>
                     </View>

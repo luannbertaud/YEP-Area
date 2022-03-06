@@ -10,8 +10,8 @@ export default class LoginUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            emailFocused: false,
+            name: '',
+            nameFocused: false,
             password: '',
             passwordFocused: false,
             errorMessage: '',
@@ -19,10 +19,10 @@ export default class LoginUser extends React.Component {
     }
 
     login = async() => {
-        await loginUser(this.state.email, this.state.password)
+        await loginUser(this.state.name, this.state.password)
         .then((acces_token) => {global.access_token = acces_token, navigateWithParameters(this.props.navigation, "Homepage", {acces_token: acces_token})})
         .catch(()=>{this.setState("An error occured. Please try again")});
-        this.setState({email: '', password: ''})
+        this.setState({name: '', password: ''})
     }
 
     loginWithGoogle = async() => {
@@ -39,17 +39,17 @@ export default class LoginUser extends React.Component {
                     style={common.image}
                 />
                 <Input
-                    label='Enter your email'
-                    placeholder='email@address.com'
-                    leftIcon={<Icon name='mail' size={20}/>}
-                    value={this.state.email}
-                    onChangeText={(newValue) => {this.setState({email: newValue})}}
-                    errorMessage={this.state.emailError}
-                    labelStyle={this.state.emailFocused ? common.labelFocus : common.labelBlur}
-                    inputContainerStyle={this.state.emailFocused ? common.input : {}}
+                    label='Enter your name'
+                    placeholder='Jeff'
+                    leftIcon={<Icon name='person' size={20}/>}
+                    value={this.state.name}
+                    onChangeText={(newValue) => {this.setState({name: newValue})}}
+                    errorMessage={this.state.nameError}
+                    labelStyle={this.state.nameFocused ? common.labelFocus : common.labelBlur}
+                    inputContainerStyle={this.state.nameFocused ? common.input : {}}
                     inputStyle={common.text}
-                    onFocus={()=>{this.setState({emailFocused: true})}}
-                    onBlur={()=>{this.setState({emailFocused: false})}}
+                    onFocus={()=>{this.setState({nameFocused: true})}}
+                    onBlur={()=>{this.setState({nameFocused: false})}}
 
                 />
                 <Input
