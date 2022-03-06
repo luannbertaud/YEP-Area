@@ -2,7 +2,8 @@
 <br>
 [![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/cqz8.svg)](https://yep-area.betteruptime.com/) `UI:` https://yep-area.cf
 <br>
-![Containers](https://github.com/luannbertaud/YEP-Area/actions/workflows/Build.yml/badge.svg)<br>
+![Containers](https://github.com/luannbertaud/YEP-Area/actions/workflows/Build.yml/badge.svg)
+<br>
 ![Mirror](https://github.com/luannbertaud/YEP-Area/actions/workflows/mirror.yml/badge.svg)
 
 # Action REAction
@@ -22,6 +23,9 @@ Then to start the containers simply run `docker-compose up`.
 /!\ If you decide to not start either the `server` or  `web` container, be sure to update the [nginx conf](nginx/nginx.conf) file for the reverse proxy. Also you can update this file to fit your dns.
 <br>
 [![](https://mermaid.ink/img/pako:eNqFkD1vgzAQQP_KyXOglZKhQg1SCMnSqkJk6AAMBz7AirGpbdqgKP-9Tr-kdulNJ917b7gzazQnFrFW6remR-PgMS8V-NnEmTbOwt3tzWq1rOB-vY4h-bwlxVMn1AlyeiVjCTKjT7NHggBwFOFMY4CGMGxaCIIY0iKbXa_VEvYS7REOZLxX_dv629kWOWHj4Jnq342tx0MP7IpkEpLDoGshCTbZAzRaORTqB02v5Rj2Raat6wzZFwn2owUcHdZoqWILNpAZUHD_mfPVK5nraaCSRX7laI4lK9XFc9PoLdpx4bRhUYvS0oLh5PRhVg2LnJnoG0oFdgaHL-ryDrvpeuE)](https://mermaid.live/edit#pako:eNqFkD1vgzAQQP_KyXOglZKhQg1SCMnSqkJk6AAMBz7AirGpbdqgKP-9Tr-kdulNJ917b7gzazQnFrFW6remR-PgMS8V-NnEmTbOwt3tzWq1rOB-vY4h-bwlxVMn1AlyeiVjCTKjT7NHggBwFOFMY4CGMGxaCIIY0iKbXa_VEvYS7REOZLxX_dv629kWOWHj4Jnq342tx0MP7IpkEpLDoGshCTbZAzRaORTqB02v5Rj2Raat6wzZFwn2owUcHdZoqWILNpAZUHD_mfPVK5nraaCSRX7laI4lK9XFc9PoLdpx4bRhUYvS0oLh5PRhVg2LnJnoG0oFdgaHL-ryDrvpeuE)
+
+If you want to try the REST API by only starting the `server` container, [here is](api/postman-collection/Area.postman_collection.json) a postman collection containing some requests.
+And you can find the REST API documentation [here](https://app.swaggerhub.com/apis-docs/luannbertaud/Area/0.3).
 
 ## Usage
 
