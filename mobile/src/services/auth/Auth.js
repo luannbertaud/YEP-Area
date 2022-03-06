@@ -5,9 +5,10 @@ async function registerUser(name, email, password) {
 
     await axios.post(
         'https://api.yep-area.cf/auth/area/register', 
-        {user_name: name, user_email: email, user_password: password}
+        {user_name: name, user_email: email, user_password: password, mobile: true}
     ).then((result) => {access_token = result.data.access_token})
-    .catch((error) => {throw "Error"});
+    .catch((error) => {console.log(error)});
+    console.log(access_token);
     return (access_token);
 }
 

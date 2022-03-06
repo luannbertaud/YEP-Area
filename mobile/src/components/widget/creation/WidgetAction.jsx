@@ -48,33 +48,33 @@ export default class WidgetAction extends React.Component {
             <View style={{flex: 1, justifyContent: 'center', marginTop: '-30%'}}>
                 <Text style={styles.title}>Choose your ARea action</Text>
                 <Text style={styles.confirmMessage}>{this.state.confirmMessage}</Text>
-                <TouchableOpacity onPress={()=>{this.checkActionAndUpdate('Epitech', 'EpitechNotifWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1}}>
+                <TouchableOpacity onPressIn={()=>{this.checkActionAndUpdate('Epitech', 'EpitechNotifWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1}}>
                     <Text style={styles.text}>Epitech -{'>'} New notification on Intranet</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.checkActionAndUpdate('Gmail', 'GmailWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
+                <TouchableOpacity onPressIn={()=>{this.checkActionAndUpdate('Gmail', 'GmailWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
                     <Text style={styles.text}>Gmail   -{'>'} New email on address</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.checkActionAndUpdate('Spotify', 'SpotifyTrackChangeWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
+                <TouchableOpacity onPressIn={()=>{this.checkActionAndUpdate('Spotify', 'SpotifyTrackChangeWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
                     <Text style={styles.text}>Spotify -{'>'} Music changes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.checkActionAndUpdate('Spotify', 'SpotifyMonthArtistChangeWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
+                <TouchableOpacity onPressIn={()=>{this.checkActionAndUpdate('Spotify', 'SpotifyMonthArtistChangeWebhook', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
                     <Text style={styles.text}>Spotify -{'>'} Artist of the month changes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.checkActionAndUpdate('Discord', 'DiscordMessageReceived', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
+                <TouchableOpacity onPressIn={()=>{this.checkActionAndUpdate('Discord', 'DiscordMessageReceived', {})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
                     <Text style={styles.text}>Discord -{'>'} A message is post on a common server with the bot</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.setState({isVisible: true, type: 'Github1'})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
+                <TouchableOpacity onPressIn={()=>{this.setState({isVisible: true, type: 'Github1'})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
                     <Text style={styles.text}>Github  -{'>'} New push on repository</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{this.setState({isVisible: true, type: 'Github2'})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
+                <TouchableOpacity onPressIn={()=>{this.setState({isVisible: true, type: 'Github2'})}} style={{paddingLeft: '5%', paddingTop: '2%', paddingBottom: '2%', borderTopWidth: 1, borderBottomWidth: 1, marginBottom: '1%', marginTop: '1%'}}>
                     <Text style={styles.text}>Github  -{'>'} Workflow failed on repository</Text>
                 </TouchableOpacity>
                 <Overlay isVisible={this.state.isVisible} onBackdropPress={()=>{this.setState({isVisible: false, owner: '', repository: ''})}}>
                     <Input onChangeText={(text)=>{this.setState({owner: text})}} inputStyle={styles.inputStyle} placeholderTextColor={'black'} placeholder="Enter the repository's owner name" inputContainerStyle={styles.inputContainerStyle}/>
                     <Input onChangeText={(text)=>{this.setState({repository: text})}} inputStyle={styles.inputStyle} placeholderTextColor={'black'} placeholder="Enter the repository's name" inputContainerStyle={styles.inputContainerStyle}/>
                     <Text style={styles.errorMessage}>{this.state.errorMessage}</Text>
-                    <Button titleStyle={styles.buttontitle} title='Confirm' onPress={()=>{this.checkActionAndUpdate(this.state.type, '', {owner: this.state.owner, repository: this.state.repository})}}/>
-                    <Button titleStyle={styles.buttontitle} buttonStyle={styles.button} title='Cancel' onPress={()=>{this.setState({isVisible: false})}}/>
+                    <Button titleStyle={styles.buttontitle} title='Confirm' onPressIn={()=>{this.checkActionAndUpdate(this.state.type, '', {owner: this.state.owner, repository: this.state.repository})}}/>
+                    <Button titleStyle={styles.buttontitle} buttonStyle={styles.button} title='Cancel' onPressIn={()=>{this.setState({isVisible: false})}}/>
                 </Overlay>
             </View>
         )
