@@ -1,10 +1,10 @@
-import React from 'react';
-import { Input, Button, Icon } from 'react-native-elements';
-import { View, Image, Text } from 'react-native';
-import { login, common } from '../../styles/AuthStyles';
-import { signin } from '../../services/auth/GoogleSignin';
-import { loginUser } from '../../services/auth/Auth';
-import { navigateWithParameters } from '../../services/navigation';
+import { Input, Button, Icon }      from 'react-native-elements';
+import { login, common }            from '../../styles/AuthStyles';
+import { loginUser }                from '../../services/auth/Auth';
+import { navigateWithParameters }   from '../../services/navigation';
+import { signin }                   from '../../services/auth/GoogleSignin';
+import { View, Image, Text }        from 'react-native';
+import React                        from 'react';
 
 export default class LoginUser extends React.Component {
     constructor(props) {
@@ -20,15 +20,14 @@ export default class LoginUser extends React.Component {
 
     login = async() => {
         await loginUser(this.state.name, this.state.password)
-        .then((access_token) => {global.access_token = access_token, navigateWithParameters(this.props.navigation, "Homepage", {access_token: access_token})})
-        .catch(()=>{this.setState("An error occured. Please try again")});
-        this.setState({name: '', password: ''})
+            .then((access_token) => {global.access_token = access_token, navigateWithParameters(this.props.navigation, "Homepage", {access_token: access_token})})
+            .catch((error) => {this.setState({errorMessage: "An errror occured. Please try again.", name: '', password: ''})});
     }
 
     loginWithGoogle = async() => {
         await signin()
-        .then((id) => {navigateWithParameters(this.props.navigation, "Homepage", {access_token: id})})
-        .catch(()=>{});
+            .then((id) => {navigateWithParameters(this.props.navigation, "Homepage", {access_token: id})})
+            .catch(()=>{});
     }
 
     render() {
@@ -66,7 +65,7 @@ export default class LoginUser extends React.Component {
                     onFocus={()=>{this.setState({passwordFocused: true})}}
                     onBlur={()=>{this.setState({passwordFocused: false})}}
                 />
-                <Text style={common.error}></Text>
+                <Text style={common.error}>{this.state.errorMessage}</Text>
                 <View style={common.linkView}>
                     <Text style={common.coloredText}>New to ARea ? </Text>
                     <Text onPress={()=>{this.props.changeFade()}} style={common.linkText}>Create an account</Text>

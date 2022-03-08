@@ -1,10 +1,10 @@
-import React from 'react';
-import { Input, Button, Icon } from 'react-native-elements';
-import { View, Image, Text } from 'react-native';
-import { common, register } from '../../styles/AuthStyles';
-import { signin } from '../../services/auth/GoogleSignin';
-import { registerUser } from '../../services/auth/Auth';
-import { navigateWithParameters } from '../../services/navigation';
+import { common, register }         from '../../styles/AuthStyles';
+import { Input, Button, Icon }      from 'react-native-elements';
+import { navigateWithParameters }   from '../../services/navigation';
+import { registerUser }             from '../../services/auth/Auth';
+import { signin }                   from '../../services/auth/GoogleSignin';
+import { View, Image, Text }        from 'react-native';
+import React                        from 'react';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
@@ -23,10 +23,7 @@ export default class RegisterUser extends React.Component {
     register = async () => {
         await registerUser(this.state.name, this.state.email, this.state.password)
         .then((access_token) => {global.access_token = access_token, navigateWithParameters(this.props.navigation, "Homepage", {access_token: access_token})})
-        .catch((error) => {
-            console.log(error);
-            this.setState({errorMessage: "An errror occured. Please try again."});
-        });
+        .catch((error) => {this.setState({errorMessage: "An errror occured. Please try again."})});
         this.setState({name: '', email: '', password: ''});
     }
 

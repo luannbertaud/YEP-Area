@@ -7,11 +7,10 @@ async function signin() {
     try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
-        await axios.post(process.env.REACT_APP_SERV_URL + '/auth/area/login/google',
+        await axios.post(process.env.SERV_URL + '/auth/area/login/google',
         {user_name: userInfo.user.name, user_password: "undefined", idToken: userInfo.idToken, mobile: true});
-        console.log(userInfo.idToken);
+        return (userInfo.idToken);
     } catch (error) {
-        console.log(error);
         throw (error);
     } finally {
         GoogleSignin.signOut();
@@ -22,7 +21,7 @@ async function signout() {
     try {
         await GoogleSignin.signOut();
     } catch (error) {
-        console.error('error');
+        throw "Error";
     }
 }
 
