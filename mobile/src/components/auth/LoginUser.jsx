@@ -1,10 +1,10 @@
-import React from 'react';
-import { Input, Button, Icon } from 'react-native-elements';
-import { View, Image, Text } from 'react-native';
-import { login, common } from '../../styles/AuthStyles';
-import { signin } from '../../services/auth/GoogleSignin';
-import { loginUser } from '../../services/auth/Auth';
-import { navigateWithParameters } from '../../services/navigation';
+import { Input, Button, Icon }      from 'react-native-elements';
+import { login, common }            from '../../styles/AuthStyles';
+import { loginUser }                from '../../services/auth/Auth';
+import { navigateWithParameters }   from '../../services/navigation';
+import { signin }                   from '../../services/auth/GoogleSignin';
+import { View, Image, Text }        from 'react-native';
+import React                        from 'react';
 
 export default class LoginUser extends React.Component {
     constructor(props) {

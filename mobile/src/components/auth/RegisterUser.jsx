@@ -1,10 +1,10 @@
-import React from 'react';
-import { Input, Button, Icon } from 'react-native-elements';
-import { View, Image, Text } from 'react-native';
-import { common, register } from '../../styles/AuthStyles';
-import { signin } from '../../services/auth/GoogleSignin';
-import { registerUser } from '../../services/auth/Auth';
-import { navigateWithParameters } from '../../services/navigation';
+import { common, register }         from '../../styles/AuthStyles';
+import { Input, Button, Icon }      from 'react-native-elements';
+import { navigateWithParameters }   from '../../services/navigation';
+import { registerUser }             from '../../services/auth/Auth';
+import { signin }                   from '../../services/auth/GoogleSignin';
+import { View, Image, Text }        from 'react-native';
+import React                        from 'react';
 
 export default class RegisterUser extends React.Component {
     constructor(props) {
